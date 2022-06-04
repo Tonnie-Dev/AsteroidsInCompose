@@ -1,4 +1,4 @@
-package com.uxstate.ui.theme
+package com.uxstate.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
