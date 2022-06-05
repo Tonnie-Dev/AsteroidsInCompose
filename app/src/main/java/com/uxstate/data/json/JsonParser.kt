@@ -2,7 +2,7 @@ package com.uxstate.data.json
 
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 
-interface JsonParser {
+interface JsonParser <T>{
 
-    fun parseJson(jsonString: String):List<NearEarthObjectDTO>
+    fun parseJson(jsonString: String):List<T>
 }
