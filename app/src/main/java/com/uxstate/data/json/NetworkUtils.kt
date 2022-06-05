@@ -53,7 +53,7 @@ class NeowsParser : JsonParser<NearEarthObject> {
                         .getDouble("astronomical")
                 val isPotentiallyHazardous = asteroidJson
                         .getBoolean("is_potentially_hazardous_asteroid")
-                val neowsObject = NearEarthObject(
+                val neowsObject = NearEarthObjectDTO(
                         id,
                         codename,
                         key,
@@ -61,7 +61,7 @@ class NeowsParser : JsonParser<NearEarthObject> {
                         relativeVelocity,
                         distanceFromEarth,
                         isPotentiallyHazardous
-                )
+                ).toNearEarthObject()
                 neowObjects.add(neowsObject)
 
             }
