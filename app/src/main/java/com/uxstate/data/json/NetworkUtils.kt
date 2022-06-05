@@ -45,7 +45,7 @@ class NeowsParser : JsonParser<NearEarthObject> {
                         .getJSONObject("kilometers")
                         .getDouble("estimated_diameter_max")
                 val closeApproachData = asteroidJson
-                        .getJSONArray("close_approach_data")
+                        .getJSONArray("close_approach_date_full")
                         .getJSONObject(0)
                 val relativeVelocity = closeApproachData.getJSONObject("relative_velocity")
                         .getDouble("kilometers_per_second")
