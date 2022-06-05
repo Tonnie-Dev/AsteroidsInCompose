@@ -5,7 +5,7 @@ import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NeosAPI {
+interface NeowsAPI {
 
     @GET("neo/rest/v1/feed")
     suspend fun getNearEarthObjects(
