@@ -1,7 +1,7 @@
 package com.uxstate.data.remote
 
 import com.uxstate.data.remote.dto.PictureOfTheDay
-import com.uxstate.data.remote.dto.SomeDTO
+import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,7 +13,7 @@ interface NeosAPI {
         @Query("end_date") endDate: String,
         @Query("api_key") apiKey: String = API_KEY
 
-    ): List<SomeDTO>
+    ): String
 
     @GET("planetary/apod")
     suspend fun getPictureOfTheDay(
