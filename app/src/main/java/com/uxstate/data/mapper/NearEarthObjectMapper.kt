@@ -1,5 +1,6 @@
 package com.uxstate.data.mapper
 
+import com.uxstate.data.local.NeowsEntity
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import java.time.format.DateTimeFormatter
@@ -28,8 +29,29 @@ fun NearEarthObjectDTO.toNearEarthObject ():NearEarthObject {
     )
 }
 
-//Model to DTO
+//DTO to Entity
+fun NearEarthObjectDTO.toEntity():NeowsEntity {
+
+    return  NeowsEntity(
+
+            codename = this.codename,
+            closeApproachDate = this.closeApproachDate,
+            estimatedDiameter = this.estimatedDiameter,
+            relativeVelocity = this.relativeVelocity,
+            distanceFromEarth = this.distanceFromEarth,
+            isPotentiallyHazardous = this.isPotentiallyHazardous
+    )
+}
+
+//Entity to Model
+
 
 //Model to Entity
 
-//Entity to Model
+
+
+
+//Model to DTO
+
+
+
