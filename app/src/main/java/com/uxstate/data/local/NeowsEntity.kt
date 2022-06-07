@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class NeowsEntity(@PrimaryKey val id: Long? = null,
+data class NeowsEntity(@PrimaryKey val id: Long,
                        val codename: String,
                        val closeApproachDate: String,
                        val estimatedDiameter: Double,

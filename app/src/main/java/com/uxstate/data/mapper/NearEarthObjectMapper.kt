@@ -45,6 +45,19 @@ fun NearEarthObjectDTO.toEntity():NeowsEntity {
 
 //Entity to Model
 
+fun NeowsEntity.toModel():NearEarthObject{
+
+
+    return NearEarthObject(
+            id = this.id,
+            codename = "",
+            closeApproachDate =,
+            estimatedDiameter = 0.0,
+            relativeVelocity = 0.0,
+            distanceFromEarth = 0.0,
+            isPotentiallyHazardous = false
+    )
+}
 
 //Model to Entity
 
