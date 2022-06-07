@@ -2,8 +2,10 @@ package com.uxstate.data.repository
 
 import com.uxstate.data.json.JsonParser
 import com.uxstate.data.local.NeowsDatabase
+import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.remote.NeowsAPI
+import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.Resource
@@ -21,7 +23,7 @@ class NeowsRepositoryImpl @Inject constructor(
         //we always depend on abstraction
     private val api: NeowsAPI,
     private val db: NeowsDatabase,
-    private val jsonParser: JsonParser<NearEarthObject>
+    private val jsonParser: JsonParser<NearEarthObjectDTO>
 
 ) : NeowsRepository {
 
@@ -89,10 +91,25 @@ class NeowsRepositoryImpl @Inject constructor(
             }
 
 
-            //insert remote neows into the db
+            //INSERT remote neows into the db
 
-            dao.clearNeows()
-            dao.insertNeows(remoteNeows.map { it.to })
+
+            //null-check remote neows
+
+            remoteNeows?.let { neows ->
+
+
+                dao.clearNeows()
+                dao.insertNeows(neows.map { it.toEntity()})
+
+
+                val updatedLocalCacheNeows = dao.getAllNeows(startDate, endDate)
+                //One Single Source of truth - we ensure data comes for db
+
+                emit(Resource.Success(updatedLocalCacheNeows.map { it.toModel() }))
+                emit(Resource.Loading(isLoading = true))
+            }
+
 
 
 
