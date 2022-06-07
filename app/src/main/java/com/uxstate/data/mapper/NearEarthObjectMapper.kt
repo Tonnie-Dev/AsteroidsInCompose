@@ -62,7 +62,6 @@ fun NeowsEntity.toModel(): NearEarthObject {
     )
 }
 
-//Model to Entity
 
 
 //Model to DTO

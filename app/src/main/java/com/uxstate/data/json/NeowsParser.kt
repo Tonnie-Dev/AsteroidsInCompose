@@ -6,11 +6,11 @@ import com.uxstate.domain.model.NearEarthObject
 import org.json.JSONObject
 
 //https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
-class NeowsParser : JsonParser<NearEarthObject> {
-    override fun parseJson(jsonString: String): List<NearEarthObject> {
+class NeowsParser : JsonParser<NearEarthObjectDTO> {
+    override fun parseJson(jsonString: String): List<NearEarthObjectDTO> {
 
         //create an empty list of Near Earth Objects
-        val neowObjects = mutableListOf<NearEarthObject>()
+        val neowObjects = mutableListOf<NearEarthObjectDTO>()
 
 
         //get the entire or main/head json object by passing the entire string
@@ -61,7 +61,7 @@ class NeowsParser : JsonParser<NearEarthObject> {
                         relativeVelocity,
                         distanceFromEarth,
                         isPotentiallyHazardous
-                ).toNearEarthObject()
+                )
                 neowObjects.add(neowsObject)
 
             }
