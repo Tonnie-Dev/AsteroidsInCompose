@@ -8,7 +8,6 @@ import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,7 +22,7 @@ class NeowsRepositoryImpl @Inject constructor(
 
 ) : NeowsRepository {
 
-val dao = db.dao
+    val dao = db.dao
     override suspend fun getAllNeowsObjects(
         startDate: String,
         endDate: String,
@@ -37,9 +36,15 @@ val dao = db.dao
             emit(Resource.Loading(isLoading = true))
 
             //data db query
-            val neowsList = dao.getAllNeows()
+            val neowsList = dao.getAllNeows(startDate, endDate)
 
+            /*at this point we have successfully loaded the cache, if
+              the database is empty then neowsList  will be an
+         empty list*/
 
+            //we emit the local list
+
+            emit(Resource.Success(data = neowsList))
 
         }
 
