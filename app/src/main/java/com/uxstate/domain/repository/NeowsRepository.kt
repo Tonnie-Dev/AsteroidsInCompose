@@ -9,20 +9,20 @@ import java.time.LocalDate
 interface NeowsRepository {
 
     suspend fun getAllNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate:String,
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>>
 
     suspend fun getWeeklyNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>>
 
     suspend fun getTodayNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>>
 }

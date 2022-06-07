@@ -4,20 +4,19 @@ import com.uxstate.data.local.NeowsEntity
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import java.sql.Date
-import java.time.format.DateTimeFormatter
-import java.util.*
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter.ofPattern
+import java.time.format.DateTimeFormatter
 
 import java.util.*
+
 //DTO to Model
 
-fun NearEarthObjectDTO.toNearEarthObject ():NearEarthObject {
+fun NearEarthObjectDTO.toNearEarthObject(): NearEarthObject {
 
 
     val pattern = "yyyy-MM-dd HH:mm"
-    val dateFormatter = ofPattern(pattern, Locale.getDefault())
-    val date =LocalDateTime.parse(this.closeApproachDate,dateFormatter)
+    val dateFormatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())
+    val date = LocalDateTime.parse(this.closeApproachDate, dateFormatter)
 
     return NearEarthObject(
             id = this.id,
@@ -31,10 +30,10 @@ fun NearEarthObjectDTO.toNearEarthObject ():NearEarthObject {
 }
 
 //DTO to Entity
-fun NearEarthObjectDTO.toEntity():NeowsEntity {
+fun NearEarthObjectDTO.toEntity(): NeowsEntity {
 
-    return  NeowsEntity(
-
+    return NeowsEntity(
+            id = this.id,
             codename = this.codename,
             closeApproachDate = this.closeApproachDate,
             estimatedDiameter = this.estimatedDiameter,
@@ -46,11 +45,11 @@ fun NearEarthObjectDTO.toEntity():NeowsEntity {
 
 //Entity to Model
 
-fun NeowsEntity.toModel():NearEarthObject{
+fun NeowsEntity.toModel(): NearEarthObject {
 
     val pattern = "yyyy-MM-dd HH:mm:ss"
     val dateFormatter = DateTimeFormatter.ofPattern(pattern)
-    val date = LocalDateTime.parse(this.closeApproachDate,dateFormatter)
+    val date = LocalDateTime.parse(this.closeApproachDate, dateFormatter)
 
     return NearEarthObject(
             id = this.id,
@@ -64,8 +63,6 @@ fun NeowsEntity.toModel():NearEarthObject{
 }
 
 //Model to Entity
-
-
 
 
 //Model to DTO

@@ -7,6 +7,7 @@ import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,37 +16,44 @@ import javax.inject.Singleton
 
 class NeowsRepositoryImpl @Inject constructor(
 
-    //we always depend on abstraction
-private val api:NeowsAPI,
-private val db:NeowsDatabase,
-private val jsonParser: JsonParser<NearEarthObject>
+        //we always depend on abstraction
+    private val api: NeowsAPI,
+    private val db: NeowsDatabase,
+    private val jsonParser: JsonParser<NearEarthObject>
 
-) :NeowsRepository{
+) : NeowsRepository {
 
-    
+val dao = db.dao
     override suspend fun getAllNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>> {
+    ): Flow<Resource<List<NearEarthObject>>> =
 
-        //emit loading status
+        //use a flow builder to get access to emit()
+        flow {
+
+            //loading
+            emit(Resource.Loading(isLoading = true))
+
+            //data db query
+            val neowsList = dao.getAllNeows()
 
 
-        TODO("Not yet implemented")
-    }
+
+        }
 
     override suspend fun getWeeklyNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getTodayNeowsObjects(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>> {
         TODO("Not yet implemented")
