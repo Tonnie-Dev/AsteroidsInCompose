@@ -3,6 +3,7 @@ package com.uxstate.data.mapper
 import com.uxstate.data.local.NeowsEntity
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
+import java.sql.Date
 import java.time.format.DateTimeFormatter
 import java.util.*
 import java.time.LocalDateTime
@@ -47,15 +48,18 @@ fun NearEarthObjectDTO.toEntity():NeowsEntity {
 
 fun NeowsEntity.toModel():NearEarthObject{
 
+    val pattern = "yyyy-MM-dd HH:mm:ss"
+    val dateFormatter = DateTimeFormatter.ofPattern(pattern)
+    val date = LocalDateTime.parse(this.closeApproachDate,dateFormatter)
 
     return NearEarthObject(
             id = this.id,
-            codename = "",
-            closeApproachDate =,
-            estimatedDiameter = 0.0,
-            relativeVelocity = 0.0,
-            distanceFromEarth = 0.0,
-            isPotentiallyHazardous = false
+            codename = this.codename,
+            closeApproachDate = date,
+            estimatedDiameter = this.estimatedDiameter,
+            relativeVelocity = this.relativeVelocity,
+            distanceFromEarth = this.distanceFromEarth,
+            isPotentiallyHazardous = this.isPotentiallyHazardous
     )
 }
 
