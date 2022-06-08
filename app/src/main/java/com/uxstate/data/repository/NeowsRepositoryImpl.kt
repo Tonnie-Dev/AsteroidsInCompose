@@ -18,6 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 
+//use @Inject so that Hilt knows how to create NeowsRepositoryImpl object
 class NeowsRepositoryImpl @Inject constructor(
 
         //we always depend on abstraction
