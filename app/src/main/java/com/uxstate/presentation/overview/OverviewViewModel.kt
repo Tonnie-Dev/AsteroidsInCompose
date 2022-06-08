@@ -66,10 +66,22 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
 
                 is Resource.Success -> {
 
+                    result.data?.let {
+
+                        state = state.copy(neows = it)
+                    }
+
 
                 }
-                is Resource.Error -> {}
-                is Resource.Loading -> {}
+                is Resource.Error -> {
+
+                    state = state.copy(errorMessage = result.message ?: "An expected error occurred")
+
+                }
+                is Resource.Loading -> {
+
+                   state = state.copy(isLoading = true)
+                }
             }
 
 
