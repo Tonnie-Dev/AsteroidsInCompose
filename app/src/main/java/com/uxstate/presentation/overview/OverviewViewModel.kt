@@ -13,15 +13,14 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase) : ViewModel() {
 
 
-    var state by  mutableStateOf(OverviewState())
-    private set
+    var state by mutableStateOf(OverviewState())
+        private set
 
     val _uiEvent = Channel<OverviewEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -30,28 +29,40 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
         getNearEarthObjects()
     }
 
-    fun onEvent(event:OverviewEvent){
+    fun onEvent(event: OverviewEvent) {
 
-        when (event){
+        when (event) {
 
             is OverviewEvent.OnClickTodayButton -> {
-
+                getNearEarthObjects()
 
             }
-            is OverviewEvent.OnClickWeeklyButton -> {}
-            is OverviewEvent.OnClickMonthlyButton -> {}
-            is OverviewEvent.Refreshing -> {}
+            is OverviewEvent.OnClickWeeklyButton -> {
+
+                getNearEarthObjects(endDate = DateChanger.LastSevenDays)
+            }
+            is OverviewEvent.OnClickMonthlyButton -> {
+
+                getNearEarthObjects(endDate = DateChanger.LastThirtyDays)
+            }
+            is OverviewEvent.Refreshing -> {
+
+                state = state.copy(isRefreshing = true)
+            }
         }
     }
 
-    private fun getNearEarthObjects(endDate:DateChanger = DateChanger.TodayDate, fetchFromRemote:Boolean = state.isRefreshing){
+    private fun getNearEarthObjects(
+        endDate: DateChanger = DateChanger.TodayDate,
+        fetchFromRemote: Boolean = state.isRefreshing
+    ) {
 
         //you can either use flow.collect or flow.onEach
         useCase(endDate = endDate, fetchFromRemote = fetchFromRemote).onEach {
 
-             result ->
+            result ->
 
-            when(result){
+            when (result) {
 
                 is Resource.Success -> {
 
@@ -62,7 +73,8 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
             }
 
 
-        }.launchIn(viewModelScope)
+        }
+                .launchIn(viewModelScope)
     }
 
 }
