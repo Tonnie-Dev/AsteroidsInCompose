@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.uxstate.data.local.NeowsDatabase
 import com.uxstate.data.remote.NeowsAPI
+import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.use_cases.GetNeowsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +38,14 @@ object AppModule {
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
                 .create(NeowsAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+
+    fun provideGetNeowsUseCase(repository: NeowsRepository):GetNeowsUseCase {
+
+        return GetNeowsUseCase(repository)
     }
 
 }
