@@ -29,7 +29,7 @@ class NeowsRepositoryImpl @Inject constructor(
 ) : NeowsRepository {
 
     val dao = db.dao
-    override suspend fun getAllNeowsObjects(
+    override  fun getAllNeowsObjects(
         startDate: String,
         endDate: String,
         fetchFromRemote: Boolean

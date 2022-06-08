@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 interface NeowsRepository {
 
-    suspend fun getAllNeowsObjects(
+    fun getAllNeowsObjects(
         startDate: String,
         endDate:String,
         fetchFromRemote: Boolean

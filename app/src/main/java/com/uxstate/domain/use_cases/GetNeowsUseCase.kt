@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepository) {
 
-    operator fun invoke(
+     operator fun invoke(
         startDate: LocalDateTime = LocalDateTime.now(),
         endDate: DateChanger,
         fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>> = flow {
+    ): Flow<Resource<List<NearEarthObject>>> {
 
 
         val start = localDateToStringDate(startDate)
@@ -33,7 +33,7 @@ class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepositor
             is DateChanger.TodayDate -> localDateToStringDate(LocalDateTime.now())
 
         }
-        repository.getAllNeowsObjects(
+       return repository.getAllNeowsObjects(
                 startDate = start,
                 endDate = end,
                 fetchFromRemote = fetchFromRemote
