@@ -33,5 +33,5 @@ abstract class RepositoryModule {
      is the interface implementation and the return type is the
      interface implemented by the given parameter object.*/
 
-    abstract fun provideJsonParser(jsonParser: JsonParser<NearEarthObjectDTO>):NeowsParser
+    abstract fun provideJsonParser(neowsParser: NeowsParser):JsonParser<NearEarthObjectDTO>
 }
