@@ -108,7 +108,7 @@ class NeowsRepositoryImpl @Inject constructor(
                 //One Single Source of truth - we ensure data comes for db
 
                 emit(Resource.Success(updatedLocalCacheNeows.map { it.toModel() }))
-                emit(Resource.Loading(isLoading = true))
+                emit(Resource.Loading(isLoading = false))
             }
 
 
