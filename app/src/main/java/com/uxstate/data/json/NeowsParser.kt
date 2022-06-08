@@ -4,9 +4,10 @@ import com.uxstate.data.json.JsonParser
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import org.json.JSONObject
+import javax.inject.Inject
 
 //https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
-class NeowsParser : JsonParser<NearEarthObjectDTO> {
+class NeowsParser @Inject constructor() : JsonParser<NearEarthObjectDTO> {
     override fun parseJson(jsonString: String): List<NearEarthObjectDTO> {
 
         //create an empty list of Near Earth Objects
