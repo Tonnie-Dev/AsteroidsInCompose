@@ -1,13 +1,12 @@
 package com.uxstate.data.mapper
 
 import com.uxstate.data.local.NeowsEntity
+import com.uxstate.data.remote.dto.AstroPictureDTO
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
+import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject
-import java.sql.Date
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 import java.util.*
 
 //DTO to Model
@@ -64,8 +63,17 @@ fun NeowsEntity.toModel(): NearEarthObject {
 }
 
 
+//Picture DTO to Picture Model
 
-//Model to DTO
+fun AstroPictureDTO.toPictureModel(): AstroPicture {
 
+    return AstroPicture(
+            title = this.title,
+            explanation = this.explanation,
+            mediaType = this.mediaType,
+            url = this.url
+    )
+
+}
 
 
