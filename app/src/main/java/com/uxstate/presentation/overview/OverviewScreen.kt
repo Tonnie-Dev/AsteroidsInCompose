@@ -1,12 +1,15 @@
 package com.uxstate.presentation.overview
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -64,6 +67,7 @@ fun OverviewScreen(
     Column(
             modifier = Modifier
                     .fillMaxSize()
+
                     .padding(8.dp)
     ) {
 
@@ -92,8 +96,12 @@ fun OverviewScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
         ) {
+
+
             ButtonItem(
-                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton) },
+                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton
+
+                  ) },
                     text = "Today",
                     modifier = Modifier.weight(1f)
             )
@@ -117,7 +125,7 @@ fun OverviewScreen(
             viewModel.onEvent(OverviewEvent.Refreshing)
         }) {
 
-            LazyColumn(content = {
+            LazyColumn( content = {
 
 
                 items(state.neows) {

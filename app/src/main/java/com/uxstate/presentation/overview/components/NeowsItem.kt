@@ -36,7 +36,7 @@ fun NeowsItem(
 
         Icon(
                 painter = painterResource(
-                        id = if (isHazardous) R.drawable.ic_status_potentially_hazardous
+                        id = if (isHazardous) R.drawable.ic_sharp_sick_24
                         else R.drawable.ic_status_normal
                 ),
         contentDescription = null
