@@ -13,7 +13,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -42,18 +41,21 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
 
             is OverviewEvent.OnClickTomorrowButton -> {
 
-                getNearEarthObjects(startDate = LocalDateTime.now().plusDays(1),
-                        endDate = DateFilter.TomorrowDate)
+                getNearEarthObjects(
+                        startDate = LocalDateTime.now()
+                                .plusDays(1),
+                        endDate = DateFilter.TomorrowDate
+                )
             }
 
             is OverviewEvent.OnClickNextSevenDaysButton -> {
 
-                getNearEarthObjects(endDate = DateFilter.NextSevenDays)
+                getNearEarthObjects(endDate = DateFilter.NextSevenDays, fetchFromRemote = false)
             }
 
             is OverviewEvent.Refreshing -> {
 
-                state = state.copy(isRefreshing = true)
+                getNearEarthObjects(endDate = DateFilter.NextSevenDays, fetchFromRemote = true)
             }
         }
     }
@@ -61,12 +63,16 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
     private fun getNearEarthObjects(
         startDate: LocalDateTime = LocalDateTime.now(),
         endDate: DateFilter = DateFilter.TodayDate,
-        fetchFromRemote: Boolean = state.isRefreshing
+        fetchFromRemote: Boolean = false
     ) {
 
 
         //you can either use flow.collect or flow.onEach
-        useCase( startDate = startDate,endDate = endDate, fetchFromRemote = fetchFromRemote).onEach {
+        useCase(
+                startDate = startDate,
+                endDate = endDate,
+                fetchFromRemote = fetchFromRemote
+        ).onEach {
 
             result ->
 
@@ -83,12 +89,13 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
                 }
                 is Resource.Error -> {
 
-                    state = state.copy(errorMessage = result.message ?: "An expected error occurred")
+                    state =
+                        state.copy(errorMessage = result.message ?: "An expected error occurred")
 
                 }
                 is Resource.Loading -> {
 
-                   state = state.copy(isLoading = result.isLoading)
+                    state = state.copy(isLoading = result.isLoading)
                 }
             }
 

@@ -5,6 +5,7 @@ import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -17,6 +18,7 @@ class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepositor
          endDate: DateFilter,
          fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>> {
+
 
 
         val start = localDateToStringDate(startDate)
@@ -36,12 +38,13 @@ class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepositor
 
         }
 
-         Timber.i("Start Date is: $start,EndDate is: $end")
-       return repository.getAllNeowsObjects(
+
+return repository.getAllNeowsObjects(
                 startDate = start,
                 endDate = end,
                 fetchFromRemote = fetchFromRemote
         )
+
 
 
     }
