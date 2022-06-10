@@ -1,5 +1,6 @@
 package com.uxstate.data.remote
 
+import com.uxstate.data.remote.dto.PictureOfTheDayDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,10 +15,10 @@ interface NeowsAPI {
     ): String
 
     @GET("planetary/apod")
-    suspend fun getPictureOfTheDay(
+    suspend fun getPictureOfTheDay(@Query("count") count:String,
         @Query("api_key") apiKey: String = API_KEY
 
-    ): PictureOfTheDay
+    ): PictureOfTheDayDTO
 
     companion object {
 
