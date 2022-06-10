@@ -1,7 +1,5 @@
 package com.uxstate.data.remote
 
-import com.uxstate.data.remote.dto.PictureOfTheDay
-import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
