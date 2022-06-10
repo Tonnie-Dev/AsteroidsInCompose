@@ -15,5 +15,5 @@ interface NeowsRepository {
     ): Flow<Resource<List<NearEarthObject>>>
 
 
-   suspend fun getAstroPictures():Flow<Resource<List<AstroPicture>>>
+   suspend fun getAstroPictures():List<AstroPicture>
 }
