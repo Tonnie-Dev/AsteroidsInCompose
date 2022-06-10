@@ -2,10 +2,10 @@ package com.uxstate.domain.use_cases
 
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository
-import com.uxstate.util.DateChanger
+import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -13,26 +13,30 @@ import javax.inject.Inject
 class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepository) {
 
      operator fun invoke(
-        startDate: LocalDateTime = LocalDateTime.now(),
-        endDate: DateChanger,
-        fetchFromRemote: Boolean
+         startDate: LocalDateTime,
+         endDate: DateFilter,
+         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>> {
 
 
         val start = localDateToStringDate(startDate)
         val end = when (endDate) {
 
-            is DateChanger.LastSevenDays -> localDateToStringDate(
+            is DateFilter.TodayDate -> localDateToStringDate(LocalDateTime.now())
+
+
+            is DateFilter.TomorrowDate -> localDateToStringDate(
                     LocalDateTime.now()
-                            .minusDays(7)
+                            .plusDays(1)
             )
-            is DateChanger.LastThirtyDays -> localDateToStringDate(
+            is DateFilter.NextSevenDays -> localDateToStringDate(
                     LocalDateTime.now()
-                            .minusDays(30)
+                            .plusDays(7)
             )
-            is DateChanger.TodayDate -> localDateToStringDate(LocalDateTime.now())
 
         }
+
+         Timber.i("Start Date is: $start,EndDate is: $end")
        return repository.getAllNeowsObjects(
                 startDate = start,
                 endDate = end,

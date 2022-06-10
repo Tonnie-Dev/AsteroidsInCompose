@@ -6,13 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.GetNeowsUseCase
-import com.uxstate.util.DateChanger
+import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,14 +39,18 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
                 getNearEarthObjects()
 
             }
-            is OverviewEvent.OnClickWeeklyButton -> {
 
-                getNearEarthObjects(endDate = DateChanger.LastSevenDays)
-            }
-            is OverviewEvent.OnClickMonthlyButton -> {
+            is OverviewEvent.OnClickTomorrowButton -> {
 
-                getNearEarthObjects(endDate = DateChanger.LastThirtyDays)
+                getNearEarthObjects(startDate = LocalDateTime.now().plusDays(1),
+                        endDate = DateFilter.TomorrowDate)
             }
+
+            is OverviewEvent.OnClickNextSevenDaysButton -> {
+
+                getNearEarthObjects(endDate = DateFilter.NextSevenDays)
+            }
+
             is OverviewEvent.Refreshing -> {
 
                 state = state.copy(isRefreshing = true)
@@ -53,12 +59,14 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
     }
 
     private fun getNearEarthObjects(
-        endDate: DateChanger = DateChanger.TodayDate,
+        startDate: LocalDateTime = LocalDateTime.now(),
+        endDate: DateFilter = DateFilter.TodayDate,
         fetchFromRemote: Boolean = state.isRefreshing
     ) {
 
+
         //you can either use flow.collect or flow.onEach
-        useCase(endDate = endDate, fetchFromRemote = fetchFromRemote).onEach {
+        useCase( startDate = startDate,endDate = endDate, fetchFromRemote = fetchFromRemote).onEach {
 
             result ->
 
@@ -80,7 +88,7 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
                 }
                 is Resource.Loading -> {
 
-                   state = state.copy(isLoading = true)
+                   state = state.copy(isLoading = result.isLoading)
                 }
             }
 

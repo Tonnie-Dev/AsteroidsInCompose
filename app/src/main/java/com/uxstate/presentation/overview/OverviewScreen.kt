@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,7 +32,7 @@ fun OverviewScreen(
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
 
 
-    LaunchedEffect(key1 = true, block = {
+/*    LaunchedEffect(key1 = true, block = {
 
         viewModel.uiEvent.collect{ event ->
 
@@ -61,7 +60,7 @@ fun OverviewScreen(
         }
 
 
-    })
+    })*/
     Column(
             modifier = Modifier
                     .fillMaxSize()
@@ -93,9 +92,10 @@ fun OverviewScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
         ) {
-            ButtonItem(onClickButton = { /*TODO*/ }, text = "Today")
-            ButtonItem(onClickButton = { /*TODO*/ }, text = "Weekly")
-            ButtonItem(onClickButton = { /*TODO*/ }, text = "Monthly")
+            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton) }, text = "Today")
+            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) }, text = "Tomorrow")
+            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) }, text = "Next 7 Days")
+
         }
 
         SwipeRefresh(state = swipeRefreshState, modifier = Modifier

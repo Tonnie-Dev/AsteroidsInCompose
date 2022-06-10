@@ -4,6 +4,8 @@ sealed class OverviewEvent {
 
     object Refreshing : OverviewEvent()
     object OnClickTodayButton : OverviewEvent()
-    object OnClickWeeklyButton : OverviewEvent()
-    object OnClickMonthlyButton : OverviewEvent()
+    object OnClickTomorrowButton : OverviewEvent()
+    object OnClickNextSevenDaysButton : OverviewEvent()
+
+
 }
