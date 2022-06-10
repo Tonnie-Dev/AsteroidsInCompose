@@ -33,6 +33,7 @@ class OverviewViewModel @Inject constructor(
 
     init {
         getNearEarthObjects()
+        getAstroPictures()
     }
 
     fun onEvent(event: OverviewEvent) {
