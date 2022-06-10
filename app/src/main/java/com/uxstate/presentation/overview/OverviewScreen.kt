@@ -12,6 +12,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.presentation.overview.components.NeowsItem
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -59,7 +60,7 @@ fun OverviewScreen(
 
 }
 
-fun localDateToString(date:LocalDateTime):String {
+fun localDateToString(date: LocalDate):String {
 
     val pattern = "dd-MM-yyyy"
     val dateFormatter = DateTimeFormatter.ofPattern(pattern)

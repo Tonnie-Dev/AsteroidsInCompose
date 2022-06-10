@@ -14,6 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -39,7 +40,7 @@ object AppModule {
         return Retrofit.Builder()
                 .baseUrl(NeowsAPI.BASE_URL)
                 . addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(MoshiConverterFactory.create())
+
                 .build()
                 .create(NeowsAPI::class.java)
     }

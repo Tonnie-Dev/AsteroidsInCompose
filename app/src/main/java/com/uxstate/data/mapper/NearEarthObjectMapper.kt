@@ -4,6 +4,7 @@ import com.uxstate.data.local.NeowsEntity
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import java.sql.Date
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -14,9 +15,9 @@ import java.util.*
 fun NearEarthObjectDTO.toNearEarthObject(): NearEarthObject {
 
 
-    val pattern = "yyyy-MM-dd HH:mm"
+    val pattern = "yyyy-MM-dd"
     val dateFormatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())
-    val date = LocalDateTime.parse(this.closeApproachDate, dateFormatter)
+    val date = LocalDate.parse(this.closeApproachDate, dateFormatter)
 
     return NearEarthObject(
             id = this.id,
@@ -47,9 +48,9 @@ fun NearEarthObjectDTO.toEntity(): NeowsEntity {
 
 fun NeowsEntity.toModel(): NearEarthObject {
 
-    val pattern = "yyyy-MM-dd HH:mm:ss"
+    val pattern = "yyyy-MM-dd"
     val dateFormatter = DateTimeFormatter.ofPattern(pattern)
-    val date = LocalDateTime.parse(this.closeApproachDate, dateFormatter)
+    val date = LocalDate.parse(this.closeApproachDate, dateFormatter)
 
     return NearEarthObject(
             id = this.id,
