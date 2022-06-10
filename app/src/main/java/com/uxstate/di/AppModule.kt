@@ -1,5 +1,6 @@
 package com.uxstate.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.uxstate.data.local.NeowsDatabase
@@ -22,9 +23,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNeowsDatabase(@ApplicationContext context: Context): NeowsDatabase {
+    fun provideNeowsDatabase(app: Application): NeowsDatabase {
 
-        return Room.databaseBuilder(context, NeowsDatabase::class.java, NeowsDatabase.DB_NAME)
+        return Room.databaseBuilder(app,
+                NeowsDatabase::class.java,
+                NeowsDatabase.DB_NAME)
                 .build()
 
     }
@@ -43,7 +46,7 @@ object AppModule {
     @Provides
     @Singleton
 
-    fun provideGetNeowsUseCase(repository: NeowsRepository):GetNeowsUseCase {
+    fun provideGetNeowsUseCase(repository: NeowsRepository): GetNeowsUseCase {
 
         return GetNeowsUseCase(repository)
     }

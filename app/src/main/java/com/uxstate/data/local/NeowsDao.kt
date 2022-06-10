@@ -16,14 +16,14 @@ interface NeowsDao {
     @Query("DELETE from neowsentity")
     suspend fun clearNeows()
 
-    @Query("SELECT * FROM neowsentity ORDER BY closeApproachDate ASC")
+    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER By closeApproachDate ASC")
     suspend fun getAllNeows(startDate:String, endDate:String):List<NeowsEntity>
 
-    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
+/*    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
     suspend fun getWeeklyNeows(startDate: String, endDate: String): List<NeowsEntity>
 
     @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER By closeApproachDate ASC")
-    suspend fun getTodayNeows(startDate: String,endDate: String):List<NeowsEntity>
+    suspend fun getTodayNeows(startDate: String,endDate: String):List<NeowsEntity>*/
 
 
 
