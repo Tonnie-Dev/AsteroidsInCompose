@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.uxstate.data.local.NeowsDatabase
 import com.uxstate.data.remote.NeowsAPI
 import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
 import com.uxstate.domain.use_cases.GetNeowsUseCase
 import dagger.Module
 import dagger.Provides
@@ -51,6 +52,14 @@ object AppModule {
     fun provideGetNeowsUseCase(repository: NeowsRepository): GetNeowsUseCase {
 
         return GetNeowsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+
+    fun provideGetAstroPicturesUseCase(repository: NeowsRepository): GetAstroPicturesUseCase {
+
+        return GetAstroPicturesUseCase(repository)
     }
 
 }
