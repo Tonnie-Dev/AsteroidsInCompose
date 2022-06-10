@@ -1,5 +1,6 @@
 package com.uxstate.domain.repository
 
+import com.uxstate.data.remote.dto.PictureOfTheDayDTO
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -15,4 +16,5 @@ interface NeowsRepository {
     ): Flow<Resource<List<NearEarthObject>>>
 
 
+    fun getAstronomicalPictures():Flow<Resource<List<PictureOfTheDay>>>
 }
