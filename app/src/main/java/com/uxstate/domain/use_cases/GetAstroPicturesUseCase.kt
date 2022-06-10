@@ -10,7 +10,7 @@ import java.io.IOException
 
 class GetAstroPicturesUseCase(private val repository: NeowsRepository) {
 
-    fun invoke(): Flow<Resource<List<AstroPicture>>> =
+    operator  fun invoke(): Flow<Resource<List<AstroPicture>>> =
         //Return a flow builder to have access to emit()
         flow {
 

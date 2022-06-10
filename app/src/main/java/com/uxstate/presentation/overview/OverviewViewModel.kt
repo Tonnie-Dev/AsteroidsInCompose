@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
 import com.uxstate.domain.use_cases.GetNeowsUseCase
 import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
@@ -17,9 +18,13 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase) : ViewModel() {
+class OverviewViewModel @Inject constructor(
+    private val useCase: GetNeowsUseCase,
+    private val getAstroPicturesUseCase: GetAstroPicturesUseCase
+) : ViewModel() {
 
 
+    //by delegate is used because OverviewState has get being a data class
     var state by mutableStateOf(OverviewState())
         private set
 
@@ -102,6 +107,37 @@ class OverviewViewModel @Inject constructor(private val useCase: GetNeowsUseCase
 
         }
                 .launchIn(viewModelScope)
+    }
+
+
+    private fun getAstroPictures() {
+
+getAstroPicturesUseCase().onEach { result ->
+
+
+    when(result){
+
+
+        is Resource.Loading -> {
+
+            state = state.copy(isPictureLoading = result.isLoading)
+        }
+        is Resource.Error -> {
+
+            state = state.copy(pictureErrorMessage = result.message)
+        }
+        is Resource.Success -> {
+
+            result.data?.let {
+
+                state =state.copy(astroPictures = it)
+            }
+
+        }
+    }
+
+
+}.launchIn(viewModelScope)
     }
 
 }

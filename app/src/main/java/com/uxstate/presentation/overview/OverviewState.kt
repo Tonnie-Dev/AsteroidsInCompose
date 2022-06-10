@@ -8,7 +8,8 @@ data class OverviewState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val errorMessage: String? = null,
-    val astroPicture: List<AstroPicture> = emptyList(),
-    val isPictureLoading: Boolean = false
+    val astroPictures: List<AstroPicture> = emptyList(),
+    val isPictureLoading: Boolean = false,
+    val pictureErrorMessage:String? = null
 
 )
