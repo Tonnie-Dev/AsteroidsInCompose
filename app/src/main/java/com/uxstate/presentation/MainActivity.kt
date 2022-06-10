@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.uxstate.presentation.overview.NavGraphs
+
 import com.uxstate.presentation.ui.theme.AsteroidsInComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +26,10 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                 }
+                //add the NavHost call
+                DestinationsNavHost(navGraph = NavGraphs.root)
+
+
             }
         }
     }

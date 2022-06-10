@@ -23,6 +23,21 @@ android {
         }
     }
 
+    //Kotlin Block - makes sure that the KSP Plugin looks at
+// the right paths when it comes to generated classes
+
+    kotlin {
+        sourceSets {
+            debug {
+                kotlin.srcDir("build/generated/ksp/debug/kotlin")
+            }
+            release {
+                kotlin.srcDir("build/generated/ksp/release/kotlin")
+            }
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
