@@ -10,6 +10,7 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
+import coil.size.Size
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
 
@@ -24,6 +25,7 @@ fun AstroPhoto(picture: AstroPicture) {
     //https://coil-kt.github.io/coil/compose/
     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
             .data(imgUrl)
+            .size(Size.ORIGINAL)
             .crossfade(true).build(),
 
             placeholder = painterResource(R.drawable.loading_animation),

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
+import com.uxstate.presentation.overview.components.AstroPhoto
 import com.uxstate.presentation.overview.components.ButtonItem
 import com.uxstate.presentation.overview.components.NeowsItem
 import java.time.LocalDate
@@ -79,12 +81,12 @@ fun OverviewScreen(
                         .weight(3f)
         ) {
 
-            Image(
-                    painter = painterResource(id = R.drawable.asteroid_hazardous),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-            )
+        //lazy column
+            LazyRow(content = { items(state.astroPictures) {
+                
+                AstroPhoto(picture = it)
+            } })
+            
         }
 
         //BUTTON ROW
