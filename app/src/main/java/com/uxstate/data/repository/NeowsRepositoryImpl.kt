@@ -5,6 +5,7 @@ import com.uxstate.data.local.NeowsDatabase
 import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.remote.NeowsAPI
+import com.uxstate.data.remote.dto.AstroPictureDTO
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository
@@ -116,6 +117,11 @@ class NeowsRepositoryImpl @Inject constructor(
 
         }
 
+    override suspend fun getAstroPictures(): List<AstroPictureDTO>{
+
+        return api.getAstroPictures()
+
+    }
 
 
 }

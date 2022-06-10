@@ -1,6 +1,6 @@
 package com.uxstate.data.remote
 
-import com.uxstate.data.remote.dto.PictureOfTheDayDTO
+import com.uxstate.data.remote.dto.AstroPictureDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,10 +15,10 @@ interface NeowsAPI {
     ): String
 
     @GET("planetary/apod")
-    suspend fun getPictureOfTheDay(@Query("count") count:String,
-        @Query("api_key") apiKey: String = API_KEY
+    suspend fun getAstroPictures(@Query("count") count:Int = COUNT,
+                                 @Query("api_key") apiKey: String = API_KEY
 
-    ): List<PictureOfTheDayDTO>
+    ): List<AstroPictureDTO>
 
     companion object {
 
@@ -26,6 +26,8 @@ interface NeowsAPI {
         const val BASE_URL = "https://api.nasa.gov/"
 
         const val API_KEY = "Cnkc0VTeJQklSu79us3xzoRCmhjCIa9nsXpLdjs6"
+
+        const val COUNT = 10
 
     }
 }
