@@ -40,7 +40,7 @@ object AppModule {
         return Retrofit.Builder()
                 .baseUrl(NeowsAPI.BASE_URL)
                 . addConverterFactory(ScalarsConverterFactory.create())
-
+                .addConverterFactory(MoshiConverterFactory.create())
                 .build()
                 .create(NeowsAPI::class.java)
     }

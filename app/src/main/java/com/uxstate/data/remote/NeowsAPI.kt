@@ -18,7 +18,7 @@ interface NeowsAPI {
     suspend fun getPictureOfTheDay(@Query("count") count:String,
         @Query("api_key") apiKey: String = API_KEY
 
-    ): PictureOfTheDayDTO
+    ): List<PictureOfTheDayDTO>
 
     companion object {
 
