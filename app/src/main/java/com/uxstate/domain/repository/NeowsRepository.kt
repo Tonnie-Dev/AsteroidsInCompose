@@ -14,15 +14,5 @@ interface NeowsRepository {
         fetchFromRemote: Boolean
     ): Flow<Resource<List<NearEarthObject>>>
 
-    suspend fun getWeeklyNeowsObjects(
-        startDate: String,
-        endDate: String,
-        fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>>
 
-    suspend fun getTodayNeowsObjects(
-        startDate: String,
-        endDate: String,
-        fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>>
 }

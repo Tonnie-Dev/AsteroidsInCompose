@@ -116,20 +116,6 @@ class NeowsRepositoryImpl @Inject constructor(
 
         }
 
-    override suspend fun getWeeklyNeowsObjects(
-        startDate: String,
-        endDate: String,
-        fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>> {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun getTodayNeowsObjects(
-        startDate: String,
-        endDate: String,
-        fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>> {
-        TODO("Not yet implemented")
-    }
 
 }
