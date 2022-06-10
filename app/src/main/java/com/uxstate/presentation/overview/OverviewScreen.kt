@@ -32,35 +32,35 @@ fun OverviewScreen(
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
 
 
-/*    LaunchedEffect(key1 = true, block = {
+    /*    LaunchedEffect(key1 = true, block = {
 
-        viewModel.uiEvent.collect{ event ->
+            viewModel.uiEvent.collect{ event ->
 
-            when(event){
+                when(event){
 
-                is OverviewEvent.Refreshing -> {
+                    is OverviewEvent.Refreshing -> {
 
-                    viewModel.onEvent(event = event)
+                        viewModel.onEvent(event = event)
+                    }
+                    is OverviewEvent.OnClickTodayButton-> {
+
+                        viewModel.onEvent(event = event)
+                    }
+
+                    is OverviewEvent.OnClickWeeklyButton -> {
+                        viewModel.onEvent(event = event)
+
+                    }
+                    is OverviewEvent.OnClickMonthlyButton -> {
+
+                        viewModel.onEvent(event = event)
+                    }
+
                 }
-                is OverviewEvent.OnClickTodayButton-> {
-
-                    viewModel.onEvent(event = event)
-                }
-
-                is OverviewEvent.OnClickWeeklyButton -> {
-                    viewModel.onEvent(event = event)
-
-                }
-                is OverviewEvent.OnClickMonthlyButton -> {
-
-                    viewModel.onEvent(event = event)
-                }
-
             }
-        }
 
 
-    })*/
+        })*/
     Column(
             modifier = Modifier
                     .fillMaxSize()
@@ -89,12 +89,24 @@ fun OverviewScreen(
                 modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
         ) {
-            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton) }, text = "Today")
-            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) }, text = "Tomorrow")
-            ButtonItem(onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) }, text = "Next 7 Days")
+            ButtonItem(
+                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton) },
+                    text = "Today",
+                    modifier = Modifier.weight(1f)
+            )
+            ButtonItem(
+                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) },
+                    text = "Tomorrow",
+                    modifier = Modifier.weight(1f)
+            )
+            ButtonItem(
+                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) },
+                    text = "Next 7 Days",
+                    modifier = Modifier.weight(1f)
+            )
 
         }
 
