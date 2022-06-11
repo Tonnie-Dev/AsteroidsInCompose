@@ -10,6 +10,6 @@ data class OverviewState(
     val errorMessage: String? = null,
     val astroPictures: List<AstroPicture> = emptyList(),
     val isPictureLoading: Boolean = false,
-    val pictureErrorMessage:String? = null
-
+    val pictureErrorMessage:String? = null,
+val isPhotoTapped:Boolean = false
 )
