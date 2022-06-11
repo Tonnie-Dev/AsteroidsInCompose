@@ -3,6 +3,8 @@ package com.uxstate.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.uxstate.data.local.NeowsDatabase
 import com.uxstate.data.remote.NeowsAPI
 import com.uxstate.domain.repository.NeowsRepository
@@ -37,7 +39,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNeowsAPI(): NeowsAPI {
-
+    //val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
                 .baseUrl(NeowsAPI.BASE_URL)
                 . addConverterFactory(ScalarsConverterFactory.create())
