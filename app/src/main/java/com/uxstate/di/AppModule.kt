@@ -39,11 +39,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNeowsAPI(): NeowsAPI {
-    //val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
                 .baseUrl(NeowsAPI.BASE_URL)
                 . addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
                 .create(NeowsAPI::class.java)
     }

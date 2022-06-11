@@ -77,14 +77,14 @@ fun OverviewScreen(
 
         Box(
                 modifier = Modifier
-
                         .weight(3f)
         ) {
 
-        //lazy column
-            LazyRow(content = { items(state.astroPictures) {
-                
-                AstroPhoto(picture = it)
+           LazyRow(content = {
+
+               items(state.astroPictures) {
+
+                AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
             } })
             
         }

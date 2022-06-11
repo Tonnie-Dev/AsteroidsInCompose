@@ -6,6 +6,7 @@ import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 
 class GetAstroPicturesUseCase(private val repository: NeowsRepository) {
@@ -21,7 +22,7 @@ class GetAstroPicturesUseCase(private val repository: NeowsRepository) {
 
             val response = try {
 
-                repository.getAstroPictures().filter { it.url=="image" }
+                repository.getAstroPictures().filter { it.mediaType=="image" }
 
             } catch (e: IOException) {
 
@@ -43,6 +44,8 @@ class GetAstroPicturesUseCase(private val repository: NeowsRepository) {
                 //return null data/response
                 null
             }
+
+            Timber.i("Data is $response")
 
             //emit data wrapped in success resource
             emit(Resource.Success(data = response))
