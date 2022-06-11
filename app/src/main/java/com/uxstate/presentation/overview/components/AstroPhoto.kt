@@ -1,5 +1,6 @@
 package com.uxstate.presentation.overview.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
@@ -79,12 +80,19 @@ Column {
                 shape = RoundedCornerShape(20.dp),
                 modifier = modifier
                         .align(Alignment.BottomCenter)
-                        .padding( 16.dp)
+                        .padding(16.dp)
         ) {
 
             Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
         }
 
+    }
+    
+    AnimatedVisibility(visible = isExpanded) {
+        
+        Row() {
+            Text(text = picture.explanation)
+        }
     }
 }
 
