@@ -5,10 +5,7 @@ import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,7 +29,7 @@ import com.uxstate.domain.model.AstroPicture
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
-fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
+fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier, isExpanded:Boolean) {
     val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
     val atEnd by remember { mutableStateOf(true) }
 
@@ -41,23 +38,25 @@ fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
             .scheme("https")
             .build()
 
+Column {
+
     Box(modifier = modifier) {
 
-      /*  AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                        .data(imgUri)
-                        .crossfade(true)
-                        .size(Size.ORIGINAL)
-                        .build(),
-                placeholder = rememberAnimatedVectorPainter(image, atEnd),
-                contentDescription = picture.title,
-                contentScale = ContentScale.FillWidth,
-                modifier = modifier
-                        .align(Alignment.Center)
-                        .size(420.dp, 240.dp)
-                        .padding(20.dp)
-        )
-*/
+        /*  AsyncImage(
+                  model = ImageRequest.Builder(LocalContext.current)
+                          .data(imgUri)
+                          .crossfade(true)
+                          .size(Size.ORIGINAL)
+                          .build(),
+                  placeholder = rememberAnimatedVectorPainter(image, atEnd),
+                  contentDescription = picture.title,
+                  contentScale = ContentScale.FillWidth,
+                  modifier = modifier
+                          .align(Alignment.Center)
+                          .size(420.dp, 240.dp)
+                          .padding(20.dp)
+          )
+  */
         Image(
                 painter = rememberImagePainter(
                         data = imgUri ,
@@ -87,7 +86,7 @@ fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
         }
 
     }
-
+}
 
 }
 

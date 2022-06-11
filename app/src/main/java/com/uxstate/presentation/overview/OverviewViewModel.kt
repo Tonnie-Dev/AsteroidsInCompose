@@ -68,6 +68,11 @@ class OverviewViewModel @Inject constructor(
                 getAstroPictures()
 
             }
+
+            is OverviewEvent.OnTapPhoto -> {
+
+                state = state.copy(isPhotoTapped = !state.isPhotoTapped)
+            }
         }
     }
 

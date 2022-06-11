@@ -7,6 +7,8 @@ sealed class OverviewEvent {
     object OnClickTomorrowButton : OverviewEvent()
     object OnClickNextSevenDaysButton : OverviewEvent()
     object OnRefreshAstroPhoto : OverviewEvent()
+    object OnTapPhoto : OverviewEvent()
+
 
 
 }
