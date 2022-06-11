@@ -1,5 +1,8 @@
 package com.uxstate.presentation.overview.components
 
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,16 +16,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
+import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
 
+@OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
-
+    val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
+    val atEnd by remember { mutableStateOf(false) }
+    Icon(
+            painter = rememberAnimatedVectorPainter(image, atEnd),
+            contentDescription = null // decorative element
+    )
     val imgUrl = picture.url.toUri()
             .buildUpon()
             .scheme("https")
@@ -36,6 +47,7 @@ fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
                         .crossfade(true)
                         .size(Size.ORIGINAL)
                         .build(),
+                placeholder = painterResource(R.drawable.loading_animation),
                 contentDescription = picture.title,
                 contentScale = ContentScale.FillWidth,
                 modifier = modifier
