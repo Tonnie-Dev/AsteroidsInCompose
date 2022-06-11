@@ -40,7 +40,7 @@ fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.FillWidth,
                 modifier = modifier
                         .align(Alignment.Center)
-                        .size(300.dp, 200.dp)
+                        .size(420.dp, 240.dp)
                         .padding(20.dp)
         )
 
