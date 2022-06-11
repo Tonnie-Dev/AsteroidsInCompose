@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,21 +74,21 @@ fun OverviewScreen(
 
         SwipeRefresh(
                 state = pictureSwipeRefreshState,
-                onRefresh = { viewModel.onEvent() },
-                modifier = Modifier.weight(2f)
+                onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
+                modifier = Modifier.weight(3f)
         ) {
+            LazyRow(
+                    modifier = Modifier.verticalScroll(rememberScrollState()),
+                    content = {
 
+                        items(state.astroPictures) {
+
+                            AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
+                        }
+                    })
         }
 
-        LazyRow(
-                modifier = Modifier.horizontalScroll(rememberScrollState()),
-                content = {
 
-                    items(state.astroPictures) {
-
-                        AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
-                    }
-                })
 
 
         //BUTTON ROW
