@@ -128,7 +128,7 @@ fun OverviewScreen(
                 .fillMaxWidth()
                 .weight(6f), onRefresh = {
 
-            viewModel.onEvent(OverviewEvent.Refreshing)
+            viewModel.onEvent(OverviewEvent.OnRefreshNeows)
         }) {
 
             LazyColumn(content = {
