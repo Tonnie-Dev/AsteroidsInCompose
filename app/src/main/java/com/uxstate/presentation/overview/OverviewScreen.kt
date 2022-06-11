@@ -1,25 +1,20 @@
 package com.uxstate.presentation.overview
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.R
 import com.uxstate.presentation.overview.components.AstroPhoto
 import com.uxstate.presentation.overview.components.ButtonItem
 import com.uxstate.presentation.overview.components.NeowsItem
@@ -35,6 +30,7 @@ fun OverviewScreen(
 
     val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
+    val pictureSwipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPictureLoading)
 
 
     /*    LaunchedEffect(key1 = true, block = {
@@ -75,19 +71,24 @@ fun OverviewScreen(
 
         //IMAGE
 
-        Box(
-                modifier = Modifier
-                        .weight(3f)
+        SwipeRefresh(
+                state = pictureSwipeRefreshState,
+                onRefresh = { viewModel.onEvent() },
+                modifier = Modifier.weight(2f)
         ) {
 
-           LazyRow(content = {
-
-               items(state.astroPictures) {
-
-                AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
-            } })
-            
         }
+
+        LazyRow(
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                content = {
+
+                    items(state.astroPictures) {
+
+                        AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
+                    }
+                })
+
 
         //BUTTON ROW
 
@@ -101,9 +102,12 @@ fun OverviewScreen(
 
 
             ButtonItem(
-                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTodayButton
+                    onClickButton = {
+                        viewModel.onEvent(
+                                OverviewEvent.OnClickTodayButton
 
-                  ) },
+                        )
+                    },
                     text = "Today",
                     modifier = Modifier.weight(1f)
             )
@@ -127,7 +131,7 @@ fun OverviewScreen(
             viewModel.onEvent(OverviewEvent.Refreshing)
         }) {
 
-            LazyColumn( content = {
+            LazyColumn(content = {
 
 
                 items(state.neows) {
