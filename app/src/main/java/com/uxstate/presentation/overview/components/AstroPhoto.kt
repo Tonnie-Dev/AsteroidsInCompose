@@ -72,16 +72,15 @@ fun AstroPhoto(picture: AstroPicture, modifier: Modifier = Modifier) {
                 modifier = Modifier
                         .align(Alignment.Center)
                         .size(420.dp, 240.dp)
-                        .padding(20.dp)
+                        .padding(8.dp)
 
         )
         Surface(
-                color = Color.Black,
+                color = Color(0x7F000000),
                 shape = RoundedCornerShape(20.dp),
-                modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .fillMaxWidth()
-                        .padding(8.dp)
+                modifier = modifier
+                        .align(Alignment.BottomCenter)
+                        .padding( 16.dp)
         ) {
 
             Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
