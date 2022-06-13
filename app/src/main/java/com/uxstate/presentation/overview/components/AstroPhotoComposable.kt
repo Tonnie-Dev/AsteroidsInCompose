@@ -88,12 +88,14 @@ fun AstroPhotoComposable(
                 Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
             }
 
+
+
         }
 
         AnimatedVisibility(visible = isExpanded) {
 
-            Row() {
-                Text(text = picture.explanation, softWrap = true)
+            Column() {
+                Text(text = picture.explanation, softWrap = true, modifier = Modifier.width(300.dp))
             }
         }
     }

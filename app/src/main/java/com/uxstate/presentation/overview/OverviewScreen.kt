@@ -74,7 +74,7 @@ fun OverviewScreen(
         SwipeRefresh(
                 state = pictureSwipeRefreshState,
                 onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
-                modifier = Modifier.weight(3f)
+                modifier = Modifier.weight(5f)
         ) {
             LazyRow(
                     modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -129,7 +129,7 @@ fun OverviewScreen(
 
         SwipeRefresh(state = swipeRefreshState, modifier = Modifier
                 .fillMaxWidth()
-                .weight(6f), onRefresh = {
+                .weight(4f), onRefresh = {
 
             viewModel.onEvent(OverviewEvent.OnRefreshNeows)
         }) {
