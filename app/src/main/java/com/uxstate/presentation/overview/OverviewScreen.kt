@@ -1,6 +1,5 @@
 package com.uxstate.presentation.overview
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,7 +15,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.presentation.overview.components.AstroPhoto
+import com.uxstate.presentation.overview.components.AstroPhotoComposable
 import com.uxstate.presentation.overview.components.ButtonItem
 import com.uxstate.presentation.overview.components.NeowsItem
 import java.time.LocalDate
@@ -83,7 +82,10 @@ fun OverviewScreen(
 
                         items(state.astroPictures) {
 
-                            AstroPhoto(picture = it, modifier = Modifier.fillMaxSize())
+                            AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxSize(),state.isPhotoTapped){
+
+                                viewModel.onEvent(OverviewEvent.OnTapPhoto)
+                            }
                         }
                     })
         }

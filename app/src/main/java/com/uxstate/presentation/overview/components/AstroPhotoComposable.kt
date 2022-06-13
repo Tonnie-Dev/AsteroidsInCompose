@@ -26,7 +26,7 @@ import com.uxstate.domain.model.AstroPicture
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
-fun AstroPhoto(
+fun AstroPhotoComposable(
     picture: AstroPicture,
     modifier: Modifier = Modifier,
     isExpanded: Boolean,
@@ -93,7 +93,7 @@ fun AstroPhoto(
         AnimatedVisibility(visible = isExpanded) {
 
             Row() {
-                Text(text = picture.explanation)
+                Text(text = picture.explanation, softWrap = true)
             }
         }
     }
