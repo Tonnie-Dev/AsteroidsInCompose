@@ -92,13 +92,7 @@ fun AstroPhotoComposable(
 
         }
 
-        AnimatedVisibility(visible = isExpanded) {
-
-            Column() { Text(text = picture.explanation, softWrap = true, modifier = Modifier.width(400.dp))
-
-
-            }
-        }
+        
     }
 
 }
