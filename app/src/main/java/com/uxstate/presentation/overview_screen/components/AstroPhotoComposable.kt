@@ -92,7 +92,7 @@ fun AstroPhotoComposable(
 
         }
 
-        
+
     }
 
 }
