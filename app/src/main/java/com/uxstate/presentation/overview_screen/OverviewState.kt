@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview
+package com.uxstate.presentation.overview_screen
 
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject

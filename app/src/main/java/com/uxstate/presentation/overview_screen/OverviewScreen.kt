@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview
+package com.uxstate.presentation.overview_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,9 +15,9 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.presentation.overview.components.AstroPhotoComposable
-import com.uxstate.presentation.overview.components.ButtonItem
-import com.uxstate.presentation.overview.components.NeowsItem
+import com.uxstate.presentation.overview_screen.components.AstroPhotoComposable
+import com.uxstate.presentation.overview_screen.components.ButtonItem
+import com.uxstate.presentation.overview_screen.components.NeowsItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

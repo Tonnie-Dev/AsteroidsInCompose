@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview.components
+package com.uxstate.presentation.overview_screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable

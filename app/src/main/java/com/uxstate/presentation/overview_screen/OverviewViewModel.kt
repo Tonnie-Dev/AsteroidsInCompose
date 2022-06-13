@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview
+package com.uxstate.presentation.overview_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

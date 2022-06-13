@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview.components
+package com.uxstate.presentation.overview_screen.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
@@ -94,8 +94,9 @@ fun AstroPhotoComposable(
 
         AnimatedVisibility(visible = isExpanded) {
 
-            Column() {
-                Text(text = picture.explanation, softWrap = true, modifier = Modifier.width(300.dp))
+            Column() { Text(text = picture.explanation, softWrap = true, modifier = Modifier.width(400.dp))
+
+
             }
         }
     }
