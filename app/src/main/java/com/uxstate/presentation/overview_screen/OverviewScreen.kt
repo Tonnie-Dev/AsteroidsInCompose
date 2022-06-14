@@ -86,7 +86,7 @@ fun OverviewScreen(
 
                             AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxSize(),state.isPhotoTapped){
 
-                                navigator.navigate( AstroShareScreenDestination())
+                                navigator.navigate( AstroShareScreenDestination(it))
                             }
                         }
                     })
