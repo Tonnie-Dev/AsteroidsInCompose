@@ -12,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
@@ -49,8 +51,8 @@ fun AstroShareComposable(picture: AstroPicture) {
         //Title
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
-
+        Text(text = picture.title, fontWeight = Bold)
+        Spacer(modifier = Modifier.height(16.dp))
         //About
         Text(text = picture.explanation, softWrap = true, modifier = Modifier.width(400.dp))
 
