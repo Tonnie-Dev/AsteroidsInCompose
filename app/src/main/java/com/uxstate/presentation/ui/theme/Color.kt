@@ -42,3 +42,10 @@ val Red30 = Color(0xFF930006)
 val Red40 = Color(0xFFBA1B1B)
 val Red80 = Color(0xFFFFB4A9)
 val Red90 = Color(0xFFFFDAD4)
+
+//Neutral Color which are different tones of grey
+val Grey10 = Color(0xFF191C1D)
+val Grey20 = Color(0xFF2D3132)
+val Grey90 = Color(0xFFE0E3E3)
+val Grey95 = Color(0xFFEFF1F1)
+val Grey99 = Color(0xFFFBFDFD)
