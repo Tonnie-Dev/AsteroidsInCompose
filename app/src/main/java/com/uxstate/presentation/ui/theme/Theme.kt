@@ -3,11 +3,7 @@ package com.uxstate.presentation.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -17,15 +13,31 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
-        primary = Purple80,
-        secondary = PurpleGrey80,
-        tertiary = Pink80,
-                background = Color(0xFF135BC7),
-        onBackground = Color(0xFF1C1B1F),
-        surface = Color(0xFFE91E63),
-        onSurface = Color(0xFF4E104E)
 
+        //primary - light version
+        primary = Green80,
+        onPrimary = Green20,
+        primaryContainer = Green30,
+        onPrimaryContainer = Green90,
+        inversePrimary = Green40,
 
+        //secondary - dark version
+        secondary = DarkGreen80,
+        onSecondary = DarkGreen20,
+        secondaryContainer = DarkGreen30,
+        onSecondaryContainer = DarkGreen90,
+
+        //tertiary
+        tertiary = Black80,
+        onTertiary = Black20,
+        tertiaryContainer = Black30,
+        onTertiaryContainer = Black90,
+
+        //error
+        error = Red80,
+        onError = Red20,
+        errorContainer = Red30,
+        onErrorContainer = Red90
 )
 
 private val LightColorScheme = lightColorScheme(

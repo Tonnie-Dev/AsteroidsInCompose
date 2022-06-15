@@ -28,12 +28,12 @@ val DarkGreen80 = Color(0xff99ff99)
 val DarkGreen90 = Color(0xffccffcc)
 
 //Tertiary Colors
-val Violet10 = Color(0xff0d0d0d)
-val Violet20 = Color(0xff333333)
-val Violet30 = Color(0xff4d4d4d)
-val Violet40 = Color(0xff666666)
-val Violet80 = Color(0xffcccccc)
-val Violet90 = Color(0xffe6e6e6)
+val Black10 = Color(0xff0d0d0d)
+val Black20 = Color(0xff333333)
+val Black30 = Color(0xff4d4d4d)
+val Black40 = Color(0xff666666)
+val Black80 = Color(0xffcccccc)
+val Black90 = Color(0xffe6e6e6)
 
 //Error
 val Red10 = Color(0xFF410001)
@@ -49,3 +49,10 @@ val Grey20 = Color(0xFF2D3132)
 val Grey90 = Color(0xFFE0E3E3)
 val Grey95 = Color(0xFFEFF1F1)
 val Grey99 = Color(0xFFFBFDFD)
+
+//Neutral variations
+val GreenGrey30 = Color(0xFF316847)
+val GreenGrey50 = Color(0xFF52ad76)
+val GreenGrey60 = Color(0xFF74be92)
+val GreenGrey80 = Color(0xFFbadec8)
+val GreenGrey90 = Color(0xFFdcefe4)
