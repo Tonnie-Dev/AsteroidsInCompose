@@ -20,6 +20,7 @@ import com.uxstate.presentation.overview_screen.components.AstroPhotoComposable
 import com.uxstate.presentation.overview_screen.components.ButtonItem
 import com.uxstate.presentation.overview_screen.components.NeowsItem
 import com.uxstate.presentation.photo_screen.AstroShareScreen
+import com.uxstate.presentation.ui.theme.AsteroidsInComposeTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -64,96 +65,100 @@ fun OverviewScreen(
 
 
         })*/
-    Column(
-            modifier = Modifier
-                    .fillMaxSize()
-
-                    .padding(8.dp)
-    ) {
-
-        //IMAGE
-
-        SwipeRefresh(
-                state = pictureSwipeRefreshState,
-                onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
-                modifier = Modifier.weight(5f)
-        ) {
-            LazyRow(
-                    modifier = Modifier.verticalScroll(rememberScrollState()),
-                    content = {
-
-                        items(state.astroPictures) {
-
-                            AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxSize(),state.isPhotoTapped){
-
-                                navigator.navigate( AstroShareScreenDestination(it))
-                            }
-                        }
-                    })
-        }
 
 
-
-
-        //BUTTON ROW
-
-        Row(
+        Column(
                 modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                        .fillMaxSize()
+
+                        .padding(8.dp)
         ) {
 
+            //IMAGE
 
-            ButtonItem(
-                    onClickButton = {
-                        viewModel.onEvent(
-                                OverviewEvent.OnClickTodayButton
+            SwipeRefresh(
+                    state = pictureSwipeRefreshState,
+                    onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
+                    modifier = Modifier.weight(5f)
+            ) {
+                LazyRow(
+                        modifier = Modifier.verticalScroll(rememberScrollState()),
+                        content = {
 
-                        )
-                    },
-                    text = "Today",
-                    modifier = Modifier.weight(1f)
-            )
-            ButtonItem(
-                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) },
-                    text = "Tomorrow",
-                    modifier = Modifier.weight(1f)
-            )
-            ButtonItem(
-                    onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) },
-                    text = "Next 7 Days",
-                    modifier = Modifier.weight(1f)
-            )
+                            items(state.astroPictures) {
 
+                                AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxSize(),state.isPhotoTapped){
+
+                                    navigator.navigate( AstroShareScreenDestination(it))
+                                }
+                            }
+                        })
+            }
+
+
+
+
+            //BUTTON ROW
+
+            Row(
+                    modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+            ) {
+
+
+                ButtonItem(
+                        onClickButton = {
+                            viewModel.onEvent(
+                                    OverviewEvent.OnClickTodayButton
+
+                            )
+                        },
+                        text = "Today",
+                        modifier = Modifier.weight(1f)
+                )
+                ButtonItem(
+                        onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) },
+                        text = "Tomorrow",
+                        modifier = Modifier.weight(1f)
+                )
+                ButtonItem(
+                        onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) },
+                        text = "Next 7 Days",
+                        modifier = Modifier.weight(1f)
+                )
+
+            }
+
+            SwipeRefresh(state = swipeRefreshState, modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(4f), onRefresh = {
+
+                viewModel.onEvent(OverviewEvent.OnRefreshNeows)
+            }) {
+
+                LazyColumn(content = {
+
+
+                    items(state.neows) {
+
+                        NeowsItem(
+                                modifier = Modifier.fillMaxWidth(),
+                                name = it.codename,
+                                approachDate = localDateToString(it.closeApproachDate),
+                                isHazardous = it.isPotentiallyHazardous,
+                                onClickNeowsItem = { /*TODO*/ })
+
+                    }
+                })
+
+
+            }
         }
 
-        SwipeRefresh(state = swipeRefreshState, modifier = Modifier
-                .fillMaxWidth()
-                .weight(4f), onRefresh = {
 
-            viewModel.onEvent(OverviewEvent.OnRefreshNeows)
-        }) {
-
-            LazyColumn(content = {
-
-
-                items(state.neows) {
-
-                    NeowsItem(
-                            modifier = Modifier.fillMaxWidth(),
-                            name = it.codename,
-                            approachDate = localDateToString(it.closeApproachDate),
-                            isHazardous = it.isPotentiallyHazardous,
-                            onClickNeowsItem = { /*TODO*/ })
-
-                }
-            })
-
-
-        }
-    }
 
 
 }

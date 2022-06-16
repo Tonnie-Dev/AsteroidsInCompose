@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,9 +25,9 @@ fun ButtonItem(
 
     var isSelected =remember { false }
     Surface(
-            color = if (isSelected) Color.Red else Color.Green,
+            color = if (isSelected) Color.Red else MaterialTheme.colorScheme.primary,
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(width = 1.dp, Color.Green),
+            border = BorderStroke(width = 1.dp, MaterialTheme.colorScheme.outline),
             modifier = modifier
                     .clip(RoundedCornerShape(20.dp))
                     .clickable {
