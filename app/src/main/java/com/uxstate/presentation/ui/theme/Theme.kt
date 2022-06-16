@@ -39,7 +39,35 @@ private val DarkColorScheme = darkColorScheme(
         errorContainer = Red30,
         onErrorContainer = Red90,
 
-                background = Grey99,
+        onBackground = Grey90,
+        surface = GreenGrey30,
+        onSurface = GreenGrey80,
+        inverseSurface = Grey90,
+        inverseOnSurface = Grey10,
+        surfaceVariant = GreenGrey30,
+        onSurfaceVariant = GreenGrey80,
+        outline = GreenGrey80
+)
+
+private val LightColorScheme = lightColorScheme(
+        primary = Green40,
+        onPrimary = Color.White,
+        primaryContainer = Green90,
+        onPrimaryContainer = Green10,
+        inversePrimary = Green80,
+        secondary = DarkGreen40,
+        onSecondary = Color.White,
+        secondaryContainer = DarkGreen90,
+        onSecondaryContainer = DarkGreen10,
+        tertiary = Black40,
+        onTertiary = Color.White,
+        tertiaryContainer = Black90,
+        onTertiaryContainer = Black10,
+        error = Red40,
+        onError = Color.White,
+        errorContainer = Red90,
+        onErrorContainer = Red10,
+        background = Grey99,
         onBackground = Grey10,
         surface = GreenGrey90,
         onSurface = GreenGrey30,
@@ -50,25 +78,6 @@ private val DarkColorScheme = darkColorScheme(
         outline = GreenGrey50
 )
 
-private val LightColorScheme = lightColorScheme(
-        primary = Purple40,
-        secondary = PurpleGrey40,
-        tertiary = Pink40,
-        background = Color(0xFF1C270B),
-        onBackground = Color(0xFF1C1B1F),
-        surface = Color(0xFFE9651E),
-        onSurface = Color(0xFF4E104E)
-        /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
-
 @Composable
 fun AsteroidsInComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -76,7 +85,7 @@ fun AsteroidsInComposeTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+   /* val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -90,7 +99,7 @@ fun AsteroidsInComposeTheme(
             (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
-    }
+    }*/
 
     MaterialTheme(
             colorScheme = colorScheme,
