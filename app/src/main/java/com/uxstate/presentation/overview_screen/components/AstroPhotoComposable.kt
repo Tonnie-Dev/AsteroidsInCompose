@@ -20,7 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.transition.CrossfadeTransition
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
 
@@ -32,8 +34,7 @@ fun AstroPhotoComposable(
     isExpanded: Boolean,
     onTapPhoto: () -> Unit
 ) {
-    val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
-    val atEnd by remember { mutableStateOf(true) }
+
 
     val imgUri = picture.url.toUri()
             .buildUpon()
@@ -44,7 +45,64 @@ fun AstroPhotoComposable(
 
         Box(modifier = modifier.clickable { onTapPhoto() }) {
 
-            /*  AsyncImage(
+              Image(
+                painter = rememberImagePainter(
+                        data = imgUri,
+                        builder = {
+                            crossfade(true)
+                            placeholder(R.drawable.loading_animation)
+
+
+                        }
+                ),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(420.dp, 240.dp)
+                        .padding(8.dp)
+
+        )
+/*
+            Image(
+                    
+                    painter = rememberAsyncImagePainter(model = imgUri,contentScale = ContentScale.Crop, transform = { CrossfadeTransition}),
+                   *//* painter = rememberImagePainter(
+                            data = imgUri,
+                            builder = {
+                                crossfade(true)
+                                placeholder(R.drawable.loading_animation)
+
+
+                            }*//*
+                           contentDescription = null,
+
+                    modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(420.dp, 240.dp)
+                            .padding(8.dp)
+
+                    )*/
+
+
+
+
+
+            Surface(
+                    color = Color(0x7F000000),
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(16.dp)
+            ) {
+
+                Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
+            }
+            /*
+             val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
+    val atEnd by remember { mutableStateOf(true) }
+
+            AsyncImage(
                       model = ImageRequest.Builder(LocalContext.current)
                               .data(imgUri)
                               .crossfade(true)
@@ -59,7 +117,7 @@ fun AstroPhotoComposable(
                               .padding(20.dp)
               )
       */
-            Image(
+          /*  Image(
                     painter = rememberImagePainter(
                             data = imgUri,
                             builder = {
@@ -76,17 +134,8 @@ fun AstroPhotoComposable(
                             .size(420.dp, 240.dp)
                             .padding(8.dp)
 
-            )
-            Surface(
-                    color = Color(0x7F000000),
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(16.dp)
-            ) {
+            )*/
 
-                Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
-            }
 
 
 
