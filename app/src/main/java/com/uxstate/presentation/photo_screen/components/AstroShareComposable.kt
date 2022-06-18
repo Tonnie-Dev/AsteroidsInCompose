@@ -63,46 +63,6 @@ Box() {
 
     }
 
-   Column(modifier = Modifier.align(Alignment.BottomStart)) {
-       Surface(
-               color = Color.Green,
-               shape = RoundedCornerShape(20.dp),
-               border = BorderStroke(width = 1.dp, Color.Green),
-               modifier = Modifier
-                       .clip(RoundedCornerShape(20.dp))
-                       .clickable {
-
-
-                       }
-
-
-       ) {
-
-           Text(text = "text 1", modifier = Modifier.padding(8.dp), textAlign = TextAlign.Center)
-
-       }
-
-
-       Spacer(modifier = Modifier.height(16.dp))
-
-       Surface(
-               color = Color.Green,
-               shape = RoundedCornerShape(20.dp),
-               border = BorderStroke(width = 1.dp, Color.Green),
-               modifier = Modifier
-                       .clip(RoundedCornerShape(20.dp))
-                       .clickable {
-
-
-                       }
-
-
-       ) {
-
-           Text(text = "text 2", modifier = Modifier.padding(8.dp), textAlign = TextAlign.Center)
-
-       }
-    }
 }
 
 }
