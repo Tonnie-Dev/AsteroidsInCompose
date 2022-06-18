@@ -1,19 +1,14 @@
 package com.uxstate.presentation.photo_screen.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.uxstate.R
@@ -22,10 +17,16 @@ import com.uxstate.util.LocalSpacing
 
 
 @ExperimentalMaterial3Api
+
+
 @Composable
-fun AstroShareComposable(picture: AstroPicture, modifier: Modifier = Modifier) {
+fun AstroShareComposable(
+    picture: AstroPicture,
+    modifier: Modifier = Modifier
+) {
 
     val spacing = LocalSpacing.current
+
 
     val imgUri = picture.url.toUri()
             .buildUpon()
@@ -52,12 +53,51 @@ fun AstroShareComposable(picture: AstroPicture, modifier: Modifier = Modifier) {
                         .clip(MaterialTheme.shapes.large)
                         .fillMaxWidth()
                         .aspectRatio(3f / 2f)
+                        .padding(spacing.spaceExtraSmall)
 
 
         )
 
+
         //Column
         Column(modifier = Modifier.padding(spacing.spaceMedium)) {
+
+            Text(text = picture.title, style = MaterialTheme.typography.titleLarge)
+
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+
+            Text(text = picture.explanation, style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+
+            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                AssistChip(
+                        onClick = { /*TODO*/ },
+                        colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                        leadingIcon = {
+                            Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Favorite"
+                            )
+                        },
+
+                        label = { Text(text = "Mark as Favorite")}
+                )
+
+                AssistChip(
+                        onClick = { /*TODO*/ },
+                        colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                        leadingIcon = {
+                            Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Share"
+                            )
+                        },
+
+                        label = { Text(text = "Share with Others")}
+                )
+            }
+
 
         }
     }
