@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.uxstate.R
 import com.uxstate.presentation.ui.theme.AsteroidsInComposeTheme
+import com.uxstate.util.LocalSpacing
 
 @Composable
 fun NeowsItem(
@@ -21,8 +22,8 @@ fun NeowsItem(
     modifier: Modifier = Modifier
 ) {
 
-
-    Row(modifier = modifier.padding(16.dp).clickable {
+    val spacing = LocalSpacing.current
+    Row(modifier = modifier.padding(spacing.spaceMedium).clickable {
         onClickNeowsItem ()
 
     }, horizontalArrangement = Arrangement.SpaceBetween) {

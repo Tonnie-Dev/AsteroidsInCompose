@@ -18,11 +18,14 @@ import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
+import com.uxstate.util.LocalSpacing
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun AstroShareComposable(picture: AstroPicture, modifier: Modifier = Modifier) {
+
+    val spacing = LocalSpacing.current
 
     val imgUri = picture.url.toUri()
             .buildUpon()
@@ -54,7 +57,7 @@ fun AstroShareComposable(picture: AstroPicture, modifier: Modifier = Modifier) {
         )
 
         //Column
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(spacing.spaceMedium)) {
 
         }
     }

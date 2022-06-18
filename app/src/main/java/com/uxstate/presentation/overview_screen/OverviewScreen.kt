@@ -21,6 +21,7 @@ import com.uxstate.presentation.overview_screen.components.ButtonItem
 import com.uxstate.presentation.overview_screen.components.NeowsItem
 import com.uxstate.presentation.photo_screen.AstroShareScreen
 import com.uxstate.presentation.ui.theme.AsteroidsInComposeTheme
+import com.uxstate.util.LocalSpacing
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -34,44 +35,12 @@ fun OverviewScreen(
     val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
     val pictureSwipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPictureLoading)
-
-
-    /*    LaunchedEffect(key1 = true, block = {
-
-            viewModel.uiEvent.collect{ event ->
-
-                when(event){
-
-                    is OverviewEvent.Refreshing -> {
-
-                        viewModel.onEvent(event = event)
-                    }
-                    is OverviewEvent.OnClickTodayButton-> {
-
-                        viewModel.onEvent(event = event)
-                    }
-
-                    is OverviewEvent.OnClickWeeklyButton -> {
-                        viewModel.onEvent(event = event)
-
-                    }
-                    is OverviewEvent.OnClickMonthlyButton -> {
-
-                        viewModel.onEvent(event = event)
-                    }
-
-                }
-            }
-
-
-        })*/
-
+    val spacing = LocalSpacing.current
 
         Column(
                 modifier = Modifier
                         .fillMaxSize()
-
-                        .padding(8.dp)
+                        .padding(spacing.spaceMedium)
         ) {
 
             //IMAGE
@@ -104,7 +73,7 @@ fun OverviewScreen(
                     modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium),
                     verticalAlignment = Alignment.CenterVertically
             ) {
 

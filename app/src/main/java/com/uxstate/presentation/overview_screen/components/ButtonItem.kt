@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.uxstate.util.LocalSpacing
 
 @Composable
 fun ButtonItem(
@@ -22,14 +23,14 @@ fun ButtonItem(
     text: String,
 
 ) {
-
+    val spacing = LocalSpacing.current
     var isSelected =remember { false }
     Surface(
             color = if (isSelected) Color.Red else MaterialTheme.colorScheme.primary,
-            shape = RoundedCornerShape(20.dp),
+            shape = RoundedCornerShape(spacing.spaceMedium),
             border = BorderStroke(width = 1.dp, MaterialTheme.colorScheme.outline),
             modifier = modifier
-                    .clip(RoundedCornerShape(20.dp))
+                    .clip(RoundedCornerShape(spacing.spaceMedium))
                     .clickable {
 
                         onClickButton()
@@ -39,7 +40,7 @@ fun ButtonItem(
 
     ) {
 
-        Text(text = text, modifier = Modifier.padding(8.dp), textAlign = TextAlign.Center)
+        Text(text = text, modifier = Modifier.padding(spacing.spaceSmall), textAlign = TextAlign.Center)
 
     }
 }

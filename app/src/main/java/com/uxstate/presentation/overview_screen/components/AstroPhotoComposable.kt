@@ -25,6 +25,7 @@ import coil.compose.rememberImagePainter
 import coil.transition.CrossfadeTransition
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
+import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
@@ -35,6 +36,7 @@ fun AstroPhotoComposable(
     onTapPhoto: () -> Unit
 ) {
 
+    val spacing = LocalSpacing.current
 
     val imgUri = picture.url.toUri()
             .buildUpon()
@@ -60,7 +62,7 @@ fun AstroPhotoComposable(
                 modifier = Modifier
                         .align(Alignment.Center)
                         .size(420.dp, 240.dp)
-                        .padding(8.dp)
+                        .padding(spacing.spaceMedium)
 
         )
 /*
@@ -93,10 +95,10 @@ fun AstroPhotoComposable(
                     shape = RoundedCornerShape(20.dp),
                     modifier = modifier
                             .align(Alignment.BottomCenter)
-                            .padding(16.dp)
+                            .padding(spacing.spaceMedium)
             ) {
 
-                Text(text = picture.title, color = Color.White, modifier = Modifier.padding(8.dp))
+                Text(text = picture.title, color = Color.White, modifier = Modifier.padding(spacing.spaceSmall))
             }
             /*
              val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
