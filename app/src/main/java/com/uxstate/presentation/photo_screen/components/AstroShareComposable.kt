@@ -44,8 +44,10 @@ fun AstroShareComposable(picture: AstroPicture, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                         .clip(MaterialTheme.shapes.large)
-                        .size(420.dp, 240.dp)
-                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .aspectRatio(3f/2f)
+                       /* .size(420.dp, 240.dp)
+                        .padding(8.dp)*/
 
         )
     }
