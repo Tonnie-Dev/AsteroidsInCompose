@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
-import com.uxstate.domain.use_cases.GetNeowsUseCase
 import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel

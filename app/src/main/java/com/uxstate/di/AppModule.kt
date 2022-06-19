@@ -6,7 +6,6 @@ import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
-import com.uxstate.domain.use_cases.GetNeowsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
