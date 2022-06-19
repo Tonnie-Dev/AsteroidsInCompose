@@ -1,7 +1,6 @@
 package com.uxstate.presentation.overview_screen
 
 import com.uxstate.domain.model.AstroPhotoEntity
-import com.uxstate.domain.model.NearEarthObject
 
 data class OverviewState(
     val neows: List<NearEarthObject> = emptyList(),
