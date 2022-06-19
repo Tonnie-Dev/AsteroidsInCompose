@@ -8,7 +8,7 @@ import com.uxstate.domain.model.NearEarthObject
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AstroPhotoDAO {
+interface AstroDao {
 
 
 

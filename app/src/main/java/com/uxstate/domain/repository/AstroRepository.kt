@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface AstroRepository {
-    
+
 
    suspend fun getAstroPhotos():List<AstroPhotoEntity>
 }

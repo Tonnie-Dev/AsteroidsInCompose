@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [AstroPhotoEntity::class], version = 1)
 abstract class AstroPhotoDatabase : RoomDatabase(){
 
-abstract val dao:AstroPhotoDAO
+abstract val dao:AstroDao
 
 companion object{
 
