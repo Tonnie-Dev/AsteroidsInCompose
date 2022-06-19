@@ -36,7 +36,7 @@ fun OverviewScreen(
                     .fillMaxWidth()
                     .weight(5f), onRefresh = {
 
-                viewModel.onEvent(OverviewEvent.OnRefreshNeows)
+                viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
             }) {
 
                 LazyColumn(content = {

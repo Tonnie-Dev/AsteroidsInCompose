@@ -2,6 +2,8 @@ package com.uxstate.di
 
 import android.app.Application
 import androidx.room.Room
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.repository.AstroRepository
@@ -33,9 +35,10 @@ object AppModule {
     @Singleton
     fun provideAstroAPI(): AstroAPI {
 
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
                 .baseUrl(AstroAPI.BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
                 .create(AstroAPI::class.java)
     }
