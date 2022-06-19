@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(
-    private val useCase: GetNeowsUseCase,
+   
     private val getAstroPhotosUseCase: GetAstroPhotosUseCase
 ) : ViewModel() {
 
@@ -68,7 +68,7 @@ class OverviewViewModel @Inject constructor(
 
             }
 
-            is OverviewEvent.OnTapPhoto -> {
+            is OverviewEvent.OnClickAstroPhoto -> {
 
                 state = state.copy(isPhotoTapped = !state.isPhotoTapped)
             }
@@ -130,7 +130,7 @@ getAstroPhotosUseCase().onEach { result ->
 
         is Resource.Loading -> {
 
-            state = state.copy(isPictureLoading = result.isLoading)
+            state = state.copy(isPhotoLoading = result.isLoading)
         }
         is Resource.Error -> {
 
