@@ -30,7 +30,7 @@ class OverviewViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        
+
         getAstroPictures()
     }
 
