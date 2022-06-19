@@ -1,7 +1,7 @@
 package com.uxstate.data.mapper
 
 import com.uxstate.data.local.NeowsEntity
-import com.uxstate.data.remote.dto.AstroPictureDTO
+import com.uxstate.data.remote.dto.AstroPhotoDTO
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject
@@ -65,7 +65,7 @@ fun NeowsEntity.toModel(): NearEarthObject {
 
 //Picture DTO to Picture Model
 
-fun AstroPictureDTO.toPictureModel(): AstroPicture {
+fun AstroPhotoDTO.toPictureModel(): AstroPicture {
 
     return AstroPicture(
             title = this.title,
