@@ -4,7 +4,7 @@ import com.uxstate.data.remote.dto.AstroPhotoDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface AstroPictureAPI {
+interface AstroAPI {
 
     @GET("planetary/apod")
     suspend fun getAstroPictures(@Query("count") count:Int = COUNT,
