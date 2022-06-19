@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.uxstate.data.local.AstroPhotoDatabase
+import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.remote.AstroPictureAPI
 import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
@@ -25,11 +25,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNeowsDatabase(app: Application): AstroPhotoDatabase {
+    fun provideNeowsDatabase(app: Application): AstroDatabase {
 
         return Room.databaseBuilder(app,
-                AstroPhotoDatabase::class.java,
-                AstroPhotoDatabase.DB_NAME)
+                AstroDatabase::class.java,
+                AstroDatabase.DB_NAME)
                 .build()
 
     }

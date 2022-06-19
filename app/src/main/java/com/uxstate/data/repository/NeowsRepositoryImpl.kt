@@ -1,7 +1,7 @@
 package com.uxstate.data.repository
 
 import com.uxstate.data.json.JsonParser
-import com.uxstate.data.local.AstroPhotoDatabase
+import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.mapper.toPictureModel
@@ -24,7 +24,7 @@ class NeowsRepositoryImpl @Inject constructor(
 
         //we always depend on abstraction
     private val api: AstroPictureAPI,
-    private val db: AstroPhotoDatabase,
+    private val db: AstroDatabase,
     private val jsonParser: JsonParser<NearEarthObjectDTO>
 
 ) : AstroRepository {

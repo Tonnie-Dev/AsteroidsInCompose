@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(entities = [AstroPhotoEntity::class], version = 1)
-abstract class AstroPhotoDatabase : RoomDatabase(){
+abstract class AstroDatabase : RoomDatabase(){
 
 abstract val dao:AstroDao
 
