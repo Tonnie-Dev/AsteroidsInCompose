@@ -1,6 +1,7 @@
 package com.uxstate.data.repository
 import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.mapper.toAstroPhoto
+import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
@@ -47,13 +48,13 @@ class AstroRepositoryImpl @Inject constructor(
 
     //LOCAL
     override suspend fun insertAstroPhoto(photo: AstroPhoto) {
-        dao.insertFavoriteAstroPhoto(photo.)
+        dao.insertFavoriteAstroPhoto(photo.toEntity())
     }
 
 
     //LOCAL
     override suspend fun deleteAstroPhoto(id: String) {
-        TODO("Not yet implemented")
+        dao.deleteFavoritePhoto(id)
     }
 
 
