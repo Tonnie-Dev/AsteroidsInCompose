@@ -1,9 +1,6 @@
 package com.uxstate.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.uxstate.domain.model.AstroPhoto
 
 @Dao
@@ -15,9 +12,11 @@ fun insertFavoriteAstroPhoto(photoEntity: AstroPhotoEntity)
 @Query("SELECT * FROM astrophotoentity ")
 fun getFavoriteAstroPhotos():List<AstroPhotoEntity>
 
-@Query("SELECT * FROM astrophotoentity WHERE date ==:id")
+@Query("SELECT * FROM astrophotoentity WHERE date =:id")
 fun getPhotoById(id:String):AstroPhoto?
 
 
+@Delete
+fun deletePhoto(id:String)
 
 }
