@@ -60,7 +60,7 @@ class OverviewViewModel @Inject constructor(
             }
 
             is OverviewEvent.OnRefreshNeows -> {
-
+                getAstroPictures()
                 getNearEarthObjects(endDate = DateFilter.NextSevenDays, fetchFromRemote = true)
             }
 
