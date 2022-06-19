@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-
     //REPOSITORY
     @Binds //@Binds used for 1-to-1 interface-implementation mapping
     @Singleton

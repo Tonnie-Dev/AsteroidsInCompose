@@ -2,7 +2,7 @@ package com.uxstate.presentation.overview_screen
 
 import com.uxstate.domain.model.AstroPhotoEntity
 
-data class OverviewState(
+data class PhotoState(
     val neows: List<NearEarthObject> = emptyList(),
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,

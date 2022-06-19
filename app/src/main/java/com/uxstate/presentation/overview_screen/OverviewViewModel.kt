@@ -24,7 +24,7 @@ class OverviewViewModel @Inject constructor(
 
 
     //by delegate is used because OverviewState has get being a data class
-    var state by mutableStateOf(OverviewState())
+    var state by mutableStateOf(PhotoState())
         private set
 
     val _uiEvent = Channel<OverviewEvent>()
