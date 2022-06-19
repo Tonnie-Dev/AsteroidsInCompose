@@ -17,8 +17,5 @@ import com.uxstate.util.LocalSpacing
 fun AstroShareScreen(astroPicture: AstroPicture, navigator: DestinationsNavigator) {
 
     val spacing = LocalSpacing.current
-    AstroShareComposable(picture = astroPicture, modifier = Modifier.padding(spacing.spaceExtraSmall)){
-
-        navigator.navigate(OverviewScreenDestination)
-    }
+    AstroShareComposable(picture = astroPicture, modifier = Modifier.padding(spacing.spaceExtraSmall))
 }

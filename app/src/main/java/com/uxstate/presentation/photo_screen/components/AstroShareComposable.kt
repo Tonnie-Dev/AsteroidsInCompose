@@ -26,8 +26,7 @@ import com.uxstate.util.LocalSpacing
 @Composable
 fun AstroShareComposable(
     picture: AstroPicture,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier
 ) {
 
     val spacing = LocalSpacing.current
@@ -58,7 +57,7 @@ modifier = Modifier.fillMaxHeight()
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                         .clip(MaterialTheme.shapes.large)
-                        .clickable { onClick() }
+
                         .fillMaxWidth()
                         .aspectRatio(3f / 2f)
 
