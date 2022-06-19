@@ -7,13 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface AstroRepository {
+    
 
-    fun getAllNeowsObjects(
-        startDate: String,
-        endDate:String,
-        fetchFromRemote: Boolean
-    ): Flow<Resource<List<NearEarthObject>>>
-
-
-   suspend fun getAstroPictures():List<AstroPhotoEntity>
+   suspend fun getAstroPhotos():List<AstroPhotoEntity>
 }

@@ -22,7 +22,7 @@ class GetAstroPicturesUseCase(private val repository: AstroRepository) {
 
             val response = try {
 
-                repository.getAstroPictures().filter { it.mediaType=="image" }
+                repository.getAstroPhotos().filter { it.mediaType=="image" }
 
             } catch (e: IOException) {
 

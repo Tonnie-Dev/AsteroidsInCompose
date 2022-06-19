@@ -117,7 +117,7 @@ class NeowsRepositoryImpl @Inject constructor(
 
         }
 
-    override suspend fun getAstroPictures(): List<AstroPhotoEntity>{
+    override suspend fun getAstroPhotos(): List<AstroPhotoEntity>{
 
         return api.getAstroPictures().map { it.toPictureModel() }
 
