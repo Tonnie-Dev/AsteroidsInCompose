@@ -9,5 +9,9 @@ import kotlinx.coroutines.flow.Flow
 class GetFavAstroPhotosUseCase(private val repository: AstroRepository) {
 
 
-    operator fun invoke(): Flow<List<AstroPhoto>{}
+    operator fun invoke(): Flow<List<AstroPhoto>?>{
+
+
+        return repository.getFavoriteAstroPhotos() 
+    }
 }
