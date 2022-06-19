@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.domain.model.AstroPhotoEntity
-import com.uxstate.presentation.destinations.OverviewScreenDestination
 import com.uxstate.presentation.photo_screen.components.AstroShareComposable
 import com.uxstate.util.LocalSpacing
 
