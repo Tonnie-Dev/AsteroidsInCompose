@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AstroPhoto(
+    val date:String,
     val title: String,
     val explanation: String,
     val mediaType: String,

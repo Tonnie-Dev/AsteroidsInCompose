@@ -7,13 +7,14 @@ import com.uxstate.domain.model.AstroPhoto
 
 //DTO to Model
 
-fun AstroPhotoDTO.toPictureModel(): AstroPhoto {
+fun AstroPhotoDTO.toModel(): AstroPhoto {
 
     return AstroPhoto(
             title = this.title,
             explanation = this.explanation,
             mediaType = this.mediaType,
-            url = this.url
+            url = this.url,
+    date = this.date
     )
 
 }
@@ -26,6 +27,19 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
             title = this.title,
             explanation = this.explanation,
             mediaType = "image",
+            url = this.url,
+            date = this.date
+    )
+}
+
+//Model to entity
+
+fun AstroPhoto.toEntity(): AstroPhotoEntity {
+
+    return AstroPhotoEntity(
+            date = this.date,
+            title = this.title,
+            explanation = this.explanation,
             url = this.url
     )
 }

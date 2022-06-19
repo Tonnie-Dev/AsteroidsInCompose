@@ -6,6 +6,9 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class AstroPhotoDTO(
+
+    @Json(name = "date")
+    val date:String,
     @Json(name = "title")
     val title: String,
     @Json(name = "explanation")
