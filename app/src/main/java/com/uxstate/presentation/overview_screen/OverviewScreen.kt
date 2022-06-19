@@ -59,7 +59,7 @@ fun OverviewScreen(
 
                             navigator.navigate( AstroShareScreenDestination(it))
                         }
-                        
+
                     }
                 })
 
