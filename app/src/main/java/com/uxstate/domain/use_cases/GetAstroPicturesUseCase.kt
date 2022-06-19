@@ -1,6 +1,6 @@
 package com.uxstate.domain.use_cases
 
-import com.uxstate.domain.model.AstroPicture
+import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,7 @@ import java.io.IOException
 
 class GetAstroPicturesUseCase(private val repository: NeowsRepository) {
 
-    operator  fun invoke(): Flow<Resource<List<AstroPicture>>> =
+    operator  fun invoke(): Flow<Resource<List<AstroPhotoEntity>>> =
         //Return a flow builder to have access to emit()
         flow {
 

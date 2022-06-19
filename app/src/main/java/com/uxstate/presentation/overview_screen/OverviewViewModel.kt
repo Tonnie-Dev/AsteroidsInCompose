@@ -141,7 +141,7 @@ getAstroPicturesUseCase().onEach { result ->
 
             result.data?.let {
 
-                state =state.copy(astroPictures = it)
+                state =state.copy(astroPhotoEntities = it)
             }
 
         }

@@ -1,6 +1,6 @@
 package com.uxstate.domain.repository
 
-import com.uxstate.domain.model.AstroPicture
+import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -15,5 +15,5 @@ interface NeowsRepository {
     ): Flow<Resource<List<NearEarthObject>>>
 
 
-   suspend fun getAstroPictures():List<AstroPicture>
+   suspend fun getAstroPictures():List<AstroPhotoEntity>
 }

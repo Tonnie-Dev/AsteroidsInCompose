@@ -6,7 +6,7 @@ import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.mapper.toPictureModel
 import com.uxstate.data.remote.AstroPictureAPI
-import com.uxstate.domain.model.AstroPicture
+import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.util.Resource
@@ -117,7 +117,7 @@ class NeowsRepositoryImpl @Inject constructor(
 
         }
 
-    override suspend fun getAstroPictures(): List<AstroPicture>{
+    override suspend fun getAstroPictures(): List<AstroPhotoEntity>{
 
         return api.getAstroPictures().map { it.toPictureModel() }
 

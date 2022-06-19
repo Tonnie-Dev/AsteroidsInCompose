@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AstroPicture(
+data class AstroPhotoEntity(
     val title: String,
     val explanation: String,
     val mediaType: String,

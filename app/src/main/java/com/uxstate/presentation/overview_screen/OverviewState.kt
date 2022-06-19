@@ -1,6 +1,6 @@
 package com.uxstate.presentation.overview_screen
 
-import com.uxstate.domain.model.AstroPicture
+import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.domain.model.NearEarthObject
 
 data class OverviewState(
@@ -8,8 +8,8 @@ data class OverviewState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val errorMessage: String? = null,
-    val astroPictures: List<AstroPicture> = emptyList(),
+    val astroPhotoEntities: List<AstroPhotoEntity> = emptyList(),
     val isPictureLoading: Boolean = false,
     val pictureErrorMessage:String? = null,
-val isPhotoTapped:Boolean = false
+    val isPhotoTapped:Boolean = false
 )

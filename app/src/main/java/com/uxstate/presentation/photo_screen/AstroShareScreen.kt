@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.domain.model.AstroPicture
+import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.presentation.destinations.OverviewScreenDestination
 import com.uxstate.presentation.photo_screen.components.AstroShareComposable
 import com.uxstate.util.LocalSpacing
@@ -14,8 +14,8 @@ import com.uxstate.util.LocalSpacing
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
-fun AstroShareScreen(astroPicture: AstroPicture, navigator: DestinationsNavigator) {
+fun AstroShareScreen(astroPhotoEntity: AstroPhotoEntity, navigator: DestinationsNavigator) {
 
     val spacing = LocalSpacing.current
-    AstroShareComposable(picture = astroPicture, modifier = Modifier.padding(spacing.spaceExtraSmall))
+    AstroShareComposable(picture = astroPhotoEntity, modifier = Modifier.padding(spacing.spaceExtraSmall))
 }
