@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -32,7 +34,6 @@ import com.uxstate.util.LocalSpacing
 fun AstroPhotoComposable(
     picture: AstroPicture,
     modifier: Modifier = Modifier,
-    isExpanded: Boolean,
     onTapPhoto: () -> Unit
 ) {
 
@@ -43,9 +44,11 @@ fun AstroPhotoComposable(
             .scheme("https")
             .build()
 
-    Column {
 
-        Box(modifier = modifier.clickable { onTapPhoto() }) {
+
+        Box (modifier = modifier){
+
+
 
               Image(
                 painter = rememberImagePainter(
@@ -53,18 +56,35 @@ fun AstroPhotoComposable(
                         builder = {
                             crossfade(true)
                             placeholder(R.drawable.loading_animation)
-
-
                         }
                 ),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(420.dp, 240.dp)
-                        .padding(spacing.spaceMedium)
 
-        )
+
+                modifier = Modifier
+                        .clip(MaterialTheme.shapes.large)
+                        .clickable { onTapPhoto() }
+                       // .size(100.dp, 240.dp)
+                        .fillMaxWidth()
+                        .aspectRatio(3f/2f))
+
+
+
+            Surface(
+                    color = Color(0x7F000000),
+                    shape = RoundedCornerShape(spacing.spaceMedium),
+                    modifier = modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(spacing.spaceMedium)
+            ) {
+
+                Text(
+                        text = picture.title,
+                        color = Color.White,
+                        modifier = Modifier.padding(spacing.spaceSmall)
+                )
+            }
 /*
             Image(
                     
@@ -90,16 +110,7 @@ fun AstroPhotoComposable(
 
 
 
-            Surface(
-                    color = Color(0x7F000000),
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(spacing.spaceMedium)
-            ) {
 
-                Text(text = picture.title, color = Color.White, modifier = Modifier.padding(spacing.spaceSmall))
-            }
             /*
              val image = AnimatedImageVector.animatedVectorResource(R.drawable.loading_animation)
     val atEnd by remember { mutableStateOf(true) }
@@ -146,7 +157,7 @@ fun AstroPhotoComposable(
 
     }
 
-}
+
 
 
 ////https://coil-kt.github.io/coil/compose/

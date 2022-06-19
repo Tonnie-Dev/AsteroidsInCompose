@@ -48,20 +48,19 @@ fun OverviewScreen(
             SwipeRefresh(
                     state = pictureSwipeRefreshState,
                     onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
-                    modifier = Modifier.weight(5f)
+                    modifier = Modifier.fillMaxWidth().weight(4f)
             ) {
-                LazyRow(
-                        modifier = Modifier.verticalScroll(rememberScrollState()),
-                        content = {
+                LazyRow(modifier = Modifier.verticalScroll(rememberScrollState()).fillMaxWidth())
+                         {
 
                             items(state.astroPictures) {
 
-                                AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxSize(),state.isPhotoTapped){
+                                AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()){
 
                                     navigator.navigate( AstroShareScreenDestination(it))
                                 }
                             }
-                        })
+                        }
             }
 
 
@@ -103,7 +102,7 @@ fun OverviewScreen(
 
             SwipeRefresh(state = swipeRefreshState, modifier = Modifier
                     .fillMaxWidth()
-                    .weight(4f), onRefresh = {
+                    .weight(5f), onRefresh = {
 
                 viewModel.onEvent(OverviewEvent.OnRefreshNeows)
             }) {
@@ -111,14 +110,20 @@ fun OverviewScreen(
                 LazyColumn(content = {
 
 
-                    items(state.neows) {
+                    items(state.astroPictures) {
 
-                        NeowsItem(
+                        AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()){
+
+                            navigator.navigate( AstroShareScreenDestination(it))
+                        }
+
+
+                      /*  NeowsItem(
                                 modifier = Modifier.fillMaxWidth(),
                                 name = it.codename,
                                 approachDate = localDateToString(it.closeApproachDate),
                                 isHazardous = it.isPotentiallyHazardous,
-                                onClickNeowsItem = { /*TODO*/ })
+                                onClickNeowsItem = { *//*TODO*//* })*/
 
                     }
                 })
