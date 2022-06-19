@@ -8,59 +8,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-//DTO to Model
-
-fun NearEarthObjectDTO.toNearEarthObject(): NearEarthObject {
-
-
-    val pattern = "yyyy-MM-dd"
-    val dateFormatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())
-    val date = LocalDate.parse(this.closeApproachDate, dateFormatter)
-
-    return NearEarthObject(
-            id = this.id,
-            codename = this.codename,
-            closeApproachDate = date,
-            estimatedDiameter = this.estimatedDiameter,
-            relativeVelocity = this.relativeVelocity,
-            distanceFromEarth = this.distanceFromEarth,
-            isPotentiallyHazardous = this.isPotentiallyHazardous
-    )
-}
-
-//DTO to Entity
-fun NearEarthObjectDTO.toEntity(): NeowsEntity {
-
-    return NeowsEntity(
-            id = this.id,
-            codename = this.codename,
-            closeApproachDate = this.closeApproachDate,
-            estimatedDiameter = this.estimatedDiameter,
-            relativeVelocity = this.relativeVelocity,
-            distanceFromEarth = this.distanceFromEarth,
-            isPotentiallyHazardous = this.isPotentiallyHazardous
-    )
-}
-
-//Entity to Model
-
-fun NeowsEntity.toModel(): NearEarthObject {
-
-    val pattern = "yyyy-MM-dd"
-    val dateFormatter = DateTimeFormatter.ofPattern(pattern)
-    val date = LocalDate.parse(this.closeApproachDate, dateFormatter)
-
-    return NearEarthObject(
-            id = this.id,
-            codename = this.codename,
-            closeApproachDate = date,
-            estimatedDiameter = this.estimatedDiameter,
-            relativeVelocity = this.relativeVelocity,
-            distanceFromEarth = this.distanceFromEarth,
-            isPotentiallyHazardous = this.isPotentiallyHazardous
-    )
-}
-
 
 //Picture DTO to Picture Model
 
