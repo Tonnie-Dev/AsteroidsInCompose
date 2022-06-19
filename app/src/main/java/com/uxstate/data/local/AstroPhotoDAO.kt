@@ -8,7 +8,7 @@ import com.uxstate.domain.model.NearEarthObject
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NeowsDao {
+interface AstroPhotoDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNeows(neows:List<NeowsEntity>)
