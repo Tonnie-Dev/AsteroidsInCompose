@@ -1,17 +1,15 @@
 package com.uxstate.domain.use_cases
 
 import com.uxstate.domain.model.NearEarthObject
-import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class GetNeowsUseCase @Inject constructor(private val repository: NeowsRepository) {
+class GetNeowsUseCase @Inject constructor(private val repository: AstroRepository) {
 
      operator fun invoke(
          startDate: LocalDateTime,

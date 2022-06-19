@@ -8,7 +8,7 @@ import com.uxstate.data.mapper.toPictureModel
 import com.uxstate.data.remote.AstroPictureAPI
 import com.uxstate.domain.model.AstroPhotoEntity
 import com.uxstate.domain.model.NearEarthObject
-import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,7 +27,7 @@ class NeowsRepositoryImpl @Inject constructor(
     private val db: AstroPhotoDatabase,
     private val jsonParser: JsonParser<NearEarthObjectDTO>
 
-) : NeowsRepository {
+) : AstroRepository {
 
     val dao = db.dao
     override  fun getAllNeowsObjects(

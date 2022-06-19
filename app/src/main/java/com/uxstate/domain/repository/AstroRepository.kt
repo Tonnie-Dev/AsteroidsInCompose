@@ -6,7 +6,7 @@ import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 
-interface NeowsRepository {
+interface AstroRepository {
 
     fun getAllNeowsObjects(
         startDate: String,

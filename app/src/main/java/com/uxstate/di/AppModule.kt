@@ -6,7 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.uxstate.data.local.AstroPhotoDatabase
 import com.uxstate.data.remote.AstroPictureAPI
-import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
 import com.uxstate.domain.use_cases.GetNeowsUseCase
 import dagger.Module
@@ -49,7 +49,7 @@ object AppModule {
     @Provides
     @Singleton
 
-    fun provideGetNeowsUseCase(repository: NeowsRepository): GetNeowsUseCase {
+    fun provideGetNeowsUseCase(repository: AstroRepository): GetNeowsUseCase {
 
         return GetNeowsUseCase(repository)
     }
@@ -57,7 +57,7 @@ object AppModule {
     @Provides
     @Singleton
 
-    fun provideGetAstroPicturesUseCase(repository: NeowsRepository): GetAstroPicturesUseCase {
+    fun provideGetAstroPicturesUseCase(repository: AstroRepository): GetAstroPicturesUseCase {
 
         return GetAstroPicturesUseCase(repository)
     }

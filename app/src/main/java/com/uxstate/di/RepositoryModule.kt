@@ -3,7 +3,7 @@ package com.uxstate.di
 import com.uxstate.data.json.JsonParser
 import com.uxstate.data.mapper.NeowsParser
 import com.uxstate.data.repository.NeowsRepositoryImpl
-import com.uxstate.domain.repository.NeowsRepository
+import com.uxstate.domain.repository.AstroRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ abstract class RepositoryModule {
     is the interface implementation and the return type is the
     interface implemented by the given parameter object.*/
 
-    abstract fun provideNeowsRepository(repositoryImpl: NeowsRepositoryImpl): NeowsRepository
+    abstract fun provideNeowsRepository(repositoryImpl: NeowsRepositoryImpl): AstroRepository
 
     @Binds//@Binds used for 1-to-1 interface-implementation mapping
     @Singleton
