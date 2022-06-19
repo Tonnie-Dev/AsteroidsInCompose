@@ -1,11 +1,15 @@
 package com.uxstate.presentation.photo_screen.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -22,7 +26,8 @@ import com.uxstate.util.LocalSpacing
 @Composable
 fun AstroShareComposable(
     picture: AstroPicture,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -32,11 +37,13 @@ fun AstroShareComposable(
             .buildUpon()
             .scheme("https")
             .build()
+
+
     Card(
-            modifier = modifier,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            shape = MaterialTheme.shapes.large
-    ) {
+            shape = MaterialTheme.shapes.large,
+modifier = Modifier.fillMaxHeight()
+            ) {
 
         //Image
         Image(
@@ -51,26 +58,35 @@ fun AstroShareComposable(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                         .clip(MaterialTheme.shapes.large)
+                        .clickable { onClick() }
                         .fillMaxWidth()
                         .aspectRatio(3f / 2f)
-                        .padding(spacing.spaceExtraSmall)
 
 
         )
 
+        Box(modifier = Modifier.fillMaxHeight()) {
 
-        //Column
-        Column(modifier = Modifier.padding(spacing.spaceMedium)) {
+            //Column
+            Column(
+                    modifier = Modifier
+                            .padding(spacing.spaceMedium)
+                            .verticalScroll(rememberScrollState()).align(Alignment.TopStart)
+            ) {
 
-            Text(text = picture.title, style = MaterialTheme.typography.titleLarge)
+                Text(text = picture.title, style = MaterialTheme.typography.titleLarge)
 
-            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+                Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
-            Text(text = picture.explanation, style = MaterialTheme.typography.bodyMedium)
+                Text(text = picture.explanation, style = MaterialTheme.typography.bodyMedium)
 
-            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+                Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+
+            }
+
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.align(
+                    Alignment.BottomStart)) {
                 AssistChip(
                         onClick = { /*TODO*/ },
                         colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
@@ -81,7 +97,7 @@ fun AstroShareComposable(
                             )
                         },
 
-                        label = { Text(text = "Mark as Favorite")}
+                        label = { Text(text = "Mark as Favorite") }
                 )
 
                 AssistChip(
@@ -94,13 +110,14 @@ fun AstroShareComposable(
                             )
                         },
 
-                        label = { Text(text = "Share with Others")}
+                        label = { Text(text = "Share with Others") }
                 )
             }
 
 
         }
     }
-
-
 }
+
+
+
