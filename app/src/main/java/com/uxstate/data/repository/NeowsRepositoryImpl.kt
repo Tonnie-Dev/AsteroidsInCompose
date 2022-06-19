@@ -6,7 +6,6 @@ import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.mapper.toPictureModel
 import com.uxstate.data.remote.AstroPictureAPI
-import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject
 import com.uxstate.domain.repository.NeowsRepository

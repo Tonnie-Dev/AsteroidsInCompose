@@ -2,7 +2,6 @@ package com.uxstate.di
 
 import com.uxstate.data.json.JsonParser
 import com.uxstate.data.mapper.NeowsParser
-import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.data.repository.NeowsRepositoryImpl
 import com.uxstate.domain.repository.NeowsRepository
 import dagger.Binds

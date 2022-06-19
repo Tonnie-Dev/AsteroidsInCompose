@@ -2,7 +2,6 @@ package com.uxstate.data.mapper
 
 import com.uxstate.data.local.NeowsEntity
 import com.uxstate.data.remote.dto.AstroPhotoDTO
-import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject
 import java.time.LocalDate
