@@ -1,9 +1,9 @@
 package com.uxstate.presentation.overview_screen
 
-import com.uxstate.domain.model.AstroPhotoEntity
+import com.uxstate.domain.model.AstroPhoto
 
 data class PhotoState(
-    val astroPhotoEntities: List<AstroPhotoEntity> = emptyList(),
+    val astroPhotoEntities: List<AstroPhoto> = emptyList(),
     val isPhotoLoading: Boolean = false,
     val errorMessage: String? = null,
 

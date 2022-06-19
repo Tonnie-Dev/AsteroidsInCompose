@@ -15,7 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.uxstate.R
-import com.uxstate.domain.model.AstroPhotoEntity
+import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
 
 
@@ -24,7 +24,7 @@ import com.uxstate.util.LocalSpacing
 
 @Composable
 fun AstroShareComposable(
-    picture: AstroPhotoEntity,
+    picture: AstroPhoto,
     modifier: Modifier = Modifier
 ) {
 

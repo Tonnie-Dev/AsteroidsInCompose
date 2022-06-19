@@ -21,13 +21,13 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
 import com.uxstate.R
-import com.uxstate.domain.model.AstroPhotoEntity
+import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AstroPhotoComposable(
-    picture: AstroPhotoEntity,
+    picture: AstroPhoto,
     modifier: Modifier = Modifier,
     onTapPhoto: () -> Unit
 ) {
