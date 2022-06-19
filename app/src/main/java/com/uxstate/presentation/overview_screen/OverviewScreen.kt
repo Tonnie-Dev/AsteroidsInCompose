@@ -34,7 +34,6 @@ fun OverviewScreen(
 
     val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
-    val pictureSwipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPictureLoading)
     val spacing = LocalSpacing.current
 
         Column(
@@ -43,62 +42,6 @@ fun OverviewScreen(
                         .padding(spacing.spaceMedium)
         ) {
 
-            //IMAGE
-
-            SwipeRefresh(
-                    state = pictureSwipeRefreshState,
-                    onRefresh = { viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto) },
-                    modifier = Modifier.fillMaxWidth().weight(4f)
-            ) {
-                LazyRow(modifier = Modifier.verticalScroll(rememberScrollState()).fillMaxWidth())
-                         {
-
-                            items(state.astroPictures) {
-
-                                AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()){
-
-                                    navigator.navigate( AstroShareScreenDestination(it))
-                                }
-                            }
-                        }
-            }
-
-
-
-
-            //BUTTON ROW
-
-            Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium),
-                    verticalAlignment = Alignment.CenterVertically
-            ) {
-
-
-                ButtonItem(
-                        onClickButton = {
-                            viewModel.onEvent(
-                                    OverviewEvent.OnClickTodayButton
-
-                            )
-                        },
-                        text = "Today",
-                        modifier = Modifier.weight(1f)
-                )
-                ButtonItem(
-                        onClickButton = { viewModel.onEvent(OverviewEvent.OnClickTomorrowButton) },
-                        text = "Tomorrow",
-                        modifier = Modifier.weight(1f)
-                )
-                ButtonItem(
-                        onClickButton = { viewModel.onEvent(OverviewEvent.OnClickNextSevenDaysButton) },
-                        text = "Next 7 Days",
-                        modifier = Modifier.weight(1f)
-                )
-
-            }
 
             SwipeRefresh(state = swipeRefreshState, modifier = Modifier
                     .fillMaxWidth()
@@ -116,15 +59,7 @@ fun OverviewScreen(
 
                             navigator.navigate( AstroShareScreenDestination(it))
                         }
-
-
-                      /*  NeowsItem(
-                                modifier = Modifier.fillMaxWidth(),
-                                name = it.codename,
-                                approachDate = localDateToString(it.closeApproachDate),
-                                isHazardous = it.isPotentiallyHazardous,
-                                onClickNeowsItem = { *//*TODO*//* })*/
-
+                        
                     }
                 })
 
@@ -137,11 +72,4 @@ fun OverviewScreen(
 
 }
 
-fun localDateToString(date: LocalDate): String {
 
-    val pattern = "dd-MM-yyyy"
-    val dateFormatter = DateTimeFormatter.ofPattern(pattern)
-    return date.format(dateFormatter)
-
-
-}
