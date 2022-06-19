@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(
-   
     private val getAstroPhotosUseCase: GetAstroPhotosUseCase
 ) : ViewModel() {
 
@@ -31,7 +30,7 @@ class OverviewViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        getNearEarthObjects()
+        
         getAstroPictures()
     }
 
@@ -39,84 +38,19 @@ class OverviewViewModel @Inject constructor(
 
         when (event) {
 
-            is OverviewEvent.OnClickTodayButton -> {
-                getNearEarthObjects()
-
-            }
-
-            is OverviewEvent.OnClickTomorrowButton -> {
-
-                getNearEarthObjects(
-                        startDate = LocalDateTime.now()
-                                .plusDays(1),
-                        endDate = DateFilter.TomorrowDate
-                )
-            }
-
-            is OverviewEvent.OnClickNextSevenDaysButton -> {
-
-                getNearEarthObjects(endDate = DateFilter.NextSevenDays, fetchFromRemote = false)
-            }
-
-            is OverviewEvent.OnRefreshNeows -> {
-                getAstroPictures()
-                getNearEarthObjects(endDate = DateFilter.NextSevenDays, fetchFromRemote = true)
-            }
 
             is OverviewEvent.OnRefreshAstroPhoto -> {
                 getAstroPictures()
 
             }
 
-            is OverviewEvent.OnClickAstroPhoto -> {
+           is OverviewEvent.OnMarkFavorite -> {
 
-                state = state.copy(isPhotoTapped = !state.isPhotoTapped)
-            }
+               state = state.copy(isPhotoFavorite = true)
+           }
+
+            else -> Unit
         }
-    }
-
-    private fun getNearEarthObjects(
-        startDate: LocalDateTime = LocalDateTime.now(),
-        endDate: DateFilter = DateFilter.TodayDate,
-        fetchFromRemote: Boolean = false
-    ) {
-
-
-        //you can either use flow.collect or flow.onEach
-        useCase(
-                startDate = startDate,
-                endDate = endDate,
-                fetchFromRemote = fetchFromRemote
-        ).onEach {
-
-            result ->
-
-            when (result) {
-
-                is Resource.Success -> {
-
-                    result.data?.let {
-
-                        state = state.copy(neows = it)
-                    }
-
-
-                }
-                is Resource.Error -> {
-
-                    state =
-                        state.copy(errorMessage = result.message ?: "An expected error occurred")
-
-                }
-                is Resource.Loading -> {
-
-                    state = state.copy(isLoading = result.isLoading)
-                }
-            }
-
-
-        }
-                .launchIn(viewModelScope)
     }
 
 
@@ -124,9 +58,7 @@ class OverviewViewModel @Inject constructor(
 
 getAstroPhotosUseCase().onEach { result ->
 
-
     when(result){
-
 
         is Resource.Loading -> {
 
@@ -134,7 +66,7 @@ getAstroPhotosUseCase().onEach { result ->
         }
         is Resource.Error -> {
 
-            state = state.copy(pictureErrorMessage = result.message)
+            state = state.copy(errorMessage = result.message)
         }
         is Resource.Success -> {
 
