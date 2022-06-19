@@ -59,6 +59,7 @@ fun OverviewScreen(
 
                             navigator.navigate( AstroShareScreenDestination(it))
                         }
+                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
                     }
                 })

@@ -103,7 +103,7 @@ fun AstroPhotoComposable(
                 mainAxisSize = SizeMode.Wrap
         ) {
 
-//Favourite AssistChip
+            //Favourite AssistChip
             AssistChip(
                     onClick = { /*TODO*/ },
                     colors = AssistChipDefaults.assistChipColors
@@ -113,26 +113,11 @@ fun AstroPhotoComposable(
                                 imageVector = Icons.Default.Favorite,
                                 contentDescription = stringResource(R.string.favourite_label)
                         )
-                    }
-            , label = { Text(text = stringResource(id = R.string.favourite_label))}
+                    }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
             )
         }
 
 
-
-        //Share AssistShape
-        AssistChip(
-                onClick = { /*TODO*/ },
-                colors = AssistChipDefaults.assistChipColors
-                (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                leadingIcon = {
-                    Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = stringResource(R.string.share_label)
-                    )
-                }
-                , label = { Text(text = stringResource(id = R.string.share_label))}
-        )
     }
 
     }
