@@ -5,8 +5,7 @@ import com.uxstate.data.local.NeowsDatabase
 import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.mapper.toPictureModel
-import com.uxstate.data.remote.NeowsAPI
-import com.uxstate.data.remote.dto.AstroPictureDTO
+import com.uxstate.data.remote.AstroPictureAPI
 import com.uxstate.data.remote.dto.NearEarthObjectDTO
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.domain.model.NearEarthObject
@@ -25,7 +24,7 @@ import javax.inject.Singleton
 class NeowsRepositoryImpl @Inject constructor(
 
         //we always depend on abstraction
-    private val api: NeowsAPI,
+    private val api: AstroPictureAPI,
     private val db: NeowsDatabase,
     private val jsonParser: JsonParser<NearEarthObjectDTO>
 

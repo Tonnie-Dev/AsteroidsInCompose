@@ -1,19 +1,17 @@
 package com.uxstate.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.uxstate.data.local.NeowsDatabase
-import com.uxstate.data.remote.NeowsAPI
+import com.uxstate.data.remote.AstroPictureAPI
 import com.uxstate.domain.repository.NeowsRepository
 import com.uxstate.domain.use_cases.GetAstroPicturesUseCase
 import com.uxstate.domain.use_cases.GetNeowsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -38,14 +36,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNeowsAPI(): NeowsAPI {
+    fun provideNeowsAPI(): AstroPictureAPI {
     val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
-                .baseUrl(NeowsAPI.BASE_URL)
+                .baseUrl(AstroPictureAPI.BASE_URL)
                 . addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
-                .create(NeowsAPI::class.java)
+                .create(AstroPictureAPI::class.java)
     }
 
     @Provides
