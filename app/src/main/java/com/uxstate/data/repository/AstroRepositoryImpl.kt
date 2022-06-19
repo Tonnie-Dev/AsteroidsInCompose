@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Singleton
 
 //use @Inject so that Hilt knows how to create NeowsRepositoryImpl object
-class NeowsRepositoryImpl @Inject constructor(
+class AstroRepositoryImpl @Inject constructor(
 
         //we always depend on abstraction
     private val api: AstroPictureAPI,
