@@ -11,7 +11,7 @@ interface AstroDao {
 suspend fun insertFavoriteAstroPhoto(photoEntity: AstroPhotoEntity)
 
 @Query("SELECT * FROM astrophotoentity ")
-suspend fun getFavoriteAstroPhotos():List<AstroPhotoEntity>?
+suspend fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
 
 @Query("SELECT * FROM astrophotoentity WHERE date =:id")
 suspend fun getFavoritePhotoById(id:String):AstroPhoto?

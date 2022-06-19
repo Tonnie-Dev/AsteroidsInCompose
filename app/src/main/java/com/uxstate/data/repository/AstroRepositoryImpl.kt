@@ -34,9 +34,13 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     //LOCAL
-    override suspend fun getFavoriteAstroPhotos(): List<AstroPhoto>{
-        return dao.getFavoriteAstroPhotos()
-                ?.map { it.toAstroPhoto() } ?: return emptyList()
+    override suspend fun getFavoriteAstroPhotos(): Flow<List<AstroPhoto>?>{
+
+
+        return dao.getFavoriteAstroPhotos().map {
+            it?.map { photo -> photo.toAstroPhoto() }
+        }
+
     }
 
 
