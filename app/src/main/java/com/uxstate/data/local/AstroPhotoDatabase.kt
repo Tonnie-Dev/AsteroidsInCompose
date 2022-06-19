@@ -3,7 +3,7 @@ package com.uxstate.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [NeowsEntity::class], version = 1)
+@Database(entities = [AstroPhotoEntity::class], version = 1)
 abstract class AstroPhotoDatabase : RoomDatabase(){
 
 abstract val dao:AstroPhotoDAO
