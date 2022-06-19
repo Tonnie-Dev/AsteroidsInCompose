@@ -10,21 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AstroPhotoDAO {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNeows(neows:List<NeowsEntity>)
-
-    @Query("DELETE from neowsentity")
-    suspend fun clearNeows()
-
-    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER By closeApproachDate ASC")
-    suspend fun getAllNeows(startDate:String, endDate:String):List<NeowsEntity>
-
-/*    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
-    suspend fun getWeeklyNeows(startDate: String, endDate: String): List<NeowsEntity>
-
-    @Query("SELECT * FROM neowsentity WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER By closeApproachDate ASC")
-    suspend fun getTodayNeows(startDate: String,endDate: String):List<NeowsEntity>*/
-
+    
 
 
 }
