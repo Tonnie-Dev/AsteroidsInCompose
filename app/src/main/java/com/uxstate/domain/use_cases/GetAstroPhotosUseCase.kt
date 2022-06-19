@@ -9,7 +9,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 
-class GetAstroPicturesUseCase(private val repository: AstroRepository) {
+class GetAstroPhotosUseCase(private val repository: AstroRepository) {
 
     operator  fun invoke(): Flow<Resource<List<AstroPhotoEntity>>> =
         //Return a flow builder to have access to emit()
