@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AsteroidsInCompose</string>
+    <string name="favourite_label">Mark as Favourite</string>
+    <string name="share_label">Share with Others</string>
 </resources>

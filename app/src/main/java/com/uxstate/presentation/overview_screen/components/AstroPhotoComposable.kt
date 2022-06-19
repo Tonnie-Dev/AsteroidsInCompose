@@ -5,6 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,9 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
+import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.flowlayout.SizeMode
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPicture
 import com.uxstate.util.LocalSpacing
@@ -91,5 +97,43 @@ fun AstroPhotoComposable(
             )
         }
 
+        FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                mainAxisSpacing = spacing.spaceSmall,
+                mainAxisSize = SizeMode.Wrap
+        ) {
+
+//Favourite AssistChip
+            AssistChip(
+                    onClick = { /*TODO*/ },
+                    colors = AssistChipDefaults.assistChipColors
+                    (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                    leadingIcon = {
+                        Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = stringResource(R.string.favourite_label)
+                        )
+                    }
+            , label = { Text(text = stringResource(id = R.string.favourite_label))}
+            )
+        }
+
+
+
+        //Share AssistShape
+        AssistChip(
+                onClick = { /*TODO*/ },
+                colors = AssistChipDefaults.assistChipColors
+                (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                leadingIcon = {
+                    Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = stringResource(R.string.share_label)
+                    )
+                }
+                , label = { Text(text = stringResource(id = R.string.share_label))}
+        )
     }
-}
+
+    }
+
