@@ -7,7 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.repository.AstroRepository
-import com.uxstate.domain.use_cases.GetAstroPhotosUseCase
+import com.uxstate.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,9 +24,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAstroDatabase(app: Application): AstroDatabase {
-        return Room.databaseBuilder(app,
+        return Room.databaseBuilder(
+                app,
                 AstroDatabase::class.java,
-                AstroDatabase.DB_NAME)
+                AstroDatabase.DB_NAME
+        )
                 .build()
 
     }
@@ -35,7 +37,9 @@ object AppModule {
     @Singleton
     fun provideAstroAPI(): AstroAPI {
 
-        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val moshi = Moshi.Builder()
+                .addLast(KotlinJsonAdapterFactory())
+                .build()
         return Retrofit.Builder()
                 .baseUrl(AstroAPI.BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -50,6 +54,21 @@ object AppModule {
     fun provideAstroPhotosUseCase(repository: AstroRepository): GetAstroPhotosUseCase {
 
         return GetAstroPhotosUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUseCaseContainer(
+        repository: AstroRepository
+    ): UseCaseContainer {
+
+        return UseCaseContainer(
+                deleteFavoritePhotoUseCase,
+                getFavAstroPhotoUseCase,
+                getAstroPhotosUseCase,
+                getFavAstroPhotosUseCase,
+                insertAstroPhotoUseCase
+        )
     }
 
 }
