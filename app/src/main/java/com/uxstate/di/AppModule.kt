@@ -48,13 +48,7 @@ object AppModule {
     }
 
 
-    @Provides
-    @Singleton
 
-    fun provideAstroPhotosUseCase(repository: AstroRepository): GetAstroPhotosUseCase {
-
-        return GetAstroPhotosUseCase(repository)
-    }
 
     @Provides
     @Singleton
@@ -63,11 +57,11 @@ object AppModule {
     ): UseCaseContainer {
 
         return UseCaseContainer(
-                deleteFavoritePhotoUseCase,
-                getFavAstroPhotoUseCase,
-                getAstroPhotosUseCase,
-                getFavAstroPhotosUseCase,
-                insertAstroPhotoUseCase
+                deleteFavoritePhotoUseCase = DeleteFavoritePhotoUseCase(repository),
+                getFavAstroPhotoUseCase = GetFavAstroPhotoUseCase(repository),
+                getAstroPhotosUseCase = GetAstroPhotosUseCase(repository),
+                getFavAstroPhotosUseCase = GetFavAstroPhotosUseCase(repository),
+                insertAstroPhotoUseCase =InsertAstroPhotoUseCase(repository)
         )
     }
 
