@@ -14,7 +14,7 @@ fun AstroPhotoDTO.toModel(): AstroPhoto {
             explanation = this.explanation,
             mediaType = this.mediaType,
             url = this.url,
-    date = this.date
+            date = this.date
     )
 
 }
@@ -41,7 +41,8 @@ fun AstroPhoto.toEntity(): AstroPhotoEntity {
             title = this.title,
             explanation = this.explanation,
             url = this.url,
-            mediaType = this.mediaType
+            mediaType = this.mediaType,
+            isFavorite = true
     )
 }
 
