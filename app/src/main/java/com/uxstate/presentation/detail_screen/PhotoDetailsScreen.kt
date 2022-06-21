@@ -14,13 +14,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
+import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
+
 import com.uxstate.util.LocalSpacing
 
 @ExperimentalMaterial3Api
 
-
+@Destination
 @Composable
 fun PhotoDetailsScreen(
     photo: AstroPhoto,

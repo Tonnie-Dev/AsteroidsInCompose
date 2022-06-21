@@ -5,10 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -18,10 +15,9 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
-
 import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
-import com.uxstate.presentation.fav_photos_screen.FavoritePhotosScreen
+import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.presentation.viewmodel.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
@@ -38,12 +34,29 @@ fun OverviewScreen(
     val spacing = LocalSpacing.current
 
 
-    Scaffold(floatingActionButton = { FloatingActionButton(onClick = { navigator.navigate(FavoritePhotosScreenDestination) }) {
+    Scaffold(
+            topBar = {
+                LargeTopAppBar(
+                        colors = TopAppBarDefaults.largeTopAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        
+                        title = { Text(text = stringResource(id = R.string.all_photos))}
+                ) 
+            },
 
-        Icon(imageVector = Icons.Default.Favorite, contentDescription = stringResource(id = R.string.favourite_label))
-    }
 
-    }) { values ->
+            floatingActionButton = {
+                FloatingActionButton(onClick = { navigator.navigate(FavoritePhotosScreenDestination) }) {
+
+                    Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = stringResource(id = R.string.favourite_label)
+                    )
+                }
+
+            }) { values ->
 
 
         Column(
@@ -65,9 +78,9 @@ fun OverviewScreen(
 
                     items(state.astroPhotos) {
 
-                        AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()){
+                        AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()) {
 
-                            navigator.navigate( AstroShareScreenDestination(it))
+                            navigator.navigate(PhotoDetailsScreenDestination(it))
                         }
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
@@ -76,9 +89,8 @@ fun OverviewScreen(
 
 
             }
-        }}
-
-
+        }
+    }
 
 
 }
