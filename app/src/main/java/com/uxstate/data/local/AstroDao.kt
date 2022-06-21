@@ -13,10 +13,10 @@ suspend fun insertFavoriteAstroPhoto(photoEntity: AstroPhotoEntity)
 @Query("SELECT * FROM astrophotoentity ")
  fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
 
-@Query("SELECT * FROM astrophotoentity WHERE date =:id")
-suspend fun getFavoritePhotoById(id:String):AstroPhoto?
+@Query("SELECT * FROM astrophotoentity WHERE id =:id")
+suspend fun getFavoritePhotoById(id:String):AstroPhotoEntity?
 
 @Delete
-suspend fun deleteFavoritePhoto(id:String)
+suspend fun deleteFavoritePhoto(photo: AstroPhotoEntity)
 
 }

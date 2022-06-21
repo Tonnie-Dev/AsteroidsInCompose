@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey
 data class AstroPhotoEntity(
 
     @PrimaryKey
-    val date: String,
+    val id: String,
     val title: String,
+    val mediaType:String,
     val explanation: String,
     val url: String
 )

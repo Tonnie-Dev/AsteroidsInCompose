@@ -11,5 +11,5 @@ interface AstroRepository {
      fun getFavoriteAstroPhotos(): Flow<List<AstroPhoto>?>
     suspend fun getFavoriteAstroPhoto(id:String):AstroPhoto?
     suspend fun insertAstroPhoto(photo: AstroPhoto)
-    suspend fun deleteAstroPhoto(id: String)
+    suspend fun deleteAstroPhoto(photo: AstroPhoto)
 }

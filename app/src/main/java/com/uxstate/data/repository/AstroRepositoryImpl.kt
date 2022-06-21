@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+//force single instance of our repository impl for the entire app
 @Singleton
 
 //use @Inject so that Hilt knows how to create AstroRepositoryImpl object
@@ -46,7 +47,7 @@ class AstroRepositoryImpl @Inject constructor(
 
     //LOCAL
     override suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto?{
-        return dao.getFavoritePhotoById(id)
+        return dao.getFavoritePhotoById(id)?.toAstroPhoto()
     }
 
 
@@ -57,8 +58,8 @@ class AstroRepositoryImpl @Inject constructor(
 
 
     //LOCAL
-    override suspend fun deleteAstroPhoto(id: String) {
-        dao.deleteFavoritePhoto(id)
+    override suspend fun deleteAstroPhoto(photo: AstroPhoto) {
+        dao.deleteFavoritePhoto(photo.toEntity())
     }
 
 

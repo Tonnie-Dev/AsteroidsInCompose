@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.GetAstroPhotosUseCase
+import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.DateFilter
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(
-    private val getAstroPhotosUseCase: GetAstroPhotosUseCase
+    private val useCaseContainer: UseCaseContainer
 ) : ViewModel() {
 
 
@@ -56,7 +57,7 @@ class OverviewViewModel @Inject constructor(
 
     private fun getAstroPictures() {
 
-getAstroPhotosUseCase().onEach { result ->
+useCaseContainer.getAstroPhotosUseCase().onEach { result ->
 
     when(result){
 
