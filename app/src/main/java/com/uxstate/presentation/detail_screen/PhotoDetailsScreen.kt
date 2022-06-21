@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.ramcosta.composedestinations.annotation.Destination
@@ -97,11 +98,11 @@ fun PhotoDetailsScreen(
                         leadingIcon = {
                             Icon(
                                     imageVector = Icons.Default.Favorite,
-                                    contentDescription = "Favorite"
+                                    contentDescription = stringResource(id = R.string.favourite_label)
                             )
                         },
 
-                        label = { Text(text = "Mark as Favorite") }
+                        label = { Text(text = stringResource(id = R.string.favourite_label)) }
                 )
 
                 AssistChip(
@@ -110,11 +111,11 @@ fun PhotoDetailsScreen(
                         leadingIcon = {
                             Icon(
                                     imageVector = Icons.Default.Favorite,
-                                    contentDescription = "Share"
+                                    contentDescription = stringResource(id = R.string.share_label)
                             )
                         },
 
-                        label = { Text(text = "Share with Others") }
+                        label = { Text(text = stringResource(id = R.string.share_label)) }
                 )
             }
 
