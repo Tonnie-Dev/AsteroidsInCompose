@@ -2,6 +2,7 @@ package com.uxstate.presentation.fav_photos_screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,17 +40,18 @@ fun FavoritePhotosScreen(viewModel: FavPhotosViewModel = hiltViewModel()) {
                 }
             })
 
-            Box(modifier = Modifier.fillMaxHeight()) {
 
-                Text(
-                        text = stringResource(id = R.string.no_fav_photos),
-                        color = MaterialTheme.colorScheme.error
-                )
-            }
 
 
         }
+        Box(modifier = Modifier.fillMaxSize()) {
 
+            Text(
+                    text = stringResource(id = R.string.no_fav_photos),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.error, modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 
 

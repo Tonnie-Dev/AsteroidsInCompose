@@ -41,8 +41,7 @@ fun AstroPhoto.toEntity(): AstroPhotoEntity {
             title = this.title,
             explanation = this.explanation,
             url = this.url,
-            mediaType = this.mediaType,
-            isFavorite = true
+            mediaType = this.mediaType
     )
 }
 

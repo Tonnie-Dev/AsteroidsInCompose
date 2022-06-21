@@ -3,13 +3,13 @@ package com.uxstate.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [AstroPhotoEntity::class], version = 1)
+@Database(entities = [AstroPhotoEntity::class], version = 2)
 abstract class AstroDatabase : RoomDatabase(){
 
 abstract val dao:AstroDao
 
 companion object{
 
-    const val DB_NAME = "NeowsDatabase"
+    const val DB_NAME = "AstroDatabase"
 }
 }
