@@ -18,8 +18,10 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
-import com.uxstate.presentation.destinations.AstroShareScreenDestination
+
 import com.uxstate.presentation.components.AstroPhotoComposable
+import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
+import com.uxstate.presentation.fav_photos_screen.FavoritePhotosScreen
 import com.uxstate.presentation.viewmodel.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
@@ -36,7 +38,7 @@ fun OverviewScreen(
     val spacing = LocalSpacing.current
 
 
-    Scaffold(floatingActionButton = { FloatingActionButton(onClick = { /*TODO*/ }) {
+    Scaffold(floatingActionButton = { FloatingActionButton(onClick = { navigator.navigate(FavoritePhotosScreenDestination) }) {
 
         Icon(imageVector = Icons.Default.Favorite, contentDescription = stringResource(id = R.string.favourite_label))
     }
