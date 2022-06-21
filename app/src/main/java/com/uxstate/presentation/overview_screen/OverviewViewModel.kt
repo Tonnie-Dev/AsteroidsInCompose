@@ -47,7 +47,7 @@ class OverviewViewModel @Inject constructor(
 
            }
 
-            else -> Unit
+
         }
     }
 

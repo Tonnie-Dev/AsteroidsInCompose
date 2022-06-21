@@ -2,6 +2,7 @@ package com.uxstate.presentation.fav_photos_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.UseCaseContainer

@@ -22,9 +22,9 @@ import com.uxstate.util.LocalSpacing
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
-fun FavoritePhotosScreen(viewModel: OverviewViewModel = hiltViewModel()) {
+fun FavoritePhotosScreen(viewModel: FavPhotosViewModel = hiltViewModel()) {
     val spacing = LocalSpacing.current
-    val photos = viewModel.state.astroPhotos
+    val photos = viewModel.state.favoritePhotosList
     Scaffold { padding ->
 
 

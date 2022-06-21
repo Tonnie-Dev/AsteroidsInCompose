@@ -4,7 +4,6 @@ sealed class OverviewEvent {
 
 
     object OnRefreshAstroPhoto : OverviewEvent()
-    object OnClickAstroPhoto : OverviewEvent()
     object OnMarkFavorite : OverviewEvent()
 
 
