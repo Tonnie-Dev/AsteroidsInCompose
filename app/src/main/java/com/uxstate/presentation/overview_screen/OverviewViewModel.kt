@@ -1,4 +1,4 @@
-package com.uxstate.presentation.viewmodel
+package com.uxstate.presentation.overview_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,8 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.UseCaseContainer
-import com.uxstate.presentation.overview_screen.OverviewEvent
-import com.uxstate.presentation.overview_screen.PhotoState
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

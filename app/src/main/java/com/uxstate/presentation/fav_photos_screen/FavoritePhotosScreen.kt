@@ -16,7 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroShareComposable
-import com.uxstate.presentation.viewmodel.OverviewViewModel
+import com.uxstate.presentation.overview_screen.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)

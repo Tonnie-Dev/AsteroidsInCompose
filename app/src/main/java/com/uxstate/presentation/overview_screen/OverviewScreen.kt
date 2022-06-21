@@ -18,7 +18,6 @@ import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
-import com.uxstate.presentation.viewmodel.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
