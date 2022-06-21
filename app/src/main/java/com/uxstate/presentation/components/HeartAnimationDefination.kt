@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview_screen.components
+package com.uxstate.presentation.components
 
 import androidx.compose.ui.unit.dp
 

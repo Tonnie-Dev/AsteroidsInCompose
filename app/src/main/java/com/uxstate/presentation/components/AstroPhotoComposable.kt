@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview_screen.components
+package com.uxstate.presentation.components
 
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.Image

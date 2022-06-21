@@ -1,4 +1,4 @@
-package com.uxstate.presentation.photo_screen
+package com.uxstate.presentation.fav_photos_screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.domain.model.AstroPhoto
-import com.uxstate.presentation.photo_screen.components.AstroShareComposable
+import com.uxstate.presentation.components.AstroShareComposable
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
