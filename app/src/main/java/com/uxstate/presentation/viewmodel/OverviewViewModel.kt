@@ -1,20 +1,19 @@
-package com.uxstate.presentation.overview_screen
+package com.uxstate.presentation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uxstate.domain.use_cases.GetAstroPhotosUseCase
 import com.uxstate.domain.use_cases.UseCaseContainer
-import com.uxstate.util.DateFilter
+import com.uxstate.presentation.overview_screen.OverviewEvent
+import com.uxstate.presentation.overview_screen.PhotoState
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
