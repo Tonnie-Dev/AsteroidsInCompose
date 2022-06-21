@@ -61,7 +61,7 @@ fun OverviewScreen(
                 LazyColumn(content = {
 
 
-                    items(state.astroPhotoEntities) {
+                    items(state.astroPhotos) {
 
                         AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()){
 

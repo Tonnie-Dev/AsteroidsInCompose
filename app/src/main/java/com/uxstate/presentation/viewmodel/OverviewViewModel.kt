@@ -72,7 +72,7 @@ useCaseContainer.getAstroPhotosUseCase().onEach { result ->
 
             result.data?.let {
 
-                state =state.copy(astroPhotoEntities = it)
+                state =state.copy(astroPhotos = it)
             }
 
         }
