@@ -7,7 +7,4 @@ data class PhotoState(
     val isPhotoLoading: Boolean = false,
     val errorMessage: String? = null,
 
-
-
-    val isPhotoFavorite:Boolean = false
 )

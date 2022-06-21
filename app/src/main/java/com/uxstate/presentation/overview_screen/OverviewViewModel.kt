@@ -44,7 +44,7 @@ class OverviewViewModel @Inject constructor(
 
            is OverviewEvent.OnMarkFavorite -> {
 
-               state = state.copy(isPhotoFavorite = true)
+
            }
 
             else -> Unit
