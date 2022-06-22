@@ -47,10 +47,8 @@ class OverviewViewModel @Inject constructor(
             }
 
             is OverviewEvent.OnMarkFavorite -> {
-                Timber.i("insertAstroPhoto event")
+
                 viewModelScope.launch {
-
-
                     withContext(IO){
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
                     }

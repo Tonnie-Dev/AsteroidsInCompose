@@ -28,7 +28,7 @@ object AppModule {
                 app,
                 AstroDatabase::class.java,
                 AstroDatabase.DB_NAME
-        )
+        ).fallbackToDestructiveMigration()
                 .build()
 
     }
