@@ -61,7 +61,8 @@ object AppModule {
                 getFavAstroPhotoUseCase = GetFavAstroPhotoUseCase(repository),
                 getAstroPhotosUseCase = GetAstroPhotosUseCase(repository),
                 getFavAstroPhotosUseCase = GetFavAstroPhotosUseCase(repository),
-                insertAstroPhotoUseCase =InsertAstroPhotoUseCase(repository)
+                insertAstroPhotoUseCase =InsertAstroPhotoUseCase(repository),
+                checkIfPhotoIsInDatabaseUseCase = CheckIfPhotoIsInDatabaseUseCase(repository)
         )
     }
 
