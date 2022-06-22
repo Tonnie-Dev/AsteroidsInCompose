@@ -66,4 +66,10 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
 
+    //LOCAL
+    override suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto):Boolean {
+        return dao.photoExists(photo.date)
+    }
+
+
 }
