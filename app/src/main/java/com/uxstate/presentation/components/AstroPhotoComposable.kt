@@ -18,8 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.SizeMode
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -29,9 +27,10 @@ import com.uxstate.util.LocalSpacing
 fun AstroPhotoComposable(
     modifier: Modifier = Modifier,
     picture: AstroPhoto,
-    isFavorite:Boolean = false,
+    isFavorite: Boolean = false,
     onTapPhoto: () -> Unit,
-    onMarkAsFavorite: () -> Unit
+    onMarkAsFavorite: () -> Unit,
+    onDeletePhoto: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -98,24 +97,36 @@ fun AstroPhotoComposable(
             )
         }
 
-        FlowRow(
-                modifier = Modifier.fillMaxWidth(),
-                mainAxisSpacing = spacing.spaceSmall,
-                mainAxisSize = SizeMode.Wrap
-        ) {
+        Box() {
 
-            //Favourite AssistChip
-            AssistChip(
-                    onClick = {onMarkAsFavorite() },
-                    colors = AssistChipDefaults.assistChipColors
-                    (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                    leadingIcon = {
-                        Icon(
-                                imageVector = Icons.Default.Favorite,
-                                contentDescription = stringResource(R.string.favourite_label)
-                        )
-                    }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-            )
+
+            if (isFavorite) {
+
+                //display delete option Assist Chip
+
+                AssistChip(
+                        onClick = { onDeletePhoto() },
+                        colors = AssistChipDefaults.assistChipColors(
+                                leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                        leadingIcon = { Icon(imageVector = , contentDescription = )}
+                ) {
+
+                }
+
+
+            } else
+            //display Favourite AssistChip
+                AssistChip(
+                        onClick = { onMarkAsFavorite() },
+                        colors = AssistChipDefaults.assistChipColors
+                        (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                        leadingIcon = {
+                            Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = stringResource(R.string.favourite_label)
+                            )
+                        }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
+                )
         }
 
 
