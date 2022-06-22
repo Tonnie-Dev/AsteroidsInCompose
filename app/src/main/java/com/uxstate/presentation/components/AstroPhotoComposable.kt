@@ -9,7 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,7 +28,7 @@ import com.uxstate.util.LocalSpacing
 fun AstroPhotoComposable(
     modifier: Modifier = Modifier,
     picture: AstroPhoto,
-    isFavorite: Boolean = false,
+    isFavorite: Boolean ,
     onTapPhoto: () -> Unit,
     onMarkAsFavorite: () -> Unit,
     onDeletePhoto: () -> Unit
@@ -42,6 +42,7 @@ fun AstroPhotoComposable(
             .build()
 
 
+    var isMarkedFavorite by remember{ mutableStateOf(isFavorite)}
 
     Card(
             modifier = modifier,
@@ -101,12 +102,17 @@ fun AstroPhotoComposable(
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
 
 
-            if (isFavorite) {
+            if (isMarkedFavorite) {
 
                 //display delete option Assist Chip
 
                 AssistChip(
-                        onClick = { onDeletePhoto() },
+                        onClick = {
+                            isMarkedFavorite = !isMarkedFavorite
+                            onDeletePhoto()
+
+
+                                  },
                         colors = AssistChipDefaults.assistChipColors(
                                 leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         ),
@@ -123,10 +129,14 @@ fun AstroPhotoComposable(
                 )
 
 
-            } else
+            } else{
             //display Favourite AssistChip
                 AssistChip(
-                        onClick = { onMarkAsFavorite() },
+                        onClick = {
+                            isMarkedFavorite = !isMarkedFavorite
+                            onMarkAsFavorite()
+
+                                  },
                         colors = AssistChipDefaults.assistChipColors
                         (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
@@ -135,7 +145,7 @@ fun AstroPhotoComposable(
                                     contentDescription = stringResource(R.string.favourite_label)
                             )
                         }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                )
+                )}
         }
 
 

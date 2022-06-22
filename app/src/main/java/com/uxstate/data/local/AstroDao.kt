@@ -19,4 +19,7 @@ suspend fun getFavoritePhotoById(id:String):AstroPhotoEntity?
 @Delete
 suspend fun deleteFavoritePhoto(photo: AstroPhotoEntity)
 
+
+@Query("SELECT EXISTS(SELECT 1 FROM astrophotoentity WHERE id=:id)")
+suspend fun photoExists(id:String):Boolean
 }

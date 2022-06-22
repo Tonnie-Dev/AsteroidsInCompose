@@ -12,4 +12,5 @@ interface AstroRepository {
     suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto?
     suspend fun insertAstroPhoto(photo: AstroPhoto)
     suspend fun deleteAstroPhoto(photo: AstroPhoto)
+    suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto)
 }

@@ -92,7 +92,7 @@ fun OverviewScreen(
                                     viewModel.onEvent(
                                             OverviewEvent.OnRemoveFromFavorite(it)
                                     )
-                                })
+                                }, isFavorite = false)
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
                     }
