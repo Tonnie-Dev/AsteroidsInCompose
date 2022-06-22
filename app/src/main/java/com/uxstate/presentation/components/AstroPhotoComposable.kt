@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -97,7 +98,7 @@ fun AstroPhotoComposable(
             )
         }
 
-        Box() {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
 
 
             if (isFavorite) {
@@ -107,11 +108,19 @@ fun AstroPhotoComposable(
                 AssistChip(
                         onClick = { onDeletePhoto() },
                         colors = AssistChipDefaults.assistChipColors(
-                                leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                        leadingIcon = { Icon(imageVector = , contentDescription = )}
-                ) {
-
+                                leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        leadingIcon = {
+                            Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = stringResource(
+                                            id = R.string.delete_photo
+                                    )
+                            )
+                        }, label = {
+                    Text(text = stringResource(id = R.string.delete_photo))
                 }
+                )
 
 
             } else

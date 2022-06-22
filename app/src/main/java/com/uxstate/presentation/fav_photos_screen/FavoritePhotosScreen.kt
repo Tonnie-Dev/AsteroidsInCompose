@@ -28,7 +28,7 @@ fun FavoritePhotosScreen(
     val photos = viewModel.state.favoritePhotosList
 
     Scaffold(topBar = {
-      CenterAlignedTopAppBar(
+        CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
                         titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
@@ -49,9 +49,7 @@ fun FavoritePhotosScreen(
 
                     AstroPhotoComposable(picture = photo, onTapPhoto = {
                         navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
-                    }) {
-
-                    }
+                    }, onDeletePhoto = {}, onMarkAsFavorite = {})
                 }
             })
         } else {

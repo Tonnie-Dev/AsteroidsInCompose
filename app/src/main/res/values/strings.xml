@@ -5,4 +5,5 @@
     <string name="no_fav_photos">No Saved Photos</string>
     <string name="all_photos">All Photos</string>
     <string name="fav_header">Favorite Photos</string>
+    <string name="delete_photo">Remove From Favorite</string>
 </resources>

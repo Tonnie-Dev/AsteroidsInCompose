@@ -59,6 +59,17 @@ class OverviewViewModel @Inject constructor(
 
             }
 
+            is OverviewEvent.OnRemoveFromFavorite -> {
+
+                viewModelScope.launch {
+
+                    withContext(IO){
+
+                        useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+                    }
+                }
+            }
+
 
         }
     }
