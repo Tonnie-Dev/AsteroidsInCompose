@@ -8,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,10 +46,18 @@ class OverviewViewModel @Inject constructor(
 
             }
 
-           is OverviewEvent.OnMarkFavorite -> {
+            is OverviewEvent.OnMarkFavorite -> {
+                Timber.i("insertAstroPhoto event")
+                viewModelScope.launch {
 
 
-           }
+                    withContext(IO){
+                        useCaseContainer.insertAstroPhotoUseCase(event.photo)
+                    }
+                }
+
+
+            }
 
 
         }
@@ -54,30 +66,32 @@ class OverviewViewModel @Inject constructor(
 
     private fun getAstroPictures() {
 
-useCaseContainer.getAstroPhotosUseCase().onEach { result ->
+        useCaseContainer.getAstroPhotosUseCase()
+                .onEach { result ->
 
-    when(result){
+                    when (result) {
 
-        is Resource.Loading -> {
+                        is Resource.Loading -> {
 
-            state = state.copy(isPhotoLoading = result.isLoading)
-        }
-        is Resource.Error -> {
+                            state = state.copy(isPhotoLoading = result.isLoading)
+                        }
+                        is Resource.Error -> {
 
-            state = state.copy(errorMessage = result.message)
-        }
-        is Resource.Success -> {
+                            state = state.copy(errorMessage = result.message)
+                        }
+                        is Resource.Success -> {
 
-            result.data?.let {
+                            result.data?.let {
 
-                state =state.copy(astroPhotos = it)
-            }
+                                state = state.copy(astroPhotos = it)
+                            }
 
-        }
-    }
+                        }
+                    }
 
 
-}.launchIn(viewModelScope)
+                }
+                .launchIn(viewModelScope)
     }
 
 }

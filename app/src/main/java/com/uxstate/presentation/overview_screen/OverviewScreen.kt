@@ -40,9 +40,9 @@ fun OverviewScreen(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                                 titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         ),
-                        
-                        title = { Text(text = stringResource(id = R.string.all_photos))}
-                ) 
+
+                        title = { Text(text = stringResource(id = R.string.all_photos)) }
+                )
             },
 
 
@@ -77,10 +77,17 @@ fun OverviewScreen(
 
                     items(state.astroPhotos) {
 
-                        AstroPhotoComposable(picture = it, modifier = Modifier.fillMaxWidth()) {
+                        AstroPhotoComposable(
+                                picture = it,
+                                modifier = Modifier.fillMaxWidth(),
+                                onTapPhoto = {
 
-                            navigator.navigate(PhotoDetailsScreenDestination(it))
-                        }
+                                    navigator.navigate(PhotoDetailsScreenDestination(it))
+                                },
+                                onMarkAsFavorite = {
+
+                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(it))
+                                })
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
                     }

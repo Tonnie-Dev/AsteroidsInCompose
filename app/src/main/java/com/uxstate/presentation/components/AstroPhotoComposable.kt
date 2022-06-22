@@ -29,7 +29,8 @@ import com.uxstate.util.LocalSpacing
 fun AstroPhotoComposable(
     picture: AstroPhoto,
     modifier: Modifier = Modifier,
-    onTapPhoto: () -> Unit
+    onTapPhoto: () -> Unit,
+    onMarkAsFavorite: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -104,7 +105,7 @@ fun AstroPhotoComposable(
 
             //Favourite AssistChip
             AssistChip(
-                    onClick = { /*TODO*/ },
+                    onClick = {onMarkAsFavorite() },
                     colors = AssistChipDefaults.assistChipColors
                     (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                     leadingIcon = {
@@ -119,5 +120,5 @@ fun AstroPhotoComposable(
 
     }
 
-    }
+}
 
