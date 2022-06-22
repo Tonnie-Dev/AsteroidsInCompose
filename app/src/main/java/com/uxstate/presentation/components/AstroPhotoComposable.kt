@@ -27,8 +27,9 @@ import com.uxstate.util.LocalSpacing
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AstroPhotoComposable(
-    picture: AstroPhoto,
     modifier: Modifier = Modifier,
+    picture: AstroPhoto,
+    isFavorite:Boolean = false,
     onTapPhoto: () -> Unit,
     onMarkAsFavorite: () -> Unit
 ) {
