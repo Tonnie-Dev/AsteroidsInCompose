@@ -47,9 +47,9 @@ fun FavoritePhotosScreen(
 
                 items(photos) { photo ->
 
-                    AstroPhotoComposable(picture = photo, onTapPhoto = {
+                    AstroPhotoComposable(photo = photo, onTapPhoto = {
                         navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
-                    }, onDeletePhoto = {}, onMarkAsFavorite = {}, isFavorite = true)
+                    }, onDeletePhoto = {}, onMarkAsFavorite = {})
                 }
             })
         } else {

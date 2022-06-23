@@ -27,8 +27,7 @@ import com.uxstate.util.LocalSpacing
 @Composable
 fun AstroPhotoComposable(
     modifier: Modifier = Modifier,
-    picture: AstroPhoto,
-    isFavorite: Boolean ,
+    photo: AstroPhoto,
     onTapPhoto: () -> Unit,
     onMarkAsFavorite: () -> Unit,
     onDeletePhoto: () -> Unit
@@ -36,13 +35,15 @@ fun AstroPhotoComposable(
 
     val spacing = LocalSpacing.current
 
-    val imgUri = picture.url.toUri()
+    val imgUri = photo.url.toUri()
             .buildUpon()
             .scheme("https")
             .build()
 
 
-    var isMarkedFavorite by remember{ mutableStateOf(isFavorite)}
+   // var isMarkedFavorite = remember {photo.isFavorite}
+
+    var isMarkedFavorite by remember{ mutableStateOf(photo.isFavorite)}
 
     Card(
             modifier = modifier,
@@ -83,7 +84,7 @@ fun AstroPhotoComposable(
             ) {
 
                 Text(
-                        text = picture.title,
+                        text = photo.title,
                         color = Color.White,
                         modifier = Modifier.padding(spacing.spaceSmall)
                 )
@@ -92,7 +93,7 @@ fun AstroPhotoComposable(
 
         Column(modifier = Modifier.padding(spacing.spaceMedium)) {
             Text(
-                    text = picture.explanation,
+                    text = photo.explanation,
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis

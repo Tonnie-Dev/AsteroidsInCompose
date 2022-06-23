@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -101,6 +102,18 @@ class OverviewViewModel @Inject constructor(
 
                 }
                 .launchIn(viewModelScope)
+    }
+
+    fun isInDatabase(photo: AstroPhoto):Boolean {
+
+        var isPresent = false
+         viewModelScope.launch {
+
+
+           isPresent = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
+        }
+
+        return isPresent
     }
 
 }

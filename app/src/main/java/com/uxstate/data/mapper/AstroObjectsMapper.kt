@@ -14,7 +14,8 @@ fun AstroPhotoDTO.toModel(): AstroPhoto {
             explanation = this.explanation,
             mediaType = this.mediaType,
             url = this.url,
-            date = this.date
+            date = this.date,
+            isFavorite = false
     )
 
 }
