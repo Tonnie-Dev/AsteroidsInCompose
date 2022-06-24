@@ -116,13 +116,9 @@ class OverviewViewModel @Inject constructor(
         return isPresent
     }
 
-    fun updateFavoritePhotos(date:String) {
+    fun updateFavoritePhoto(date:String) {
 
-        val currentList = state.astroPhotos
-
-        val changedAstroItem = currentList[position].copy(isFavorite = true)
-
-       val modifiedList = currentList.find { it.date== date}.isFavorite = true
+        state.astroPhotos .find { it.date== date}?.isFavorite = true
 
         }
 
