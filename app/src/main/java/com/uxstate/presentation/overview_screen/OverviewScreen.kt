@@ -90,7 +90,7 @@ fun OverviewScreen(
                                 },
                                 onDeletePhoto = {
                                     viewModel.onEvent(
-                                            OverviewEvent.OnRemoveFromFavorite(it)
+                                            OverviewEvent.OnRemoveFromFavorites(it)
                                     )
                                 })
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))

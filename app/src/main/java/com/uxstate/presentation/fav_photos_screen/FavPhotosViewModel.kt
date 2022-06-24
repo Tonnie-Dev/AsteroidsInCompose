@@ -48,8 +48,8 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                }
 
                 //remove from the current list
-                state.favoritePhotosList.remove(event.photo)
-                getSavedPhotos()
+              // state = state.favoritePhotosList.remove(event.photo)
+               // getSavedPhotos()
             }
         }
     }

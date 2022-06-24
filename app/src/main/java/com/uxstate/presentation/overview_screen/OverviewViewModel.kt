@@ -47,8 +47,12 @@ class OverviewViewModel @Inject constructor(
             }
 
             is OverviewEvent.OnMarkFavorite -> {
-                updateFavoritePhotos(event.photo)
 
+                //update UI
+                updateFavoritePhotos(event.photo,true)
+
+
+                //update db - insert
                 viewModelScope.launch {
                     withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
@@ -58,8 +62,13 @@ class OverviewViewModel @Inject constructor(
 
             }
 
-            is OverviewEvent.OnRemoveFromFavorite -> {
+            is OverviewEvent.OnRemoveFromFavorites -> {
 
+
+                //update UI
+                updateFavoritePhotos(event.photo,false)
+
+                //update db - remove
                 viewModelScope.launch {
 
                     withContext(IO) {
@@ -116,9 +125,9 @@ class OverviewViewModel @Inject constructor(
         return isPresent
     }
 
-   private fun updateFavoritePhotos(photo: AstroPhoto) {
+   private fun updateFavoritePhotos(photo: AstroPhoto, status:Boolean) {
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = true
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = status
 
     }
 

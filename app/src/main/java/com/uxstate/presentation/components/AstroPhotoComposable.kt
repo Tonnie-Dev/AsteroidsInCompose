@@ -30,7 +30,7 @@ fun AstroPhotoComposable(
     photo: AstroPhoto,
     onTapPhoto: () -> Unit,
     onMarkAsFavorite: () -> Unit,
-    onDeletePhoto: () -> Unit
+    onDeletePhoto: () -> Unit = {}
 ) {
 
     val spacing = LocalSpacing.current
@@ -109,8 +109,9 @@ fun AstroPhotoComposable(
 
                 AssistChip(
                         onClick = {
-                            isMarkedFavorite = !isMarkedFavorite
                             onDeletePhoto()
+                            isMarkedFavorite = !isMarkedFavorite
+
 
 
                                   },
