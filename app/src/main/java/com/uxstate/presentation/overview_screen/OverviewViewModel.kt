@@ -47,7 +47,7 @@ class OverviewViewModel @Inject constructor(
             }
 
             is OverviewEvent.OnMarkFavorite -> {
-
+                updateFavoritePhotos(event.photo)
 
                 viewModelScope.launch {
                     withContext(IO) {
@@ -116,10 +116,10 @@ class OverviewViewModel @Inject constructor(
         return isPresent
     }
 
-    fun updateFavoritePhoto(date:String) {
+    fun updateFavoritePhotos(photo: AstroPhoto) {
 
-        state.astroPhotos .find { it.date== date}?.isFavorite = true
-
-        }
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = true
 
     }
+
+}
