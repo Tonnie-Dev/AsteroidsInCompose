@@ -116,7 +116,7 @@ class OverviewViewModel @Inject constructor(
         return isPresent
     }
 
-    fun updateFavoritePhotos(photo: AstroPhoto) {
+   private fun updateFavoritePhotos(photo: AstroPhoto) {
 
         state.astroPhotos.find { it.date == photo.date }?.isFavorite = true
 
