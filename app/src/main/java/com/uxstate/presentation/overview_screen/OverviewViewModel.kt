@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,8 +48,9 @@ class OverviewViewModel @Inject constructor(
 
             is OverviewEvent.OnMarkFavorite -> {
 
+
                 viewModelScope.launch {
-                    withContext(IO){
+                    withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
                     }
                 }
@@ -62,7 +62,7 @@ class OverviewViewModel @Inject constructor(
 
                 viewModelScope.launch {
 
-                    withContext(IO){
+                    withContext(IO) {
 
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                     }
@@ -104,16 +104,26 @@ class OverviewViewModel @Inject constructor(
                 .launchIn(viewModelScope)
     }
 
-    fun isInDatabase(photo: AstroPhoto):Boolean {
+    fun isInDatabase(photo: AstroPhoto): Boolean {
 
         var isPresent = false
-         viewModelScope.launch {
+        viewModelScope.launch {
 
 
-           isPresent = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
+            isPresent = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
         }
 
         return isPresent
     }
 
-}
+    fun updateFavoritePhotos(date:String) {
+
+        val currentList = state.astroPhotos
+
+        val changedAstroItem = currentList[position].copy(isFavorite = true)
+
+       val modifiedList = currentList.find { it.date== date}.isFavorite = true
+
+        }
+
+    }
