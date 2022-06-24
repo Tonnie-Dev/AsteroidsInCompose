@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,14 +50,17 @@ class OverviewViewModel @Inject constructor(
             is OverviewEvent.OnMarkFavorite -> {
 
                 //update UI
-                updateFavoritePhotos(event.photo,true)
+               // updateFavoritePhotos(event.photo,isInDatabase(event.photo))
 
 
                 //update db - insert
                 viewModelScope.launch {
                     withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
+                        updateFavoritePhotos(event.photo)
                     }
+
+                    Timber.i("OnMark Favorite called - status is:  ${isInDatabase(event.photo)}")
                 }
 
 
@@ -65,15 +69,22 @@ class OverviewViewModel @Inject constructor(
             is OverviewEvent.OnRemoveFromFavorites -> {
 
 
-                //update UI
-                updateFavoritePhotos(event.photo,false)
+
+
 
                 //update db - remove
                 viewModelScope.launch {
 
+
+                    Timber.i("OnRemove called - status is:  ${isInDatabase(event.photo)}")
+
                     withContext(IO) {
 
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+
+                        //update UI
+                        // updateFavoritePhotos(event.photo,isInDatabase(event.photo))
+                        updateFavoritePhotos(event.photo)
                     }
                 }
             }
@@ -113,21 +124,18 @@ class OverviewViewModel @Inject constructor(
                 .launchIn(viewModelScope)
     }
 
-    fun isInDatabase(photo: AstroPhoto): Boolean {
-
-        var isPresent = false
-        viewModelScope.launch {
+    private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
 
 
-            isPresent = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
-        }
+        return  useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
 
-        return isPresent
+
+
     }
 
-   private fun updateFavoritePhotos(photo: AstroPhoto, status:Boolean) {
+   private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = status
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
 
     }
 

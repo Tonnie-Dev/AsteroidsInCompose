@@ -56,7 +56,7 @@ class AstroRepositoryImpl @Inject constructor(
     override suspend fun insertAstroPhoto(photo: AstroPhoto) {
         dao.insertFavoriteAstroPhoto(photo.toEntity())
 
-        Timber.i("insertAstroPhoto called in impl")
+
     }
 
 
