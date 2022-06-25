@@ -12,7 +12,7 @@ interface AstroDao {
     suspend fun insertAstroPhotos(list: List<AstroPhotoEntity>)
 
     @Query("SELECT * FROM astrophotoentity")
-    suspend fun fetchAstroPhotos(): List<AstroPhotoEntity>
+    suspend fun getSavedAstroPhotos(): List<AstroPhotoEntity>
 
     @Query("DELETE FROM astrophotoentity")
     suspend fun clearAstroPhotos()
