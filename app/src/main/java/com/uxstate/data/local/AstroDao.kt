@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AstroDao {
 
-@Insert(onConflict = OnConflictStrategy.REPLACE)
-suspend fun insertFavoriteAstroPhoto(photoEntity: AstroPhotoEntity)
+
+//AstroPhotoEntity
+
 
 @Query("SELECT * FROM astrophotoentity ")
  fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
@@ -22,4 +23,10 @@ suspend fun deleteFavoritePhoto(photo: AstroPhotoEntity)
 
 @Query("SELECT EXISTS(SELECT 1 FROM astrophotoentity WHERE id=:id)")
 suspend fun photoExists(id:String):Boolean
+
+ //FavPhotoEntity
+ @Insert(onConflict = OnConflictStrategy.REPLACE)
+ suspend fun insertFavoritePhoto(photo: FavPhotoEntity)
+
+
 }
