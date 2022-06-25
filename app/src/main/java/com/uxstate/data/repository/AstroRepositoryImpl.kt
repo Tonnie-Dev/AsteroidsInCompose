@@ -133,8 +133,8 @@ class AstroRepositoryImpl @Inject constructor(
         dao.deleteFavPhoto(photo.toFavPhotoEntity())
     }
 
-    override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
-        return dao.isFavPhotoSavedCheck(photo.id)
+    override suspend fun isFavPhotoSaved(id:String): Boolean {
+        return dao.isFavPhotoSavedCheck(id)
     }
 
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
