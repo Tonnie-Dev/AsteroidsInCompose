@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface AstroRepository {
-    
+
     //ASTROPHOTOENTITY
     fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>>
     suspend fun insertAstroPhotos(astroPhotos: List<AstroPhoto>)

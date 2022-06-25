@@ -6,6 +6,7 @@ import com.uxstate.data.mapper.toModel
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
+import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -25,17 +26,40 @@ class AstroRepositoryImpl @Inject constructor(
     ) : AstroRepository {
 
 
-    val dao = db.dao
+    val dao = db
 
+    override fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertAstroPhotos(astroPhotos: List<AstroPhoto>) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavPhotoById(id: String): AstroPhoto? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteFavPhoto(photo: AstroPhoto) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
+        TODO("Not yet implemented")
+    }
     //REMOTE
-    override suspend fun getAstroPhotos(): List<AstroPhoto>{
+    suspend fun getAstroPhotos(): List<AstroPhoto>{
 
         return api.getAstroPictures().map { it.toModel() }
 
     }
 
     //LOCAL
-    override  fun getFavoriteAstroPhotos(): Flow<List<AstroPhoto>?>{
+    fun getFavoriteAstroPhotos(): Flow<List<AstroPhoto>?>{
 
 
         return dao.getFavoriteAstroPhotos().map {
@@ -46,13 +70,13 @@ class AstroRepositoryImpl @Inject constructor(
 
 
     //LOCAL
-    override suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto?{
+    suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto?{
         return dao.getFavoritePhotoById(id)?.toAstroPhoto()
     }
 
 
     //LOCAL
-    override suspend fun insertAstroPhoto(photo: AstroPhoto) {
+    suspend fun insertAstroPhoto(photo: AstroPhoto) {
         dao.insertFavoriteAstroPhoto(photo.toEntity())
 
 
@@ -60,15 +84,14 @@ class AstroRepositoryImpl @Inject constructor(
 
 
     //LOCAL
-    override suspend fun deleteAstroPhoto(photo: AstroPhoto) {
+    suspend fun deleteAstroPhoto(photo: AstroPhoto) {
         dao.deleteFavoritePhoto(photo.toEntity())
     }
 
 
     //LOCAL
-    override suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto):Boolean {
+    suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto):Boolean {
         return dao.isFavPhotoSavedCheck(photo.date)
     }
-
 
 }
