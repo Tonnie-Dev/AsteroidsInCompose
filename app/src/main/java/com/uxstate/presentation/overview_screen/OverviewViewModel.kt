@@ -41,7 +41,6 @@ class OverviewViewModel @Inject constructor(
 
         when (event) {
 
-
             is OverviewEvent.OnRefreshAstroPhoto -> {
                 getAstroPictures()
 
@@ -54,7 +53,7 @@ class OverviewViewModel @Inject constructor(
                     withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
                         updateFavoritePhotos(event.photo)
-                        Timber.i("OnMark Favorite called - status is:  ${isInDatabase(event.photo)}")
+
                     }
 
 
@@ -73,9 +72,7 @@ class OverviewViewModel @Inject constructor(
 
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
 
-                        //update UI
-                        // updateFavoritePhotos(event.photo,isInDatabase(event.photo))
-                        updateFavoritePhotos(event.photo)
+                    updateFavoritePhotos(event.photo)
 
                     }
                 }
@@ -86,9 +83,9 @@ class OverviewViewModel @Inject constructor(
     }
 
 
-    private fun getAstroPictures() {
+    private fun getAstroPictures(fetchFromRemote:Boolean = false) {
 
-        useCaseContainer.getAstroPhotosUseCase()
+        useCaseContainer.getAstroPhotosUseCase(fetchFromRemote)
                 .onEach { result ->
 
                     when (result) {
@@ -105,7 +102,6 @@ class OverviewViewModel @Inject constructor(
 
                             result.data?.let {
 
-                                Timber.i("The listx is: $it")
                                 state = state.copy(astroPhotos = it)
                             }
 
@@ -128,7 +124,7 @@ class OverviewViewModel @Inject constructor(
 
    private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+        state.savedPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
 
 
     }
