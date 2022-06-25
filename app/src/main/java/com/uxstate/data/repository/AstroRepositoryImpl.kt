@@ -138,7 +138,7 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
-        TODO("Not yet implemented")
+      dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
 
     //REMOTE
