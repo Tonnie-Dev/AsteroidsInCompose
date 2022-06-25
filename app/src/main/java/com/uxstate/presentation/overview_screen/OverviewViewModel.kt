@@ -49,18 +49,15 @@ class OverviewViewModel @Inject constructor(
 
             is OverviewEvent.OnMarkFavorite -> {
 
-                //update UI
-               // updateFavoritePhotos(event.photo,isInDatabase(event.photo))
-
-
                 //update db - insert
                 viewModelScope.launch {
                     withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
                         updateFavoritePhotos(event.photo)
+                        Timber.i("OnMark Favorite called - status is:  ${isInDatabase(event.photo)}")
                     }
 
-                    Timber.i("OnMark Favorite called - status is:  ${isInDatabase(event.photo)}")
+
                 }
 
 
@@ -69,14 +66,8 @@ class OverviewViewModel @Inject constructor(
             is OverviewEvent.OnRemoveFromFavorites -> {
 
 
-
-
-
                 //update db - remove
                 viewModelScope.launch {
-
-
-                    Timber.i("OnRemove called - status is:  ${isInDatabase(event.photo)}")
 
                     withContext(IO) {
 
@@ -85,6 +76,7 @@ class OverviewViewModel @Inject constructor(
                         //update UI
                         // updateFavoritePhotos(event.photo,isInDatabase(event.photo))
                         updateFavoritePhotos(event.photo)
+
                     }
                 }
             }
@@ -113,6 +105,7 @@ class OverviewViewModel @Inject constructor(
 
                             result.data?.let {
 
+                                Timber.i("The listx is: $it")
                                 state = state.copy(astroPhotos = it)
                             }
 
@@ -136,6 +129,7 @@ class OverviewViewModel @Inject constructor(
    private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
         state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+
 
     }
 

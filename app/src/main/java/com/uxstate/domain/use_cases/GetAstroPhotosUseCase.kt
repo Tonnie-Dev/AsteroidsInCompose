@@ -45,7 +45,7 @@ class GetAstroPhotosUseCase(private val repository: AstroRepository) {
                 null
             }
 
-            Timber.i("Data is $response")
+
 
             //emit data wrapped in success resource
             emit(Resource.Success(data = response))
