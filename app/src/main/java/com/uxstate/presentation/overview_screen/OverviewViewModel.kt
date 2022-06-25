@@ -124,7 +124,7 @@ class OverviewViewModel @Inject constructor(
 
    private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
-        state.savedPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
 
 
     }
