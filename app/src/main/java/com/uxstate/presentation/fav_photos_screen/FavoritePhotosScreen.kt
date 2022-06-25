@@ -15,13 +15,15 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
+import com.uxstate.presentation.overview_screen.OverviewEvent
+import com.uxstate.presentation.overview_screen.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun FavoritePhotosScreen(
-    viewModel: FavPhotosViewModel = hiltViewModel(),
+    viewModel: OverviewViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
     val spacing = LocalSpacing.current
@@ -54,9 +56,7 @@ fun FavoritePhotosScreen(
                             onDeletePhoto = {
 
                                 viewModel.onEvent(
-                                        FavoritePhotoScreenEvent.OnRemoveFromFavorite(
-                                                photo = photo
-                                        )
+                                       OverviewEvent.OnRemoveFromFavorites(photo)
                                 )
                             }, onMarkAsFavorite = { })
                 }

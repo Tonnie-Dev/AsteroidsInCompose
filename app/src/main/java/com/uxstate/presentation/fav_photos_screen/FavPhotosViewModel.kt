@@ -44,7 +44,11 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                    withContext(IO){
 
                        useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+
+                       updateAstroPhotos(event.photo)
                    }
+
+
                }
 
                 //remove from the current list
@@ -69,4 +73,13 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 }
                 .launchIn(viewModelScope)
     }
+
+
+    private fun updateAstroPhotos(photo: AstroPhoto) {
+
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
+
+
+    }
+
 }

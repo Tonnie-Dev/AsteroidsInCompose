@@ -35,6 +35,7 @@ class OverviewViewModel @Inject constructor(
     init {
 
         getAstroPictures()
+        getFavPhotos()
     }
 
     fun onEvent(event: OverviewEvent) {
@@ -111,6 +112,22 @@ class OverviewViewModel @Inject constructor(
 
                 }
                 .launchIn(viewModelScope)
+    }
+
+
+
+   private fun getFavPhotos (){
+
+
+        useCaseContainer.getFavAstroPhotosUseCase().onEach { favoriteList ->
+
+            favoriteList?.let {
+
+                state = state.copy(favoritePhotosList = it)
+            }
+
+
+        }
     }
 
     private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
