@@ -42,7 +42,7 @@ class OverviewViewModel @Inject constructor(
         when (event) {
 
             is OverviewEvent.OnRefreshAstroPhoto -> {
-                getAstroPictures()
+                getAstroPictures(fetchFromRemote = true)
 
             }
 
