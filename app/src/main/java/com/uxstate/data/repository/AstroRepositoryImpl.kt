@@ -1,10 +1,7 @@
 package com.uxstate.data.repository
 
 import com.uxstate.data.local.AstroDatabase
-import com.uxstate.data.mapper.toAstroPhoto
-import com.uxstate.data.mapper.toAstroPhotoEntity
-import com.uxstate.data.mapper.toEntity
-import com.uxstate.data.mapper.toModel
+import com.uxstate.data.mapper.*
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
@@ -133,7 +130,7 @@ class AstroRepositoryImpl @Inject constructor(
 
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
 
-        dao.deleteFavPhoto(photo)
+        dao.deleteFavPhoto(photo.toFavPhotoEntity())
     }
 
     override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
