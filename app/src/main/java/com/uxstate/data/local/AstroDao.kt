@@ -8,25 +8,30 @@ import kotlinx.coroutines.flow.Flow
 interface AstroDao {
 
 
-//AstroPhotoEntity
-
-
+//ASTROPHOTOENTITY
 @Query("SELECT * FROM astrophotoentity ")
  fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
 
-@Query("SELECT * FROM astrophotoentity WHERE id =:id")
-suspend fun getFavoritePhotoById(id:String):AstroPhotoEntity?
-
-@Delete
-suspend fun deleteFavoritePhoto(photo: AstroPhotoEntity)
 
 
-@Query("SELECT EXISTS(SELECT 1 FROM astrophotoentity WHERE id=:id)")
-suspend fun photoExists(id:String):Boolean
 
- //FavPhotoEntity
+
+
+
+
+ //FAVPHOTOENTITY
  @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertFavoritePhoto(photo: FavPhotoEntity)
+
+ @Query("SELECT * FROM favphotoentity WHERE id =:id")
+ suspend fun getFavoritePhotoById(id:String):FavPhotoEntity?
+
+
+ @Delete
+ suspend fun deleteFavoritePhoto(photo: FavPhotoEntity)
+
+ @Query("SELECT EXISTS(SELECT 1 FROM favphotoentity WHERE id=:id)")
+ suspend fun isFavPhotoSavedCheck(id:String):Boolean
 
 
 }

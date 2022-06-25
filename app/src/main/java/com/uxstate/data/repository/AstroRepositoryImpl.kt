@@ -8,7 +8,6 @@ import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -68,7 +67,7 @@ class AstroRepositoryImpl @Inject constructor(
 
     //LOCAL
     override suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto):Boolean {
-        return dao.photoExists(photo.date)
+        return dao.isFavPhotoSavedCheck(photo.date)
     }
 
 
