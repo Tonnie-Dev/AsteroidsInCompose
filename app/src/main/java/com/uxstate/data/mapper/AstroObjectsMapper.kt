@@ -76,4 +76,18 @@ fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
     )
 }
 
+//AstroPhoto to FavPhotoEntity
+
+fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
+
+    return FavPhotoEntity(
+            id = this.date,
+            title = this.title,
+            mediaType = this.mediaType,
+            explanation = this.explanation,
+            url = this.url,
+            isFavorite = this.isFavorite
+    )
+}
+
 

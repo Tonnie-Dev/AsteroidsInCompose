@@ -132,7 +132,8 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
-        TODO("Not yet implemented")
+
+        dao.deleteFavPhoto(photo)
     }
 
     override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
