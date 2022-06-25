@@ -118,12 +118,10 @@ class AstroRepositoryImpl @Inject constructor(
 
         }
 
-    override suspend fun insertAstroPhotos(astroPhotos: List<AstroPhoto>) {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun getFavPhotoById(id: String): AstroPhoto? {
-        TODO("Not yet implemented")
+
+        return dao.getFavPhotoById(id)
     }
 
     override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
@@ -135,6 +133,10 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertFavPhoto(photo: AstroPhoto) {
         TODO("Not yet implemented")
     }
 

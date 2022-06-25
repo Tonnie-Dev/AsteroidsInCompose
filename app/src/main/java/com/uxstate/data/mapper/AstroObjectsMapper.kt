@@ -1,6 +1,7 @@
 package com.uxstate.data.mapper
 
 import com.uxstate.data.local.AstroPhotoEntity
+import com.uxstate.data.local.FavPhotoEntity
 import com.uxstate.data.remote.dto.AstroPhotoDTO
 import com.uxstate.domain.model.AstroPhoto
 
@@ -57,6 +58,21 @@ fun AstroPhoto.toEntity(): AstroPhotoEntity {
             url = this.url,
             mediaType = this.mediaType,
             isFavorite = true
+    )
+}
+
+
+//FavPhotoEntity to Model
+
+fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
+
+    return AstroPhoto(
+            date =this.id,
+            title = this.title,
+            explanation =this.explanation,
+            mediaType = this.mediaType,
+            url = this.url,
+            isFavorite = this.isFavorite
     )
 }
 

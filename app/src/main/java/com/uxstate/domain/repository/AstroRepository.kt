@@ -5,13 +5,7 @@ import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 
-interface AstroRepository
-
-{
-
-    /*Put functions to access data or manage data - this operations should
-    be the ones done from the UI not automatic (e.g. populating remote
-    data into db should not be a function of repository definition)*/
+interface AstroRepository {
 
     //ASTROPHOTOENTITY
     fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>>
@@ -23,4 +17,5 @@ interface AstroRepository
     fun getFavPhotos(): Flow<List<AstroPhoto>?>
     suspend fun deleteFavPhoto(photo: AstroPhoto)
     suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean
+    suspend fun insertFavPhoto (photo: AstroPhoto)
 }
