@@ -125,7 +125,10 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
-        TODO("Not yet implemented")
+        return dao.getFavPhotos().map {
+
+            list -> list?.map { it.toAstroPhoto() }
+        }
     }
 
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
