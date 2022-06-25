@@ -134,7 +134,7 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean {
-        TODO("Not yet implemented")
+        return dao.isFavPhotoSavedCheck(photo.id)
     }
 
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
