@@ -6,19 +6,15 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface AstroRepository {
-
-
-    suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto?
-    suspend fun insertAstroPhoto(photo: AstroPhoto)
-    suspend fun deleteAstroPhoto(photo: AstroPhoto)
-    suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto):Boolean
-
+    
     //ASTROPHOTOENTITY
-fun getAstroPhotos(): Flow<Resource<List<AstroPhoto>>>
-
+    fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>>
+    suspend fun insertAstroPhotos(astroPhotos: List<AstroPhoto>)
 
 
     //FAVPHOTOENTITY
-
+    suspend fun getFavPhotoById(id: String): AstroPhoto?
     fun getFavPhotos(): Flow<List<AstroPhoto>?>
+    suspend fun deleteFavPhoto(photo: AstroPhoto)
+    suspend fun isFavPhotoSaved(photo: AstroPhoto): Boolean
 }
