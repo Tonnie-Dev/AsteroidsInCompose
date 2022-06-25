@@ -121,7 +121,7 @@ class AstroRepositoryImpl @Inject constructor(
 
     override suspend fun getFavPhotoById(id: String): AstroPhoto? {
 
-        return dao.getFavPhotoById(id)
+        return dao.getFavPhotoById(id)?.toAstroPhoto()
     }
 
     override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
