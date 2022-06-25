@@ -9,10 +9,14 @@ interface AstroDao {
 
 
 //ASTROPHOTOENTITY
+ @Insert(onConflict = OnConflictStrategy.REPLACE)
+ suspend fun insertAstroFavPhotos(list: List<AstroPhotoEntity>)
+
 @Query("SELECT * FROM astrophotoentity ")
  fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
 
-
+@Query("DELETE FROM astrophotoentity")
+suspend fun clearAstroPhotos()
 
 
 
@@ -25,7 +29,6 @@ interface AstroDao {
 
  @Query("SELECT * FROM favphotoentity WHERE id =:id")
  suspend fun getFavoritePhotoById(id:String):FavPhotoEntity?
-
 
  @Delete
  suspend fun deleteFavoritePhoto(photo: FavPhotoEntity)
