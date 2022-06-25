@@ -20,10 +20,23 @@ fun AstroPhotoDTO.toModel(): AstroPhoto {
 
 }
 
+//DTO to AstroPhotoEntity
+
+fun AstroPhotoDTO.toAstroPhotoEntity():AstroPhotoEntity {
+
+    return AstroPhotoEntity(
+            id = this.date,
+            title = this.title,
+            mediaType = this.mediaType,
+            explanation = this.explanation,
+            url = this.url,
+            isFavorite = false
+    )
+}
+
 //Entity to Model
 
 fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
-
     return AstroPhoto(
             title = this.title,
             explanation = this.explanation,
@@ -35,7 +48,6 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
 }
 
 //Model to entity
-
 fun AstroPhoto.toEntity(): AstroPhotoEntity {
 
     return AstroPhotoEntity(

@@ -44,7 +44,7 @@ class AstroRepositoryImpl @Inject constructor(
             //check if db is empty
             val isDbEmpty = localAstroPhotos.isEmpty()
             //if db is not empty & is not fetchFromRemote return local listing
-            if(!isDbEmpty &&!fetchFromRemote){
+            if (!isDbEmpty && !fetchFromRemote) {
 
                 //emit the saved local list
                 emit(Resource.Success(data = localAstroPhotos.map { it.toAstroPhoto() }))
@@ -57,19 +57,34 @@ class AstroRepositoryImpl @Inject constructor(
             //if db is empty and is fetchFromRemote start the API call
 
 
-                val remotePhotos =  try {
+            val remotePhotos = try {
 
-                        }
-                        catch (e: IOException){
+                api.getAstroPictures()
 
-                            //emit Error
-                            emit(Resource.Error(message = e?.localizedMessage))
+            } catch (e: IOException) {
 
-                        }catch (e:HttpException){}
+                //emit Error 1
+                emit(Resource.Error(message = "Could not load data, check your internet connection"))
+
+                //return null
+                null
+
+            } catch (e: HttpException) {
+                //emit Error 2
+                emit(Resource.Error(message = "Unexpected error occurred"))
+
+                //return null
+                null
+
+
+            }
 
 
             //clear the local cache
+
+            dao.clearAstroPhotos()
             //insert the remote photos
+            dao.insertAstroPhotos(remotePhotos.map { it.to })
 
 
         }
