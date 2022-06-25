@@ -12,11 +12,13 @@ interface AstroDao {
  @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertAstroFavPhotos(list: List<AstroPhotoEntity>)
 
-@Query("SELECT * FROM astrophotoentity ")
- fun getFavoriteAstroPhotos():Flow<List<AstroPhotoEntity>?>
+
 
 @Query("DELETE FROM astrophotoentity")
 suspend fun clearAstroPhotos()
+
+@Query("SELECT * FROM astrophotoentity")
+suspend fun fetchAstroPhotos():List<AstroPhotoEntity>
 
 
 
@@ -35,6 +37,9 @@ suspend fun clearAstroPhotos()
 
  @Query("SELECT EXISTS(SELECT 1 FROM favphotoentity WHERE id=:id)")
  suspend fun isFavPhotoSavedCheck(id:String):Boolean
+
+ @Query("SELECT * FROM astrophotoentity ")
+ fun getFavPhotos():Flow<List<FavPhotoEntity>?>
 
 
 }
