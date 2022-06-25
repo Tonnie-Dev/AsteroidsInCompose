@@ -7,7 +7,7 @@ class InsertAstroPhotoUseCase(private val repository: AstroRepository) {
 
     suspend operator fun invoke(photo: AstroPhoto) {
 
-        repository.insertAstroPhoto(photo)
+        repository.insertFavPhoto(photo)
 
     }
 }

@@ -8,7 +8,7 @@ import com.uxstate.domain.repository.AstroRepository
 class GetFavAstroPhotoUseCase (private val repository: AstroRepository){
 
     suspend operator fun invoke(id:String): AstroPhoto?{
-       return repository.getFavoriteAstroPhoto(id)
+       return repository.getFavPhotoById(id)
 
     }
 

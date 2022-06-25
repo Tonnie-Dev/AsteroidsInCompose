@@ -9,6 +9,6 @@ class DeleteFavoritePhotoUseCase(private val repository: AstroRepository) {
 
     suspend operator fun invoke(photo: AstroPhoto) {
 
-        repository.deleteAstroPhoto(photo)
+        repository.deleteFavPhoto(photo)
     }
 }

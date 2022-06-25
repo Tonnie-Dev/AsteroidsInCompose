@@ -1,7 +1,9 @@
 package com.uxstate.data.repository
 
 import com.uxstate.data.local.AstroDatabase
-import com.uxstate.data.mapper.*
+import com.uxstate.data.mapper.toAstroPhoto
+import com.uxstate.data.mapper.toAstroPhotoEntity
+import com.uxstate.data.mapper.toFavPhotoEntity
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
@@ -55,6 +57,7 @@ class AstroRepositoryImpl @Inject constructor(
 
             val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
 
+
             //if db is not empty & is not fetchFromRemote return local listing
             if (shouldJustLoadFromCache) {
                 //stop loading
@@ -64,6 +67,8 @@ class AstroRepositoryImpl @Inject constructor(
                 //return to flow
                 return@flow
             }
+
+
             //if db is empty and is fetchFromRemote start the API call
 
             val remotePhotos = try {
@@ -92,9 +97,6 @@ class AstroRepositoryImpl @Inject constructor(
 
             }
 
-
-
-
             //null check returned date is not null then insert the remote photos
 
             remotePhotos?.let {
@@ -107,25 +109,32 @@ class AstroRepositoryImpl @Inject constructor(
 
             //retrieve the saved AstroPhotos
             //One Single Source of truth - we ensure data comes for db
-            emit(Resource.Success(data = dao.getSavedAstroPhotos().map { it.toAstroPhoto() }))
+            emit(
+                    Resource.Success(
+                            data = dao.getSavedAstroPhotos()
+                                    .map { it.toAstroPhoto() })
+            )
 
             //stop loading
 
-            emit(Resource.Loading(false ))
+            emit(Resource.Loading(false))
 
         }
 
 
     override suspend fun getFavPhotoById(id: String): AstroPhoto? {
 
-        return dao.getFavPhotoById(id)?.toAstroPhoto()
+        return dao.getFavPhotoById(id)
+                ?.toAstroPhoto()
     }
 
     override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
-        return dao.getFavPhotos().map {
+        return dao.getFavPhotos()
+                .map {
 
-            list -> list?.map { it.toAstroPhoto() }
-        }
+                    list ->
+                    list?.map { it.toAstroPhoto() }
+                }
     }
 
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
@@ -133,14 +142,13 @@ class AstroRepositoryImpl @Inject constructor(
         dao.deleteFavPhoto(photo.toFavPhotoEntity())
     }
 
-    override suspend fun isFavPhotoSaved(id:String): Boolean {
+    override suspend fun isFavPhotoSaved(id: String): Boolean {
         return dao.isFavPhotoSavedCheck(id)
     }
 
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
-      dao.insertFavoritePhoto(photo.toFavPhotoEntity())
+        dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
 
-    
 
 }
