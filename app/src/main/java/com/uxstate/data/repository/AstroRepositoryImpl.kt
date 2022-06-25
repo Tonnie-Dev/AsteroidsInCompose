@@ -2,6 +2,7 @@ package com.uxstate.data.repository
 
 import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.mapper.toAstroPhoto
+import com.uxstate.data.mapper.toAstroPhotoEntity
 import com.uxstate.data.mapper.toEntity
 import com.uxstate.data.mapper.toModel
 import com.uxstate.data.remote.AstroAPI
@@ -30,7 +31,7 @@ class AstroRepositoryImpl @Inject constructor(
     ) : AstroRepository {
 
 
-    val dao = db.dao
+    private val dao = db.dao
 
     override fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>> =
         //return a flow builder to have access to emit
@@ -41,21 +42,32 @@ class AstroRepositoryImpl @Inject constructor(
 
             //start db query through a variable
             val localAstroPhotos = dao.getSavedAstroPhotos()
+
+
+            /*at this point we have successfully loaded the cache, if
+           * the database is empty then local photos list will be an
+           * empty list*/
+
+            emit(Resource.Success(data = localAstroPhotos.map { it.toAstroPhoto() }))
+
+
             //check if db is empty
             val isDbEmpty = localAstroPhotos.isEmpty()
+
+            //determine if should load from cache
+
+            val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
+
             //if db is not empty & is not fetchFromRemote return local listing
-            if (!isDbEmpty && !fetchFromRemote) {
-
-                //emit the saved local list
-                emit(Resource.Success(data = localAstroPhotos.map { it.toAstroPhoto() }))
-
+            if (shouldJustLoadFromCache) {
                 //stop loading
                 emit(Resource.Loading(false))
+
+
                 //return to flow
                 return@flow
             }
             //if db is empty and is fetchFromRemote start the API call
-
 
             val remotePhotos = try {
 
@@ -63,6 +75,7 @@ class AstroRepositoryImpl @Inject constructor(
 
             } catch (e: IOException) {
 
+                e.printStackTrace()
                 //emit Error 1
                 emit(Resource.Error(message = "Could not load data, check your internet connection"))
 
@@ -70,6 +83,9 @@ class AstroRepositoryImpl @Inject constructor(
                 null
 
             } catch (e: HttpException) {
+
+
+                e.printStackTrace()
                 //emit Error 2
                 emit(Resource.Error(message = "Unexpected error occurred"))
 
@@ -80,12 +96,25 @@ class AstroRepositoryImpl @Inject constructor(
             }
 
 
-            //clear the local cache
 
-            dao.clearAstroPhotos()
-            //insert the remote photos
-            dao.insertAstroPhotos(remotePhotos.map { it.to })
 
+            //null check returned date is not null then insert the remote photos
+
+            remotePhotos?.let {
+
+                //clear the local cache
+                dao.clearAstroPhotos()
+
+                dao.insertAstroPhotos(it.map { dto -> dto.toAstroPhotoEntity() })
+            }
+
+            //retrieve the saved AstroPhotos
+            //One Single Source of truth - we ensure data comes for db
+            emit(Resource.Success(data = dao.getSavedAstroPhotos().map { it.toAstroPhoto() }))
+
+            //stop loading
+
+            emit(Resource.Loading(false ))
 
         }
 
