@@ -141,50 +141,6 @@ class AstroRepositoryImpl @Inject constructor(
       dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
 
-    //REMOTE
-    suspend fun getAstroPhotos(): List<AstroPhoto> {
-
-        return api.getAstroPictures()
-                .map { it.toModel() }
-
-    }
-
-    //LOCAL
-    fun getFavoriteAstroPhotos(): Flow<List<AstroPhoto>?> {
-
-
-        return dao.getFavoriteAstroPhotos()
-                .map {
-                    it?.map { photo -> photo.toAstroPhoto() }
-                }
-
-    }
-
-
-    //LOCAL
-    suspend fun getFavoriteAstroPhoto(id: String): AstroPhoto? {
-        return dao.getFavoritePhotoById(id)
-                ?.toAstroPhoto()
-    }
-
-
-    //LOCAL
-    suspend fun insertAstroPhoto(photo: AstroPhoto) {
-        dao.insertFavoriteAstroPhoto(photo.toEntity())
-
-
-    }
-
-
-    //LOCAL
-    suspend fun deleteAstroPhoto(photo: AstroPhoto) {
-        dao.deleteFavoritePhoto(photo.toEntity())
-    }
-
-
-    //LOCAL
-    suspend fun checkIfPhotoExistsInDatabase(photo: AstroPhoto): Boolean {
-        return dao.isFavPhotoSavedCheck(photo.date)
-    }
+    
 
 }
