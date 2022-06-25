@@ -95,7 +95,7 @@ class OverviewViewModel @Inject constructor(
 
                         is Resource.Loading -> {
 
-                            state = state.copy(isPhotoLoading = result.isLoading)
+                            state = state.copy(isPhotosListLoading = result.isLoading)
                         }
                         is Resource.Error -> {
 

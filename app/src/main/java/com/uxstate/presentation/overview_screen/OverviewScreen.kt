@@ -29,7 +29,7 @@ fun OverviewScreen(
 ) {
 
     val state = viewModel.state
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotoLoading)
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotosListLoading)
     val spacing = LocalSpacing.current
 
 
