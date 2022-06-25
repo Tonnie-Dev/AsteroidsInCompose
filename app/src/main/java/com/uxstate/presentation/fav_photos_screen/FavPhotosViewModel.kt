@@ -63,7 +63,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
                     favPhotos ->
-                    state = state.copy(favoritePhotosList = (favPhotos ?: mutableListOf()) as MutableList<AstroPhoto>)
+                    state = state.copy(favoritePhotosList = favPhotos?: emptyList())
 
 
                 }
