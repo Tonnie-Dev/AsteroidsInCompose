@@ -60,7 +60,7 @@ class OverviewViewModel @Inject constructor(
                 viewModelScope.launch {
                     withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
-                        updateFavoritePhotos(event.photo)
+                      updateFavoritePhotos(event.photo)
 
                     }
 
@@ -80,7 +80,7 @@ class OverviewViewModel @Inject constructor(
 
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
 
-                    updateFavoritePhotos(event.photo)
+                 //   updateFavoritePhotos(event.photo)
 
                     }
                 }

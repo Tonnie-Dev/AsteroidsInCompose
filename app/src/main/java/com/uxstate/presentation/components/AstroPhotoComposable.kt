@@ -45,7 +45,7 @@ fun AstroPhotoComposable(
 
     // var isMarkedFavorite = remember {photo.isFavorite}
 
-    var isFavorite by remember { mutableStateOf(photo.isFavorite) }
+    var isFavorite by remember(photo.isFavorite) { mutableStateOf(photo.isFavorite) }
 
     Card(
             modifier = modifier,
@@ -104,15 +104,16 @@ fun AstroPhotoComposable(
 
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
 
-            Timber.i("AstroPhoto called - value for isFavorite is: $isFavorite")
+
             if (isFavorite) {
 
                 //display delete option Assist Chip
 
                 AssistChip(
                         onClick = {
-                            onDeletePhoto()
                             isFavorite = !isFavorite
+                            onDeletePhoto()
+
 
 
                         },
