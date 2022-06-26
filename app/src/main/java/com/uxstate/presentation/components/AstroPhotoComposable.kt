@@ -22,6 +22,7 @@ import coil.compose.rememberImagePainter
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
+import timber.log.Timber
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -33,6 +34,7 @@ fun AstroPhotoComposable(
     onDeletePhoto: () -> Unit = {}
 ) {
 
+
     val spacing = LocalSpacing.current
 
     val imgUri = photo.url.toUri()
@@ -41,9 +43,9 @@ fun AstroPhotoComposable(
             .build()
 
 
-   // var isMarkedFavorite = remember {photo.isFavorite}
+    // var isMarkedFavorite = remember {photo.isFavorite}
 
-    var isFavorite by remember{ mutableStateOf(photo.isFavorite)}
+    var isFavorite by remember { mutableStateOf(photo.isFavorite) }
 
     Card(
             modifier = modifier,
@@ -102,7 +104,7 @@ fun AstroPhotoComposable(
 
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
 
-
+            Timber.i("AstroPhoto called - value for isFavorite is: $isFavorite")
             if (isFavorite) {
 
                 //display delete option Assist Chip
@@ -113,8 +115,7 @@ fun AstroPhotoComposable(
                             isFavorite = !isFavorite
 
 
-
-                                  },
+                        },
                         colors = AssistChipDefaults.assistChipColors(
                                 leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         ),
@@ -131,14 +132,14 @@ fun AstroPhotoComposable(
                 )
 
 
-            } else{
-            //display Favourite AssistChip
+            } else {
+                //display Favourite AssistChip
                 AssistChip(
                         onClick = {
                             isFavorite = !isFavorite
                             onMarkAsFavorite()
 
-                                  },
+                        },
                         colors = AssistChipDefaults.assistChipColors
                         (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
@@ -147,7 +148,8 @@ fun AstroPhotoComposable(
                                     contentDescription = stringResource(R.string.favourite_label)
                             )
                         }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                )}
+                )
+            }
         }
 
 

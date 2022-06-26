@@ -34,8 +34,13 @@ class OverviewViewModel @Inject constructor(
 
     init {
 
-        getAstroPictures()
-        getFavPhotos()
+        
+
+            getAstroPictures()
+
+
+
+
     }
 
     fun onEvent(event: OverviewEvent) {
@@ -44,6 +49,8 @@ class OverviewViewModel @Inject constructor(
 
             is OverviewEvent.OnRefreshAstroPhoto -> {
                 getAstroPictures(fetchFromRemote = true)
+
+
 
             }
 
@@ -84,7 +91,7 @@ class OverviewViewModel @Inject constructor(
     }
 
 
-    private fun getAstroPictures(fetchFromRemote:Boolean = false) {
+    private  fun getAstroPictures(fetchFromRemote:Boolean = false) {
 
         useCaseContainer.getAstroPhotosUseCase(fetchFromRemote)
                 .onEach { result ->
@@ -110,38 +117,25 @@ class OverviewViewModel @Inject constructor(
                     }
 
 
-                }
-                .launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
+
     }
 
 
 
-   private fun getFavPhotos (){
 
-
-        useCaseContainer.getFavAstroPhotosUseCase().onEach { favoriteList ->
-
-            favoriteList?.let {
-
-                state = state.copy(favoritePhotosList = it)
-            }
-
-
-        }
-    }
 
     private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
 
-
         return  useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
-
-
 
     }
 
    private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
         state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+
+       Timber.i("Overview stat item 1 is: ${state.astroPhotos[0].isFavorite}")
 
 
     }

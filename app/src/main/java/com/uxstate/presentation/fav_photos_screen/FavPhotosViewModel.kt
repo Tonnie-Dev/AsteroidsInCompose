@@ -7,13 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
-import com.uxstate.presentation.overview_screen.OverviewEvent
+import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,42 +25,41 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
         private set
 
     init {
-        getSavedPhotos()
+        getFavoritePhotos()
+        getSavedAstroPhotos()
     }
 
 
+    fun onEvent(event: FavoritePhotoScreenEvent) {
 
 
-    fun onEvent(event: FavoritePhotoScreenEvent){
-
-
-        when(event){
+        when (event) {
 
             is FavoritePhotoScreenEvent.OnRemoveFromFavorite -> {
 
-               //delete from db
+                //delete from db
 
-               viewModelScope.launch {
+                viewModelScope.launch {
 
-                   withContext(IO){
+                    withContext(IO) {
 
-                       useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+                        useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+                        updateAstroPhotos(event.photo)
 
-                       updateAstroPhotos(event.photo)
-                   }
+                    }
 
 
-               }
+                }
 
                 //remove from the current list
-              // state = state.favoritePhotosList.remove(event.photo)
-               // getSavedPhotos()
+                // state = state.favoritePhotosList.remove(event.photo)
+                // getSavedPhotos()
             }
         }
     }
     //get photos
 
-    private fun getSavedPhotos() {
+    private fun getFavoritePhotos() {
 
 
         useCaseContainer.getFavAstroPhotosUseCase()
@@ -67,7 +67,35 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
                     favPhotos ->
-                    state = state.copy(favoritePhotosList = favPhotos?: emptyList())
+                    state = state.copy(favoritePhotosList = favPhotos ?: emptyList())
+
+
+                }
+                .launchIn(viewModelScope)
+    }
+
+
+    private fun getSavedAstroPhotos() {
+
+
+        useCaseContainer.getAstroPhotosUseCase(false)
+                .onEach {
+
+                    result ->
+
+                    when (result) {
+
+
+                        is Resource.Success -> {
+
+                            result.data?.let {
+
+                                state = state.copy(astroPhotos = it )
+                            }
+
+                        }
+                        else -> Unit
+                    }
 
 
                 }
@@ -77,8 +105,11 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     private fun updateAstroPhotos(photo: AstroPhoto) {
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
 
+
+        state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
+        Timber.i("update FavStatus = ${state.astroPhotos[0].isFavorite}")
+       // Timber.i("The changed object is${state.astroPhotos.find { it.date == photo.date }?.isFavorite = false}")
 
     }
 

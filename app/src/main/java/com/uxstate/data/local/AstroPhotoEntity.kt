@@ -12,5 +12,5 @@ data class AstroPhotoEntity(
     val mediaType:String,
     val explanation: String,
     val url: String,
-    val isFavorite:Boolean
+    var isFavorite:Boolean
 )

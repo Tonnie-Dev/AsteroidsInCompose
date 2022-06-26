@@ -23,7 +23,7 @@ import com.uxstate.util.LocalSpacing
 @Destination
 @Composable
 fun FavoritePhotosScreen(
-    viewModel: OverviewViewModel = hiltViewModel(),
+    viewModel:FavPhotosViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
     val spacing = LocalSpacing.current
@@ -56,7 +56,7 @@ fun FavoritePhotosScreen(
                             onDeletePhoto = {
 
                                 viewModel.onEvent(
-                                       OverviewEvent.OnRemoveFromFavorites(photo)
+                                      FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
                             }, onMarkAsFavorite = { })
                 }
