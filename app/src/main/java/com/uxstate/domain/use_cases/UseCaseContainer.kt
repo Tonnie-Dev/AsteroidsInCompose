@@ -6,5 +6,6 @@ data class UseCaseContainer(
     val getAstroPhotosUseCase: GetAstroPhotosUseCase,
     val getFavAstroPhotosUseCase:GetFavAstroPhotosUseCase,
     val insertAstroPhotoUseCase: InsertAstroPhotoUseCase,
-    val checkIfPhotoIsInDatabaseUseCase: CheckIfPhotoIsInDatabaseUseCase
+    val checkIfPhotoIsInDatabaseUseCase: CheckIfPhotoIsInDatabaseUseCase,
+    val updateIsFavoriteStatus: UpdateIsFavoriteStatus
 )
