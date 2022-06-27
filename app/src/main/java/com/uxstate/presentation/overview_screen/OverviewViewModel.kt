@@ -80,7 +80,7 @@ class OverviewViewModel @Inject constructor(
 
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
 
-                 //   updateFavoritePhotos(event.photo)
+                  updateFavoritePhotos(event.photo)
 
                     }
                 }
@@ -133,9 +133,14 @@ class OverviewViewModel @Inject constructor(
 
    private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+       val currentPhotoId = photo.date
 
-       Timber.i("Overview stat item 1 is: ${state.astroPhotos[0].isFavorite}")
+       useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
+
+       // state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+
+
+       //Timber.i("Overview stat item 1 is: ${state.astroPhotos[0].isFavorite}")
 
 
     }

@@ -26,7 +26,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     init {
         getFavoritePhotos()
-        getSavedAstroPhotos()
+        //getSavedAstroPhotos()
     }
 
 
@@ -42,9 +42,9 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
-
+                        toggleIsFavoriteStatus(event.photo)
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
-                        updateAstroPhotos(event.photo)
+                      //  updateAstroPhotos(event.photo)
 
                     }
 
@@ -123,7 +123,12 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
         viewModelScope.launch {
 
-            useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
+            withContext(IO){
+
+                useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
+            }
+
+
         }
 
     }
