@@ -117,15 +117,13 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
 
-    private fun toggleTrueStatus(photo: AstroPhoto) {
-
-
+    private fun toggleIsFavoriteStatus(photo: AstroPhoto) {
 
         val currentPhotoId = photo.date
 
         viewModelScope.launch {
 
-            useCaseContainer.updatePhotoUseCase(currentPhoto.copy(isFavorite = status))
+            useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
         }
 
     }
