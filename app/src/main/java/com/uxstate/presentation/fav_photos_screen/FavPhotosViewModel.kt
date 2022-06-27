@@ -113,4 +113,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     }
 
+    private fun toggleDatabase(){}
+
 }
