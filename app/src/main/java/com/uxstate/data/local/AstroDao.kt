@@ -1,6 +1,7 @@
 package com.uxstate.data.local
 
 import androidx.room.*
+import com.uxstate.domain.model.AstroPhoto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,6 +20,8 @@ interface AstroDao {
 
     @Query("UPDATE astrophotoentity SET isFavorite = NOT isFavorite WHERE id=:id")
     fun updateIsFavoriteStatus(id: String)
+
+
 
     //FAVPHOTOENTITY
     @Insert(onConflict = OnConflictStrategy.REPLACE)

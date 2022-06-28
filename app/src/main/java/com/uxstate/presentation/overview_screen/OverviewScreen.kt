@@ -3,6 +3,7 @@ package com.uxstate.presentation.overview_screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
@@ -19,6 +20,7 @@ import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination(start = true)
@@ -64,6 +66,15 @@ fun OverviewScreen(
                         .padding(values)
         ) {
 
+            if (state.astroPhotos.isEmpty()){
+
+                Box(modifier = Modifier.fillMaxSize()){
+
+
+                    Text(text = "NO PHOTOS FOUND")
+                }
+            }else{
+
 
             SwipeRefresh(state = swipeRefreshState, modifier = Modifier
                     .fillMaxWidth()
@@ -72,26 +83,34 @@ fun OverviewScreen(
                 viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
             }) {
 
+
+
                 LazyColumn(content = {
 
 
-                    items(state.astroPhotos) {
 
+
+                    itemsIndexed(state.astroPhotos) {i, item->
+                      //  Timber.i("At Index i $i item is: ${item.isFavorite}")
                         AstroPhotoComposable(
-                                photo = it,
+                                photo = item,
+
+
                                 modifier = Modifier.fillMaxWidth(),
                                 onTapPhoto = {
 
-                                    navigator.navigate(PhotoDetailsScreenDestination(it))
+                                    navigator.navigate(PhotoDetailsScreenDestination(item))
                                 },
                                 onMarkAsFavorite = {
-
-                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(it))
+                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(item))
+                                    Timber.i("At Position 0 isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
                                 },
                                 onDeletePhoto = {
                                     viewModel.onEvent(
-                                            OverviewEvent.OnRemoveFromFavorites(it)
+                                            OverviewEvent.OnRemoveFromFavorites(item)
                                     )
+
+                                    Timber.i("At Position 0 isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
                                 })
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
@@ -99,8 +118,10 @@ fun OverviewScreen(
                 })
 
 
-            }
+            }}
         }
+
+
     }
 
 

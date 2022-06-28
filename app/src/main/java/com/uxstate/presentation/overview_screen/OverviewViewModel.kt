@@ -10,6 +10,7 @@ import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,16 +30,16 @@ class OverviewViewModel @Inject constructor(
     var state by mutableStateOf(PhotoState())
         private set
 
+    var isFavoriteState by mutableStateOf(false)
+    private set
+    private var getPhotosJob: Job? = null
     val _uiEvent = Channel<OverviewEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
 
-        
 
-            getAstroPictures()
-
-
+        getAstroPictures()
 
 
     }
@@ -51,7 +52,6 @@ class OverviewViewModel @Inject constructor(
                 getAstroPictures(fetchFromRemote = true)
 
 
-
             }
 
             is OverviewEvent.OnMarkFavorite -> {
@@ -59,9 +59,17 @@ class OverviewViewModel @Inject constructor(
                 //update db - insert
                 viewModelScope.launch {
                     withContext(IO) {
-                        useCaseContainer.insertAstroPhotoUseCase(event.photo)
-                      updateFavoritePhotos(event.photo)
 
+
+
+                        //update DB1
+                       useCaseContainer.updateIsFavoriteStatus(event.photo)
+
+                        //generate new state
+                        state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = true
+
+                        //insert to DB2
+                        useCaseContainer.insertAstroPhotoUseCase(event.photo)
                     }
 
 
@@ -78,9 +86,16 @@ class OverviewViewModel @Inject constructor(
 
                     withContext(IO) {
 
-                        useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
 
-                  updateFavoritePhotos(event.photo)
+
+                        //update DB1
+                        useCaseContainer.updateIsFavoriteStatus(event.photo)
+
+                        //generate new state
+                       state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = false
+
+                        //delete from DB2
+                        useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
 
                     }
                 }
@@ -91,9 +106,12 @@ class OverviewViewModel @Inject constructor(
     }
 
 
-    private  fun getAstroPictures(fetchFromRemote:Boolean = false) {
+    private fun getAstroPictures(fetchFromRemote: Boolean = false) {
 
-        useCaseContainer.getAstroPhotosUseCase(fetchFromRemote)
+        getPhotosJob?.cancel()
+
+
+        getPhotosJob =useCaseContainer.getAstroPhotosUseCase(fetchFromRemote)
                 .onEach { result ->
 
                     when (result) {
@@ -110,6 +128,7 @@ class OverviewViewModel @Inject constructor(
 
                             result.data?.let {
 
+
                                 state = state.copy(astroPhotos = it)
                             }
 
@@ -117,31 +136,48 @@ class OverviewViewModel @Inject constructor(
                     }
 
 
-                }.launchIn(viewModelScope)
+                }
+                .launchIn(viewModelScope)
 
     }
 
 
+    suspend fun isInDatabase(photo: AstroPhoto): Boolean {
 
-
-
-    private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
-
-        return  useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
+        return useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
 
     }
 
-   private suspend fun updateFavoritePhotos(photo: AstroPhoto) {
+    private suspend fun updateFavoritePhotos(photo: AstroPhoto, status:Boolean) {
 
-       val currentPhotoId = photo.date
-
-       useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
-
-       // state.astroPhotos.find { it.date == photo.date }?.isFavorite = isInDatabase(photo)
+        val currentPhotoId = photo.date
 
 
-       //Timber.i("Overview stat item 1 is: ${state.astroPhotos[0].isFavorite}")
+        //update DB
+       // useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
 
+        //updateStatus
+       // state.astroPhotos.find { it.date == photo.date }?.isFavorite = status
+
+
+        //Timber.i("Overview stat item 1 is: ${state.astroPhotos[0].isFavorite}")
+
+
+    }
+
+    fun isFavorite(photo: AstroPhoto):Boolean{
+
+
+        viewModelScope.launch {
+
+            withContext(IO){
+                isFavoriteState = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
+            }
+        }
+
+
+
+        return isFavoriteState
 
     }
 

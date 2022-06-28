@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,9 +41,11 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
-                        toggleIsFavoriteStatus(event.photo)
+                       //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
-                      //  updateAstroPhotos(event.photo)
+                        //  updateAstroPhotos(event.photo)
+                        useCaseContainer.updateIsFavoriteStatus(event.photo)
+                        // useCaseContainer.insertAstroPhotoUseCase(event.photo)
 
                     }
 
@@ -90,7 +91,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
                             result.data?.let {
 
-                                state = state.copy(astroPhotos = it )
+                                state = state.copy(astroPhotos = it)
                             }
 
                         }
@@ -103,18 +104,15 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     }
 
 
-    private fun updateAstroPhotos(photo: AstroPhoto) {
+    /* private fun updateAstroPhotos(photo: AstroPhoto) {
 
 
 
-        state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
-        Timber.i("update FavStatus = ${state.astroPhotos[0].isFavorite}")
-       // Timber.i("The changed object is${state.astroPhotos.find { it.date == photo.date }?.isFavorite = false}")
+         state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
+         Timber.i("update FavStatus = ${state.astroPhotos[0].isFavorite}")
+        // Timber.i("The changed object is${state.astroPhotos.find { it.date == photo.date }?.isFavorite = false}")
 
-    }
-
-    private fun toggleDatabase(){}
-
+     }*/
 
 
     private fun toggleIsFavoriteStatus(photo: AstroPhoto) {
@@ -123,9 +121,9 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
         viewModelScope.launch {
 
-            withContext(IO){
+            withContext(IO) {
 
-                useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
+                //useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
             }
 
 

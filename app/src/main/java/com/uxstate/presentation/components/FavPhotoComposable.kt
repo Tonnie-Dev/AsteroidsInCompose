@@ -26,12 +26,10 @@ import timber.log.Timber
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AstroPhotoComposable(
+fun FavPhotoComposable(
     modifier: Modifier = Modifier,
     photo: AstroPhoto,
-
     onTapPhoto: () -> Unit,
-    onMarkAsFavorite: () -> Unit,
     onDeletePhoto: () -> Unit = {}
 ) {
 
@@ -140,8 +138,7 @@ fun AstroPhotoComposable(
                 //display Favourite AssistChip
                 AssistChip(
                         onClick = {
-
-                            onMarkAsFavorite()
+                            
                             isFavorite = !isFavorite
                             Timber.i("Marked True - isFav is: $isFavorite")
 

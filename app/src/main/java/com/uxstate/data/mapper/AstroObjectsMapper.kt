@@ -35,7 +35,9 @@ fun AstroPhotoDTO.toAstroPhotoEntity():AstroPhotoEntity {
     )
 }
 
-//Entity to Model
+
+
+//AstroPhotoEntity to Model
 
 fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
     return AstroPhoto(
@@ -77,5 +79,20 @@ fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
             isFavorite = true
     )
 }
+
+//AstroPhoto to AstroPhotoEntity
+
+fun AstroPhoto.toAstroPhotoEntity(): AstroPhotoEntity{
+
+    return AstroPhotoEntity(
+            id = this.date,
+            title = this.title,
+            mediaType = this.mediaType,
+            explanation = this.explanation,
+            url = this.url,
+            isFavorite = true
+    )
+}
+
 
 
