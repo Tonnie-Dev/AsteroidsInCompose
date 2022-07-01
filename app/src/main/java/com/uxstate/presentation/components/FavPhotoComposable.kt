@@ -114,7 +114,7 @@ fun FavPhotoComposable(
 
                            onDeletePhoto()
                            isFavorite = !isFavorite
-                            Timber.i("UnMarked True - isFav is: $isFavorite")
+                           // Timber.i("UnMarked True - isFav is: $isFavorite")
 
 
                         },
@@ -138,9 +138,9 @@ fun FavPhotoComposable(
                 //display Favourite AssistChip
                 AssistChip(
                         onClick = {
-                            
+
                             isFavorite = !isFavorite
-                            Timber.i("Marked True - isFav is: $isFavorite")
+                           // Timber.i("Marked True - isFav is: $isFavorite")
 
                         },
                         colors = AssistChipDefaults.assistChipColors

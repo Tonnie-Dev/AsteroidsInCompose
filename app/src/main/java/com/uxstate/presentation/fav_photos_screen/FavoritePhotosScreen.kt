@@ -14,6 +14,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
+import com.uxstate.presentation.components.FavPhotoComposable
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.presentation.overview_screen.OverviewEvent
 import com.uxstate.presentation.overview_screen.OverviewViewModel
@@ -49,7 +50,7 @@ fun FavoritePhotosScreen(
 
                 items(photos) { photo ->
 
-                    AstroPhotoComposable(
+                    FavPhotoComposable(
 
                             photo = photo,
                             onTapPhoto = {
@@ -60,7 +61,7 @@ fun FavoritePhotosScreen(
                                 viewModel.onEvent(
                                       FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
-                            }, onMarkAsFavorite = { }
+                            }
                     )
                 }
             })

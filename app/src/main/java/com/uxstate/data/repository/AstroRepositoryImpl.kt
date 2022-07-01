@@ -121,8 +121,8 @@ class AstroRepositoryImpl @Inject constructor(
 
         }
 
-    override suspend fun updateIsFavoriteStatus(photo: AstroPhoto) {
-        dao.updateIsFavoriteStatus(photo.date )
+    override suspend fun updateIsFavoriteStatus(astroPhoto: AstroPhoto) {
+        dao.updateIsFavoriteStatus(astroPhoto.date )
     }
 
 

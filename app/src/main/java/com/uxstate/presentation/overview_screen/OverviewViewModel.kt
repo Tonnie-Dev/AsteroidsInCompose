@@ -12,9 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -30,6 +28,10 @@ class OverviewViewModel @Inject constructor(
     var state by mutableStateOf(PhotoState())
         private set
 
+    private val _stateFlow = MutableStateFlow(PhotoState())
+
+    val stateFlow = _stateFlow.asStateFlow()
+
     var isFavoriteState by mutableStateOf(false)
     private set
     private var getPhotosJob: Job? = null
@@ -39,7 +41,7 @@ class OverviewViewModel @Inject constructor(
     init {
 
 
-        getAstroPictures()
+        getAstroPhotosUsingStateFlow()
 
 
     }
@@ -51,7 +53,6 @@ class OverviewViewModel @Inject constructor(
             is OverviewEvent.OnRefreshAstroPhoto -> {
                 getAstroPictures(fetchFromRemote = true)
 
-
             }
 
             is OverviewEvent.OnMarkFavorite -> {
@@ -60,16 +61,17 @@ class OverviewViewModel @Inject constructor(
                 viewModelScope.launch {
                     withContext(IO) {
 
-
-
                         //update DB1
                        useCaseContainer.updateIsFavoriteStatus(event.photo)
 
                         //generate new state
-                        state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = true
+                      state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = isInDatabase(event.photo)
+
 
                         //insert to DB2
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
+                        Timber.i("onMarK Fav VM - state isFav ${state.astroPhotos[0].isFavorite}")
+
                     }
 
 
@@ -86,16 +88,16 @@ class OverviewViewModel @Inject constructor(
 
                     withContext(IO) {
 
-
-
                         //update DB1
                         useCaseContainer.updateIsFavoriteStatus(event.photo)
 
-                        //generate new state
-                       state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = false
+
+                        state.astroPhotos.find { it.date == event.photo.date }?.isFavorite =  isInDatabase(event.photo)
+
 
                         //delete from DB2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
+                        Timber.i("onRemove Fav VM - state isFav ${state.astroPhotos[0].isFavorite}")
 
                     }
                 }
@@ -140,6 +142,44 @@ class OverviewViewModel @Inject constructor(
                 .launchIn(viewModelScope)
 
     }
+
+     fun getAstroPhotosUsingStateFlow(fetchFromRemote: Boolean = false) =
+
+
+        viewModelScope.launch {
+            useCaseContainer.getAstroPhotosUseCase(fetchFromRemote).collect{
+
+                result ->
+
+                when (result) {
+
+                    is Resource.Loading -> {
+                        _stateFlow .value= PhotoState(isPhotosListLoading = result.isLoading)
+                    }
+                    is Resource.Error -> {
+
+                        _stateFlow .value= PhotoState(errorMessage = result.message)
+                    }
+                    is Resource.Success -> {
+
+
+
+                        result.data?.let {
+                            _stateFlow .value= PhotoState(astroPhotos = it)
+
+
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+
+        }
+
 
 
     suspend fun isInDatabase(photo: AstroPhoto): Boolean {

@@ -8,6 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,7 +32,8 @@ fun OverviewScreen(
     navigator: DestinationsNavigator
 ) {
 
-    val state = viewModel.state
+   // val uiState: PhotoState by viewModel.stateFlow.collectAsState()
+   val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotosListLoading)
     val spacing = LocalSpacing.current
 
@@ -103,14 +106,14 @@ fun OverviewScreen(
                                 },
                                 onMarkAsFavorite = {
                                     viewModel.onEvent(OverviewEvent.OnMarkFavorite(item))
-                                    Timber.i("At Position 0 isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                    Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
                                 },
                                 onDeletePhoto = {
                                     viewModel.onEvent(
                                             OverviewEvent.OnRemoveFromFavorites(item)
                                     )
 
-                                    Timber.i("At Position 0 isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                    Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
                                 })
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 

@@ -18,8 +18,13 @@ interface AstroDao {
     @Query("DELETE FROM astrophotoentity")
     suspend fun clearAstroPhotos()
 
-    @Query("UPDATE astrophotoentity SET isFavorite = NOT isFavorite WHERE id=:id")
-    fun updateIsFavoriteStatus(id: String)
+   // @Query("UPDATE astrophotoentity SET isFavorite = NOT isFavorite WHERE id=:id")
+
+
+    //fun updateIsFavoriteStatus(id: String)
+
+    @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
+    fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
 
 
 
