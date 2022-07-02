@@ -105,12 +105,12 @@ fun OverviewScreen(
                                     navigator.navigate(PhotoDetailsScreenDestination(item))
                                 },
                                 onMarkAsFavorite = {
-                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(item))
+                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
                                     Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
                                 },
                                 onDeletePhoto = {
                                     viewModel.onEvent(
-                                            OverviewEvent.OnRemoveFromFavorites(item)
+                                            OverviewEvent.OnRemoveFromFavorites(item, false)
                                     )
 
                                     Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")

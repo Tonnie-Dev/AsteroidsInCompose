@@ -25,7 +25,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     init {
         getFavoritePhotos()
-        //getSavedAstroPhotos()
+
     }
 
 
@@ -36,30 +36,25 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
             is FavoritePhotoScreenEvent.OnRemoveFromFavorite -> {
 
-                //delete from db
+
 
                 viewModelScope.launch {
 
                     withContext(IO) {
                        //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
-                        //  updateAstroPhotos(event.photo)
-                        useCaseContainer.updateIsFavoriteStatus(event.photo)
-                        // useCaseContainer.insertAstroPhotoUseCase(event.photo)
+                        //  updateAstroPhotos
+                        //useCaseContainer.updateIsFavoriteStatus(event.photo)
+
 
                     }
 
 
                 }
-
-                //remove from the current list
-                // state = state.favoritePhotosList.remove(event.photo)
-                // getSavedPhotos()
             }
         }
     }
     //get photos
-
     private fun getFavoritePhotos() {
 
 
@@ -74,7 +69,21 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 }
                 .launchIn(viewModelScope)
     }
+    private fun toggleIsFavoriteStatus(photo: AstroPhoto) {
 
+        val currentPhotoId = photo.date
+
+        viewModelScope.launch {
+
+            withContext(IO) {
+
+                //useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
+            }
+
+
+        }
+
+    }
 
     private fun getSavedAstroPhotos() {
 
@@ -115,21 +124,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
      }*/
 
 
-    private fun toggleIsFavoriteStatus(photo: AstroPhoto) {
 
-        val currentPhotoId = photo.date
-
-        viewModelScope.launch {
-
-            withContext(IO) {
-
-                //useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
-            }
-
-
-        }
-
-    }
 
 
 }

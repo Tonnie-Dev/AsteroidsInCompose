@@ -5,8 +5,8 @@ import com.uxstate.domain.repository.AstroRepository
 
 class UpdateIsFavoriteStatusUseCase (private val repository: AstroRepository) {
 
-    suspend operator fun invoke(photo: AstroPhoto){
+    suspend operator fun invoke(photo: AstroPhoto, isFavorite:Boolean){
 
-        repository.updateIsFavoriteStatus(photo)
+        repository.updateIsFavoriteStatus(photo, isFavorite)
     }
 }

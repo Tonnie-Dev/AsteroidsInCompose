@@ -9,7 +9,7 @@ interface AstroRepository {
 
     //ASTROPHOTOENTITY
     fun fetchAstroPhotos(fetchFromRemote: Boolean): Flow<Resource<List<AstroPhoto>>>
-    suspend fun updateIsFavoriteStatus(astroPhoto: AstroPhoto)
+    suspend fun updateIsFavoriteStatus(photo: AstroPhoto, isFavorite:Boolean)
 
 
     //FAVPHOTOENTITY

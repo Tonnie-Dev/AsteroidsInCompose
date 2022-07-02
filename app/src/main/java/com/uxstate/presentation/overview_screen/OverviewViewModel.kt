@@ -41,7 +41,9 @@ class OverviewViewModel @Inject constructor(
     init {
 
 
-        getAstroPhotosUsingStateFlow()
+       // getAstroPhotosUsingStateFlow()
+
+        getAstroPictures()
 
 
     }
@@ -62,10 +64,10 @@ class OverviewViewModel @Inject constructor(
                     withContext(IO) {
 
                         //update DB1
-                       useCaseContainer.updateIsFavoriteStatus(event.photo)
+                       useCaseContainer.updateIsFavoriteStatus(event.photo, event.isFavorite)
 
                         //generate new state
-                      state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = isInDatabase(event.photo)
+                    // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = isInDatabase(event.photo)
 
 
                         //insert to DB2
@@ -89,10 +91,9 @@ class OverviewViewModel @Inject constructor(
                     withContext(IO) {
 
                         //update DB1
-                        useCaseContainer.updateIsFavoriteStatus(event.photo)
+                        useCaseContainer.updateIsFavoriteStatus(event.photo, event.isFavorite)
 
-
-                        state.astroPhotos.find { it.date == event.photo.date }?.isFavorite =  isInDatabase(event.photo)
+                       // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite =  isInDatabase(event.photo)
 
 
                         //delete from DB2
@@ -182,7 +183,7 @@ class OverviewViewModel @Inject constructor(
 
 
 
-    suspend fun isInDatabase(photo: AstroPhoto): Boolean {
+    private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
 
         return useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
 

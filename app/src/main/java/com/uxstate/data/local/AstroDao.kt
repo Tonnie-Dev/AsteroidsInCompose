@@ -24,7 +24,7 @@ interface AstroDao {
     //fun updateIsFavoriteStatus(id: String)
 
     @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
-    fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
+   suspend fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
 
 
 
