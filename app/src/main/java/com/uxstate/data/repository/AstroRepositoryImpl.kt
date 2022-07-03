@@ -120,6 +120,15 @@ class AstroRepositoryImpl @Inject constructor(
 
         }
 
+    override fun getLiveAstroPhotos(): Flow<List<AstroPhoto>> {
+
+       return dao.getLiveAstroPhotos().map {
+
+           it.map { astroPhotoEntity -> astroPhotoEntity.toAstroPhoto() }
+
+       }
+    }
+
     override suspend fun updateIsFavoriteStatus(photo: AstroPhoto, isFavorite: Boolean) =
         dao.updateIsFavoriteStatus(photo.id, isFavorite)
 
