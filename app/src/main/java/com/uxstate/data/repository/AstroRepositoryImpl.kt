@@ -8,9 +8,8 @@ import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.util.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -40,7 +39,7 @@ class AstroRepositoryImpl @Inject constructor(
 
 
             //start db query through a variable
-            val localAstroPhotos = dao.getSavedAstroPhotos()
+            val localAstroPhotos = dao.getSavedAstroPhotos().flattenToList()
 
 
             /*at this point we have successfully loaded the cache, if
@@ -152,6 +151,8 @@ class AstroRepositoryImpl @Inject constructor(
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
         dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
-
+   @OptIn(FlowPreview::class)
+   private suspend fun <T> Flow<List<T>>.flattenToList() =
+        flatMapConcat { it.asFlow() }.toList()
 
 }
