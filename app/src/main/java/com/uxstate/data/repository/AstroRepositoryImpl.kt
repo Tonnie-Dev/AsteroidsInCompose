@@ -39,7 +39,7 @@ class AstroRepositoryImpl @Inject constructor(
 
 
             //start db query through a variable
-            val localAstroPhotos = dao.fetchAstroPhotos().flattenToList()
+            val localAstroPhotos = dao.fetchAstroPhotos()
 
 
             /*at this point we have successfully loaded the cache, if

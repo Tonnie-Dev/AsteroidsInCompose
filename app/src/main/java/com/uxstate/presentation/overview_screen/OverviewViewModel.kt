@@ -9,7 +9,6 @@ import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -42,7 +41,7 @@ class OverviewViewModel @Inject constructor(
 
     init {
         // getAstroPictures()
-        getAstroPhotosUsingStateFlow()
+        getLiveAstroPhotos()
     }
 
     fun onEvent(event: OverviewEvent) {
@@ -103,7 +102,7 @@ class OverviewViewModel @Inject constructor(
 
         }
     }
-private fun getAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScope.launch(IO) {
+/*private fun getLiveAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScope.launch(IO) {
     useCaseContainer.getAstroPhotosUseCase(fetchFromRemote).collect { result ->
         try {
             if (result.isNullOrEmpty()) {
@@ -115,7 +114,7 @@ private fun getAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScop
             _viewState.value = ViewState.Error(e)
         }
     }
-}
+}*/
 
     private fun getAstroPictures(fetchFromRemote: Boolean = false) {
 
@@ -152,11 +151,10 @@ private fun getAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScop
 
     }
 
-    private fun getAstroPhotosUsingStateFlow(fetchFromRemote: Boolean = false) =
-
+    private fun getLiveAstroPhotos() {
 
         viewModelScope.launch {
-            useCaseContainer.getAstroPhotosUseCase(fetchFromRemote)
+            useCaseContainer.get
                     .collect {
 
                         result ->
@@ -188,6 +186,10 @@ private fun getAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScop
 
 
         }
+    }
+
+
+
 
 
     private suspend fun isInDatabase(photo: AstroPhoto): Boolean {
