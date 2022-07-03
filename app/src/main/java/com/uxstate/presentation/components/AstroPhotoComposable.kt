@@ -29,13 +29,12 @@ import timber.log.Timber
 fun AstroPhotoComposable(
     modifier: Modifier = Modifier,
     photo: AstroPhoto,
-
     onTapPhoto: () -> Unit,
     onMarkAsFavorite: () -> Unit,
     onDeletePhoto: () -> Unit = {}
 ) {
 
-    var isFavorite by remember(photo.isFavorite) { mutableStateOf(photo.isFavorite) }
+    var isFavorite by remember{ mutableStateOf(photo.isFavorite) }
     val spacing = LocalSpacing.current
 
     val imgUri = photo.url.toUri()

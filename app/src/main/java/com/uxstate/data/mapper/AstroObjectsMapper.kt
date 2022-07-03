@@ -15,7 +15,7 @@ fun AstroPhotoDTO.toModel(): AstroPhoto {
             explanation = this.explanation,
             mediaType = this.mediaType,
             url = this.url,
-            date = this.date,
+            id = this.date,
             isFavorite = false
     )
 
@@ -45,7 +45,7 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
             explanation = this.explanation,
             mediaType = "image",
             url = this.url,
-            date = this.id,
+            id = this.id,
             isFavorite = this.isFavorite
     )
 }
@@ -57,7 +57,7 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
 fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
 
     return AstroPhoto(
-            date =this.id,
+            id =this.id,
             title = this.title,
             explanation =this.explanation,
             mediaType = this.mediaType,
@@ -71,7 +71,7 @@ fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
 fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
 
     return FavPhotoEntity(
-            id = this.date,
+            id = this.id,
             title = this.title,
             mediaType = this.mediaType,
             explanation = this.explanation,
@@ -85,7 +85,7 @@ fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
 fun AstroPhoto.toAstroPhotoEntity(): AstroPhotoEntity{
 
     return AstroPhotoEntity(
-            id = this.date,
+            id = this.id,
             title = this.title,
             mediaType = this.mediaType,
             explanation = this.explanation,

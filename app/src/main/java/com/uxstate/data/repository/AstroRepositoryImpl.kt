@@ -122,7 +122,7 @@ class AstroRepositoryImpl @Inject constructor(
         }
 
     override suspend fun updateIsFavoriteStatus(photo: AstroPhoto, isFavorite:Boolean) {
-        dao.updateIsFavoriteStatus(photo.date,isFavorite)
+        dao.updateIsFavoriteStatus(photo.id,isFavorite)
     }
 
 

@@ -15,6 +15,11 @@ interface AstroDao {
     @Query("SELECT * FROM astrophotoentity")
     suspend fun getSavedAstroPhotos(): List<AstroPhotoEntity>
 
+    @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
+    suspend fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
+
+
+
     @Query("DELETE FROM astrophotoentity")
     suspend fun clearAstroPhotos()
 
@@ -23,8 +28,7 @@ interface AstroDao {
 
     //fun updateIsFavoriteStatus(id: String)
 
-    @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
-   suspend fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
+
 
 
 

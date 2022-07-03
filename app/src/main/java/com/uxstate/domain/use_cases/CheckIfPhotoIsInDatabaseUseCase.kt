@@ -7,6 +7,6 @@ class CheckIfPhotoIsInDatabaseUseCase(private val repository: AstroRepository) {
 
     suspend operator fun invoke(photo: AstroPhoto):Boolean{
 
-        return repository.isFavPhotoSaved(photo.date)
+        return repository.isFavPhotoSaved(photo.id)
     }
 }

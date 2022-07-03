@@ -23,14 +23,12 @@ class OverviewViewModel @Inject constructor(
     private val useCaseContainer: UseCaseContainer
 ) : ViewModel() {
 
-
-    //by delegate is used because OverviewState has get being a data class
     var state by mutableStateOf(PhotoState())
         private set
 
-    private val _stateFlow = MutableStateFlow(PhotoState())
+    /*private val _stateFlow = MutableStateFlow(PhotoState())
 
-    val stateFlow = _stateFlow.asStateFlow()
+    val stateFlow = _stateFlow.asStateFlow()*/
 
     var isFavoriteState by mutableStateOf(false)
     private set
@@ -41,7 +39,7 @@ class OverviewViewModel @Inject constructor(
     init {
 
 
-       // getAstroPhotosUsingStateFlow()
+
 
         getAstroPictures()
 
@@ -66,13 +64,15 @@ class OverviewViewModel @Inject constructor(
                         //update DB1
                        useCaseContainer.updateIsFavoriteStatus(event.photo, event.isFavorite)
 
-                        //generate new state
-                    // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = isInDatabase(event.photo)
-
-
                         //insert to DB2
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
+
+
                         Timber.i("onMarK Fav VM - state isFav ${state.astroPhotos[0].isFavorite}")
+                        //generate new state
+                        // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite = isInDatabase(event.photo)
+
+
 
                     }
 
@@ -93,13 +93,13 @@ class OverviewViewModel @Inject constructor(
                         //update DB1
                         useCaseContainer.updateIsFavoriteStatus(event.photo, event.isFavorite)
 
-                       // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite =  isInDatabase(event.photo)
+
 
 
                         //delete from DB2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         Timber.i("onRemove Fav VM - state isFav ${state.astroPhotos[0].isFavorite}")
-
+                        // state.astroPhotos.find { it.date == event.photo.date }?.isFavorite =  isInDatabase(event.photo)
                     }
                 }
             }
@@ -144,7 +144,7 @@ class OverviewViewModel @Inject constructor(
 
     }
 
-     fun getAstroPhotosUsingStateFlow(fetchFromRemote: Boolean = false) =
+    /* fun getAstroPhotosUsingStateFlow(fetchFromRemote: Boolean = false) =
 
 
         viewModelScope.launch {
@@ -179,7 +179,7 @@ class OverviewViewModel @Inject constructor(
             }
 
 
-        }
+        }*/
 
 
 
@@ -191,7 +191,7 @@ class OverviewViewModel @Inject constructor(
 
     private suspend fun updateFavoritePhotos(photo: AstroPhoto, status:Boolean) {
 
-        val currentPhotoId = photo.date
+        val currentPhotoId = photo.id
 
 
         //update DB
