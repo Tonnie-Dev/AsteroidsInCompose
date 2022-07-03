@@ -2,14 +2,13 @@ package com.uxstate.presentation.overview_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,6 +62,77 @@ fun OverviewScreen(
             }) { values ->
 
 
+        when(val result = viewModel.feed.collectAsState().value){
+
+            is ViewState.Success -> {
+
+                SwipeRefresh(state = swipeRefreshState, modifier = Modifier
+                        .fillMaxWidth()
+                        , onRefresh = {
+
+                    viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
+                }) {
+
+
+
+                    LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = values, content = {
+
+Timber.i("The result is: ${result.photos}")
+
+
+                        itemsIndexed(result.photos) { i, item->
+                            //  Timber.i("At Index i $i item is: ${item.isFavorite}")
+                            AstroPhotoComposable(
+                                    photo = item,
+
+
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onTapPhoto = {
+
+                                        navigator.navigate(PhotoDetailsScreenDestination(item))
+                                    },
+                                    onMarkAsFavorite = {
+                                        viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
+                                        Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                    },
+                                    onDeletePhoto = {
+                                        viewModel.onEvent(
+                                                OverviewEvent.OnRemoveFromFavorites(item, false)
+                                        )
+
+                                        Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                    })
+                            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+                        }
+                    })
+
+
+                }
+            }
+
+            is ViewState.Empty -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+
+
+                    Text(text = "NO PHOTOS FOUND")
+                }
+
+            }
+
+            is ViewState.Error -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+
+
+                    Text(text = "ERROR")
+                }
+
+            }
+
+            else -> Unit
+
+        }
+/*
         Column(
                 modifier = Modifier
                         .fillMaxSize()
@@ -93,7 +163,7 @@ fun OverviewScreen(
 
 
 
-                    itemsIndexed(feed.astroPhotos) {i, item->
+                    itemsIndexed(state.astroPhotos) {i, item->
                       //  Timber.i("At Index i $i item is: ${item.isFavorite}")
                         AstroPhotoComposable(
                                 photo = item,
@@ -122,7 +192,7 @@ fun OverviewScreen(
 
 
             }}
-        }
+        }*/
 
 
     }

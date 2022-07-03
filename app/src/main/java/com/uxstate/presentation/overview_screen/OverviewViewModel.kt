@@ -9,6 +9,7 @@ import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -28,8 +29,6 @@ class OverviewViewModel @Inject constructor(
 
     // Backing property to avoid state updates from other classes
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
-
-
     // The UI collects from this StateFlow to get its state update
     val feed = _viewState.asStateFlow()
 
@@ -40,8 +39,8 @@ class OverviewViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        // getAstroPictures()
-        getLiveAstroPhotos()
+        getAstroPictures()
+getLiveAstroPhotos()
     }
 
     fun onEvent(event: OverviewEvent) {
@@ -102,19 +101,6 @@ class OverviewViewModel @Inject constructor(
 
         }
     }
-/*private fun getLiveAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScope.launch(IO) {
-    useCaseContainer.getAstroPhotosUseCase(fetchFromRemote).collect { result ->
-        try {
-            if (result.isNullOrEmpty()) {
-                _viewState.value = ViewState.Empty
-            } else {
-                _viewState.value = ViewState.Success(result)
-            }
-        } catch (e: Exception) {
-            _viewState.value = ViewState.Error(e)
-        }
-    }
-}*/
 
     private fun getAstroPictures(fetchFromRemote: Boolean = false) {
 
@@ -153,39 +139,20 @@ class OverviewViewModel @Inject constructor(
 
     private fun getLiveAstroPhotos() {
 
-        viewModelScope.launch {
-            useCaseContainer.get
-                    .collect {
-
-                        result ->
-
-                        when (result) {
-
-                            is Resource.Loading -> {
-                                _stateFlow.value =
-                                    PhotoState(isPhotosListLoading = result.isLoading)
-                            }
-                            is Resource.Error -> {
-
-                                _stateFlow.value = PhotoState(errorMessage = result.message)
-                            }
-                            is Resource.Success -> {
-
-
-                                result.data?.let {
-                                    _stateFlow.value = PhotoState(astroPhotos = it)
-
-
-                                }
-
-                            }
-                        }
-
-
+        viewModelScope.launch(IO) {
+           useCaseContainer.getLiveAstroPhotosUseCase().distinctUntilChanged().collect { result ->
+                try {
+                    if (result.isEmpty()) {
+                        _viewState.value = ViewState.Empty
+                    } else {
+                        _viewState.value = ViewState.Success(result)
                     }
-
-
+                } catch (e: Exception) {
+                    _viewState.value = ViewState.Error(e)
+                }
+            }
         }
+
     }
 
 
@@ -217,16 +184,12 @@ class OverviewViewModel @Inject constructor(
 
     fun isFavorite(photo: AstroPhoto): Boolean {
 
-
         viewModelScope.launch {
 
             withContext(IO) {
                 isFavoriteState = useCaseContainer.checkIfPhotoIsInDatabaseUseCase(photo)
             }
         }
-
-
-
         return isFavoriteState
 
     }

@@ -23,7 +23,7 @@ class AstroRepositoryImpl @Inject constructor(
 
         //we always depend on abstraction
     private val api: AstroAPI,
-    private val db: AstroDatabase,
+    db: AstroDatabase,
 
 
     ) : AstroRepository {

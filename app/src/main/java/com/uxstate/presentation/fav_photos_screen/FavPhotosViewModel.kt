@@ -36,16 +36,14 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
             is FavoritePhotoScreenEvent.OnRemoveFromFavorite -> {
 
-
-
                 viewModelScope.launch {
 
                     withContext(IO) {
                        //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         //  updateAstroPhotos
-                        //useCaseContainer.updateIsFavoriteStatus(event.photo)
 
+                        useCaseContainer.updateIsFavoriteStatus(event.photo,false)
 
                     }
 
