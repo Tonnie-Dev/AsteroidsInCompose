@@ -39,7 +39,7 @@ class AstroRepositoryImpl @Inject constructor(
 
 
             //start db query through a variable
-            val localAstroPhotos = dao.getSavedAstroPhotos().flattenToList()
+            val localAstroPhotos = dao.fetchAstroPhotos().flattenToList()
 
 
             /*at this point we have successfully loaded the cache, if
@@ -110,7 +110,7 @@ class AstroRepositoryImpl @Inject constructor(
             //One Single Source of truth - we ensure data comes for db
             emit(
                     Resource.Success(
-                            data = dao.getSavedAstroPhotos()
+                            data = dao.fetchAstroPhotos()
                                     .map { it.toAstroPhoto() })
             )
 
