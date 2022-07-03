@@ -9,6 +9,7 @@ import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -26,8 +27,12 @@ class OverviewViewModel @Inject constructor(
     var state by mutableStateOf(PhotoState())
         private set
 
-    private val _stateFlow = MutableStateFlow(PhotoState())
-    val feed = _stateFlow.asStateFlow()
+    // Backing property to avoid state updates from other classes
+    private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
+
+
+    // The UI collects from this StateFlow to get its state update
+    val feed = _viewState.asStateFlow()
 
     var isFavoriteState by mutableStateOf(false)
         private set
@@ -98,7 +103,19 @@ class OverviewViewModel @Inject constructor(
 
         }
     }
-
+private fun getAstroPhotosFlow(fetchFromRemote: Boolean = false) = viewModelScope.launch(IO) {
+    useCaseContainer.getAstroPhotosUseCase(fetchFromRemote).collect { result ->
+        try {
+            if (result.isNullOrEmpty()) {
+                _viewState.value = ViewState.Empty
+            } else {
+                _viewState.value = ViewState.Success(result)
+            }
+        } catch (e: Exception) {
+            _viewState.value = ViewState.Error(e)
+        }
+    }
+}
 
     private fun getAstroPictures(fetchFromRemote: Boolean = false) {
 

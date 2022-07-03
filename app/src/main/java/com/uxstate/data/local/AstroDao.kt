@@ -13,7 +13,7 @@ interface AstroDao {
     suspend fun insertAstroPhotos(list: List<AstroPhotoEntity>)
 
     @Query("SELECT * FROM astrophotoentity")
-    suspend fun getSavedAstroPhotos(): List<AstroPhotoEntity>
+    suspend fun getSavedAstroPhotos():Flow<List<AstroPhotoEntity>>
 
     @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
     suspend fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
