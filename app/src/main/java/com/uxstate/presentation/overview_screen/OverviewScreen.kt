@@ -32,7 +32,7 @@ fun OverviewScreen(
     navigator: DestinationsNavigator
 ) {
 
-   // val uiState: PhotoState by viewModel.stateFlow.collectAsState()
+   val feed = viewModel.feed.collectAsState().value
    val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotosListLoading)
     val spacing = LocalSpacing.current
@@ -93,7 +93,7 @@ fun OverviewScreen(
 
 
 
-                    itemsIndexed(state.astroPhotos) {i, item->
+                    itemsIndexed(feed.astroPhotos) {i, item->
                       //  Timber.i("At Index i $i item is: ${item.isFavorite}")
                         AstroPhotoComposable(
                                 photo = item,

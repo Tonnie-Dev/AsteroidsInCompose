@@ -115,7 +115,7 @@ fun AstroPhotoComposable(
 
                            onDeletePhoto()
                            isFavorite = !isFavorite
-                            Timber.i("UnMarked True - isFav is: $isFavorite")
+                            //Timber.i("UnMarked True - isFav is: $isFavorite")
 
 
                         },
@@ -142,7 +142,7 @@ fun AstroPhotoComposable(
 
                             onMarkAsFavorite()
                             isFavorite = !isFavorite
-                            Timber.i("Marked True - isFav is: $isFavorite")
+                          //  Timber.i("Marked True - isFav is: $isFavorite")
 
                         },
                         colors = AssistChipDefaults.assistChipColors
