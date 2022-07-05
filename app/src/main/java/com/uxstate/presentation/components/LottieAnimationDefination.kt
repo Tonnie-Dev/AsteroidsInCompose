@@ -30,7 +30,7 @@ fun LottieAnimationComposable(
 //Lottie Animation Placeholder
 
 @Composable
-fun LottieAnimationPlaceHolder(modifier: Modifier, lottie: Int) {
+fun LottieAnimationPlaceHolder(modifier: Modifier = Modifier, lottie: Int) {
 
     LottieAnimationComposable(modifier = modifier, lottie = lottie)
 

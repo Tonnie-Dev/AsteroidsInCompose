@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
+import com.airbnb.lottie.compose.LottieAnimation
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -148,10 +149,12 @@ fun AstroPhotoComposable(
                         colors = AssistChipDefaults.assistChipColors
                         (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
-                            Icon(
+
+                                     LottieAnimationPlaceHolder( lottie = R.raw.green_heart_like)
+                           /* Icon(
                                     imageVector = Icons.Default.Favorite,
                                     contentDescription = stringResource(R.string.favourite_label)
-                            )
+                            )*/
                         }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
                 )
             }
