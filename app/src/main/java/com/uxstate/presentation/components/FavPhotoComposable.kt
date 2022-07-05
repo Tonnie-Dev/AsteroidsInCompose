@@ -7,9 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,12 +16,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
-import timber.log.Timber
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -33,18 +32,13 @@ fun FavPhotoComposable(
     onDeletePhoto: () -> Unit = {}
 ) {
 
-    var isFavorite by remember(photo.isFavorite) { mutableStateOf(photo.isFavorite) }
+
     val spacing = LocalSpacing.current
 
     val imgUri = photo.url.toUri()
             .buildUpon()
             .scheme("https")
             .build()
-
-
-
-
-
 
     Card(
             modifier = modifier,
@@ -70,7 +64,6 @@ fun FavPhotoComposable(
                     modifier = Modifier
                             .clip(MaterialTheme.shapes.large)
                             .clickable { onTapPhoto() }
-                            // .size(100.dp, 240.dp)
                             .fillMaxWidth()
                             .aspectRatio(3f / 2f))
 
@@ -102,57 +95,89 @@ fun FavPhotoComposable(
         }
 
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+            AssistChip(
+                    onClick = {
 
 
-            if (isFavorite) {
-
-                //display delete option Assist Chip
-
-                AssistChip(
-                        onClick = {
+                        onDeletePhoto()
+                        //isFavorite = !isFavorite
+                        // Timber.i("UnMarked True - isFav is: $isFavorite")
 
 
-                           onDeletePhoto()
-                           isFavorite = !isFavorite
-                           // Timber.i("UnMarked True - isFav is: $isFavorite")
+                    },
+                    colors = AssistChipDefaults.assistChipColors(
+                            leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    ),
+                    leadingIcon = {
+                        LottieAnimationComposable(
+                                onClick = { onDeletePhoto() },
+                                modifier = Modifier.size(70.dp, 50.dp))
 
-
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                                leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                        ),
-                        leadingIcon = {
-                            Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = stringResource(
-                                            id = R.string.delete_photo
-                                    )
-                            )
-                        }, label = {
-                    Text(text = stringResource(id = R.string.delete_photo))
-                }
-                )
-
-
-            } else {
-                //display Favourite AssistChip
-                AssistChip(
-                        onClick = {
-
-                            isFavorite = !isFavorite
-                           // Timber.i("Marked True - isFav is: $isFavorite")
-
-                        },
-                        colors = AssistChipDefaults.assistChipColors
-                        (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                        leadingIcon = {
-                            Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = stringResource(R.string.favourite_label)
-                            )
-                        }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                )
+                      /*  Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = stringResource(
+                                        id = R.string.delete_photo
+                                )
+                        )*/
+                    }, label = {
+                Text(text = stringResource(id = R.string.delete_photo))
             }
+            )
+
+           /* LottieAnimationComposable(
+                    onClick = { onDeletePhoto() },
+                    modifier = Modifier.size(70.dp, 50.dp)
+            )*/
+
+            /*  if (isFavorite) {
+
+                  //display delete option Assist Chip
+
+                  AssistChip(
+                          onClick = {
+
+
+                             onDeletePhoto()
+                             isFavorite = !isFavorite
+                             // Timber.i("UnMarked True - isFav is: $isFavorite")
+
+
+                          },
+                          colors = AssistChipDefaults.assistChipColors(
+                                  leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                          ),
+                          leadingIcon = {
+                              Icon(
+                                      imageVector = Icons.Default.Delete,
+                                      contentDescription = stringResource(
+                                              id = R.string.delete_photo
+                                      )
+                              )
+                          }, label = {
+                      Text(text = stringResource(id = R.string.delete_photo))
+                  }
+                  )
+
+
+              } else {
+                  //display Favourite AssistChip
+                  AssistChip(
+                          onClick = {
+
+                              isFavorite = !isFavorite
+                             // Timber.i("Marked True - isFav is: $isFavorite")
+
+                          },
+                          colors = AssistChipDefaults.assistChipColors
+                          (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                          leadingIcon = {
+                              Icon(
+                                      imageVector = Icons.Default.Favorite,
+                                      contentDescription = stringResource(R.string.favourite_label)
+                              )
+                          }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
+                  )
+              }*/
         }
 
 
