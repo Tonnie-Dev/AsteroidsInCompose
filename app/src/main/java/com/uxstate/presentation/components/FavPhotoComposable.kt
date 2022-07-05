@@ -109,9 +109,7 @@ fun FavPhotoComposable(
                             leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     leadingIcon = {
-                        LottieAnimationComposable(
-                                onClick = { onDeletePhoto() },
-                                modifier = Modifier.size(70.dp, 50.dp))
+                       LottieAnimationPlaceHolder(lottie = R.raw.delete_black_icon)
 
                       /*  Icon(
                                 imageVector = Icons.Default.Delete,

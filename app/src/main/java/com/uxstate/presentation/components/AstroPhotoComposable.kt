@@ -124,12 +124,14 @@ fun AstroPhotoComposable(
                                 leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         ),
                         leadingIcon = {
-                            Icon(
+
+                            LottieAnimationPlaceHolder( lottie = R.raw.delete_black_icon)
+                           /* Icon(
                                     imageVector = Icons.Default.Delete,
                                     contentDescription = stringResource(
                                             id = R.string.delete_photo
                                     )
-                            )
+                            )*/
                         }, label = {
                     Text(text = stringResource(id = R.string.delete_photo))
                 }
