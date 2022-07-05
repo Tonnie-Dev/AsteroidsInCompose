@@ -128,4 +128,8 @@ dependencies {
     //Flow Layout
     implementation 'com.google.accompanist:accompanist-flowlayout:0.24.9-beta'
 
+    //Lottie Animation
+    implementation "com.airbnb.android:lottie-compose:5.0.1"
+
+
 }
