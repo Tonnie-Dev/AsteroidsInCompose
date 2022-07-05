@@ -72,7 +72,6 @@ fun AstroPhotoComposable(
                     modifier = Modifier
                             .clip(MaterialTheme.shapes.large)
                             .clickable { onTapPhoto() }
-                            // .size(100.dp, 240.dp)
                             .fillMaxWidth()
                             .aspectRatio(3f / 2f))
 
@@ -103,7 +102,7 @@ fun AstroPhotoComposable(
             )
         }
 
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth().padding(spacing.spaceSmall)) {
 
 
             if (isFavorite) {
@@ -125,7 +124,7 @@ fun AstroPhotoComposable(
                         ),
                         leadingIcon = {
 
-                            LottieAnimationPlaceHolder( lottie = R.raw.delete_black_icon)
+                            LottieAnimationPlaceHolder( lottie = R.raw.delete_red_icon)
                            /* Icon(
                                     imageVector = Icons.Default.Delete,
                                     contentDescription = stringResource(

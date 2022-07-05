@@ -77,7 +77,7 @@ fun OverviewScreen(
 
                     LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = values, content = {
 
-Timber.i("The result is: ${result.photos}")
+
 
 
                         itemsIndexed(result.photos) { i, item->
@@ -86,7 +86,7 @@ Timber.i("The result is: ${result.photos}")
                                     photo = item,
 
 
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.fillMaxWidth().padding(spacing.spaceSmall),
                                     onTapPhoto = {
 
                                         navigator.navigate(PhotoDetailsScreenDestination(item))
