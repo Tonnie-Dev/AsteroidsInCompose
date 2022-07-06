@@ -1,13 +1,11 @@
 package com.uxstate.presentation.components
 
+import android.content.Intent
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,15 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
-import com.airbnb.lottie.compose.LottieAnimation
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
-import timber.log.Timber
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +32,7 @@ fun AstroPhotoComposable(
     onDeletePhoto: () -> Unit = {}
 ) {
 
-    var isFavorite by remember{ mutableStateOf(photo.isFavorite) }
+    var isFavorite by remember { mutableStateOf(photo.isFavorite) }
     val spacing = LocalSpacing.current
 
     val imgUri = photo.url.toUri()
@@ -43,6 +40,14 @@ fun AstroPhotoComposable(
             .scheme("https")
             .build()
 
+
+
+
+
+    val intent: Intent = Intent().apply {
+
+        action = Intent.ACTION_SET_WALLPAPER
+    }
 
 
 
@@ -102,7 +107,12 @@ fun AstroPhotoComposable(
             )
         }
 
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth().padding(spacing.spaceSmall)) {
+        Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(spacing.spaceSmall)
+        ) {
 
 
             if (isFavorite) {
@@ -113,8 +123,8 @@ fun AstroPhotoComposable(
                         onClick = {
 
 
-                           onDeletePhoto()
-                           isFavorite = !isFavorite
+                            onDeletePhoto()
+                            isFavorite = !isFavorite
                             //Timber.i("UnMarked True - isFav is: $isFavorite")
 
 
@@ -124,13 +134,13 @@ fun AstroPhotoComposable(
                         ),
                         leadingIcon = {
 
-                            LottieAnimationPlaceHolder( lottie = R.raw.delete_red_icon)
-                           /* Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = stringResource(
-                                            id = R.string.delete_photo
-                                    )
-                            )*/
+                            LottieAnimationPlaceHolder(lottie = R.raw.delete_red_icon)
+                            /* Icon(
+                                     imageVector = Icons.Default.Delete,
+                                     contentDescription = stringResource(
+                                             id = R.string.delete_photo
+                                     )
+                             )*/
                         }, label = {
                     Text(text = stringResource(id = R.string.delete_photo))
                 }
@@ -144,18 +154,18 @@ fun AstroPhotoComposable(
 
                             onMarkAsFavorite()
                             isFavorite = !isFavorite
-                          //  Timber.i("Marked True - isFav is: $isFavorite")
+                            //  Timber.i("Marked True - isFav is: $isFavorite")
 
                         },
                         colors = AssistChipDefaults.assistChipColors
                         (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
 
-                                     LottieAnimationPlaceHolder( lottie = R.raw.green_heart_like)
-                           /* Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = stringResource(R.string.favourite_label)
-                            )*/
+                            LottieAnimationPlaceHolder(lottie = R.raw.green_heart_like)
+                            /* Icon(
+                                     imageVector = Icons.Default.Favorite,
+                                     contentDescription = stringResource(R.string.favourite_label)
+                             )*/
                         }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
                 )
             }
@@ -165,4 +175,17 @@ fun AstroPhotoComposable(
     }
 
 }
+@Composable
+fun ShareAstroPhoto(uri:String){
 
+    val context = LocalContext.current
+
+    val intent = Intent().apply {
+
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = "image/jpg"
+    }
+
+    context.startActivity(Intent.createChooser(intent, null))
+}
