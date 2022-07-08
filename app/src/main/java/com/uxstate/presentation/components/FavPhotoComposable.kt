@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
@@ -60,8 +59,6 @@ fun FavPhotoComposable(
                     painter = painter,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-
-
                     modifier = Modifier
                             .clip(MaterialTheme.shapes.large)
                             .clickable { onTapPhoto() }
@@ -98,85 +95,22 @@ fun FavPhotoComposable(
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
             AssistChip(
                     onClick = {
-
-
                         onDeletePhoto()
-                        //isFavorite = !isFavorite
-                        // Timber.i("UnMarked True - isFav is: $isFavorite")
-
 
                     },
                     colors = AssistChipDefaults.assistChipColors(
                             leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     leadingIcon = {
-                        LottieAnimationPlaceHolder(lottie = R.raw.delete_black_icon)
+                        LottieAnimationPlaceHolder(lottie = R.raw.delete_red_icon)
 
-                        /*  Icon(
-                                  imageVector = Icons.Default.Delete,
-                                  contentDescription = stringResource(
-                                          id = R.string.delete_photo
-                                  )
-                          )*/
+
                     }, label = {
                 Text(text = stringResource(id = R.string.delete_photo))
             }
             )
 
-            /* LottieAnimationComposable(
-                     onClick = { onDeletePhoto() },
-                     modifier = Modifier.size(70.dp, 50.dp)
-             )*/
 
-            /*  if (isFavorite) {
-
-                  //display delete option Assist Chip
-
-                  AssistChip(
-                          onClick = {
-
-
-                             onDeletePhoto()
-                             isFavorite = !isFavorite
-                             // Timber.i("UnMarked True - isFav is: $isFavorite")
-
-
-                          },
-                          colors = AssistChipDefaults.assistChipColors(
-                                  leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                          ),
-                          leadingIcon = {
-                              Icon(
-                                      imageVector = Icons.Default.Delete,
-                                      contentDescription = stringResource(
-                                              id = R.string.delete_photo
-                                      )
-                              )
-                          }, label = {
-                      Text(text = stringResource(id = R.string.delete_photo))
-                  }
-                  )
-
-
-              } else {
-                  //display Favourite AssistChip
-                  AssistChip(
-                          onClick = {
-
-                              isFavorite = !isFavorite
-                             // Timber.i("Marked True - isFav is: $isFavorite")
-
-                          },
-                          colors = AssistChipDefaults.assistChipColors
-                          (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                          leadingIcon = {
-                              Icon(
-                                      imageVector = Icons.Default.Favorite,
-                                      contentDescription = stringResource(R.string.favourite_label)
-                              )
-                          }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                  )
-              }*/
         }
 
 
