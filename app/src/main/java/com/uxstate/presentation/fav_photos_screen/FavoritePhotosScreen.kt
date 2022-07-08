@@ -2,6 +2,7 @@ package com.uxstate.presentation.fav_photos_screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -51,7 +52,7 @@ fun FavoritePhotosScreen(
                 items(photos) { photo ->
 
                     FavPhotoComposable(
-
+modifier = Modifier.padding(spacing.spaceSmall),
                             photo = photo,
                             onTapPhoto = {
                                 navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
