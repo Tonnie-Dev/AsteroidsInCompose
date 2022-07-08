@@ -68,6 +68,7 @@ fun PhotoDetailsScreen(
                 modifier = Modifier
                         .clip(MaterialTheme.shapes.large)
                         .fillMaxWidth()
+                        .padding(spacing.spaceSmall)
                         .aspectRatio(3f / 2f)
 
 
