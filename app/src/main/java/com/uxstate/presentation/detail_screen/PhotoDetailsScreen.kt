@@ -1,5 +1,7 @@
 package com.uxstate.presentation.detail_screen
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
@@ -92,8 +95,9 @@ fun PhotoDetailsScreen(
                     Alignment.BottomStart
             )
             ) {
-                AssistChip(
-                        onClick = { /*TODO*/ },
+
+                val context = LocalContext.current
+                AssistChip(onClick = { shareAstroPhoto("", context) },
                         colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
                             Icon(
@@ -125,4 +129,13 @@ fun PhotoDetailsScreen(
 }
 
 
+fun shareAstroPhoto(uri: String, context: Context) {
 
+    val intent = Intent().apply {
+
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = "image/jpg"
+    }
+    context.startActivity(Intent.createChooser(intent, null))
+}

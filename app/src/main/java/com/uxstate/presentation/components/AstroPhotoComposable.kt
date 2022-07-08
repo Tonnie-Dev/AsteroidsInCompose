@@ -63,13 +63,13 @@ fun AstroPhotoComposable(
         Box() {
 
             Image(
-                    painter = rememberImagePainter(
+                  /*  painter = rememberImagePainter(
                             data = imgUri,
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.loading_animation)
                             }
-                    ),
+                    )*/,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
 
