@@ -43,7 +43,11 @@ fun AstroPhotoComposable(
             .build()
 
 
-
+val painter = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current)
+                .data(imgUri)
+                .placeholder(R.drawable.loading_animation)
+                .build())
 
 
     val intent: Intent = Intent().apply {
@@ -66,17 +70,14 @@ fun AstroPhotoComposable(
 
             Image(
 
-                   painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                            .data(imgUri)
-                            .build()
+                   painter = painter
                   /*  painter = rememberImagePainter(
                             data = imgUri,
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.loading_animation)
                             }*/
-                    ),
+                    ,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
 
