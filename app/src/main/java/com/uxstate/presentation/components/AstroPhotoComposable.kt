@@ -17,7 +17,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -63,13 +65,18 @@ fun AstroPhotoComposable(
         Box() {
 
             Image(
+
+                   painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                            .data(imgUri)
+                            .build()
                   /*  painter = rememberImagePainter(
                             data = imgUri,
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.loading_animation)
-                            }
-                    )*/,
+                            }*/
+                    ),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
 
