@@ -11,10 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -36,6 +39,14 @@ fun FavPhotoComposable(
             .scheme("https")
             .build()
 
+    val painter = rememberAsyncImagePainter(
+            model = ImageRequest.Builder(LocalContext.current)
+                    .data(imgUri)
+                    .placeholder(R.drawable.loading_animation)
+                    .crossfade(true)
+                    .build()
+    )
+
     Card(
             modifier = modifier,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -46,13 +57,7 @@ fun FavPhotoComposable(
         Box() {
 
             Image(
-                    painter = rememberImagePainter(
-                            data = imgUri,
-                            builder = {
-                                crossfade(true)
-                                placeholder(R.drawable.loading_animation)
-                            }
-                    ),
+                    painter = painter,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
 
@@ -105,23 +110,23 @@ fun FavPhotoComposable(
                             leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     leadingIcon = {
-                       LottieAnimationPlaceHolder(lottie = R.raw.delete_black_icon)
+                        LottieAnimationPlaceHolder(lottie = R.raw.delete_black_icon)
 
-                      /*  Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(
-                                        id = R.string.delete_photo
-                                )
-                        )*/
+                        /*  Icon(
+                                  imageVector = Icons.Default.Delete,
+                                  contentDescription = stringResource(
+                                          id = R.string.delete_photo
+                                  )
+                          )*/
                     }, label = {
                 Text(text = stringResource(id = R.string.delete_photo))
             }
             )
 
-           /* LottieAnimationComposable(
-                    onClick = { onDeletePhoto() },
-                    modifier = Modifier.size(70.dp, 50.dp)
-            )*/
+            /* LottieAnimationComposable(
+                     onClick = { onDeletePhoto() },
+                     modifier = Modifier.size(70.dp, 50.dp)
+             )*/
 
             /*  if (isFavorite) {
 
