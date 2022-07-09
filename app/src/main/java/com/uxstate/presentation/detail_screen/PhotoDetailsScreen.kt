@@ -6,21 +6,17 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -37,7 +33,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
-import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
+import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.util.LocalSpacing
 import java.io.File
 import java.io.FileOutputStream
@@ -92,36 +88,52 @@ fun PhotoDetailsScreen(
 
             bottomBar = {
                 BottomAppBar(
-                      containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
                         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
 
                 ) {
-                   Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-                       FloatingActionButton(shape = CircleShape, onClick = { val state = painter.state as? AsyncImagePainter.State.Success
-                           val drawable = state?.result?.drawable
-                           if (drawable != null) {
-                               context.shareImage(
-                                       "Share image via sx",
-                                       drawable,
-                                       "filename",
-                                       caption
-                               )
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth().padding(spacing.spaceExtraSmall)) {
 
-                           }}) {
+                        Surface(
+tonalElevation = spacing.spaceMedium,
+                                color = Color.Transparent,
+                                shape = RoundedCornerShape(spacing.spaceMedium),
+                                modifier = Modifier
+                                        .clickable {
+                                            val state = painter.state as? AsyncImagePainter.State.Success
+                                            val drawable = state?.result?.drawable
+                                            if (drawable != null) {
+                                                context.shareImage(
+                                                        "Share image via sx",
+                                                        drawable,
+                                                        "filename",
+                                                        caption
+                                                )
 
-                           Icon(
-                                   imageVector = Icons.Default.Share,
-                                   contentDescription = stringResource(id = R.string.favourite_label)
-                           )
+                                            }
+
+                                        }.border(width = 1.dp,color = MaterialTheme.colorScheme.onSurfaceVariant, shape = RoundedCornerShape(spacing.spaceMedium))
+                        ) {
+
+                            LottieAnimationPlaceHolder(
+                                    lottie = R.raw.share_icon,
+                                    modifier = Modifier.clickable {
 
 
-                       }
-                   }
+                                    }.size(150.dp))
+                        }
+
+
+
+
+
+
+
+
+                    }
                 }
-            }, floatingActionButton = {
-
-        }
-            ) {
+            }
+    ) {
 
 
         paddingValues ->
@@ -173,8 +185,6 @@ fun PhotoDetailsScreen(
 
 
                 }
-
-
 
 
             }
