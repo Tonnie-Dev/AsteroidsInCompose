@@ -56,7 +56,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     private fun getFavoritePhotos() {
 
 
-        useCaseContainer.getFavAstroPhotosUseCase()
+        useCaseContainer.getFavAstroPhotosUseCase(dateFilter = )
                 .onEach {
 
 
@@ -67,59 +67,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 }
                 .launchIn(viewModelScope)
     }
-    private fun toggleIsFavoriteStatus(photo: AstroPhoto) {
-
-        val currentPhotoId = photo.id
-
-        viewModelScope.launch {
-
-            withContext(IO) {
-
-                //useCaseContainer.updateIsFavoriteStatus(currentPhotoId)
-            }
-
-
-        }
-
-    }
-
-    private fun getSavedAstroPhotos() {
-
-
-        useCaseContainer.getAstroPhotosUseCase(false)
-                .onEach {
-
-                    result ->
-
-                    when (result) {
-
-
-                        is Resource.Success -> {
-
-                            result.data?.let {
-
-                                state = state.copy(astroPhotos = it)
-                            }
-
-                        }
-                        else -> Unit
-                    }
-
-
-                }
-                .launchIn(viewModelScope)
-    }
-
-
-    /* private fun updateAstroPhotos(photo: AstroPhoto) {
-
-
-
-         state.astroPhotos.find { it.date == photo.date }?.isFavorite = false
-         Timber.i("update FavStatus = ${state.astroPhotos[0].isFavorite}")
-        // Timber.i("The changed object is${state.astroPhotos.find { it.date == photo.date }?.isFavorite = false}")
-
-     }*/
 
 
 
