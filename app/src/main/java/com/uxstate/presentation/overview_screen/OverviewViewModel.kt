@@ -49,7 +49,7 @@ getLiveAstroPhotos()
 
             is OverviewEvent.OnRefreshAstroPhoto -> {
                 getAstroPictures(fetchFromRemote = true)
-
+                _viewState.value = ViewState.Loading
             }
 
             is OverviewEvent.OnMarkFavorite -> {

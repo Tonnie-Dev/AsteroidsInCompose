@@ -64,7 +64,7 @@ fun OverviewScreen(
             }) { values ->
 
 
-        when(val result = viewModel.feed.collectAsState().value){
+        when(feed){
 
             is ViewState.Success -> {
 
@@ -82,7 +82,7 @@ fun OverviewScreen(
 
 
 
-                        itemsIndexed(result.photos) { i, item->
+                        itemsIndexed(feed.photos) { i, item->
                             //  Timber.i("At Index i $i item is: ${item.isFavorite}")
                             AstroPhotoComposable(
                                     photo = item,
