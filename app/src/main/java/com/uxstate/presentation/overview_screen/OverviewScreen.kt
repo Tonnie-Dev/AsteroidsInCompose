@@ -146,7 +146,7 @@ fun OverviewScreen(
             is ViewState.Loading -> {
 
                 LottieAnimationPlaceHolder(
-                        lottie = R.raw.loading_large,
+                        lottie = R.raw.loading_planet,
                         modifier = Modifier.fillMaxSize()
                 )
 
