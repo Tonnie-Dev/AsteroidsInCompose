@@ -19,7 +19,7 @@ interface AstroAPI {
 
         const val API_KEY = "Cnkc0VTeJQklSu79us3xzoRCmhjCIa9nsXpLdjs6"
 
-        const val COUNT = 4
+        const val COUNT = 13
 
     }
 }
