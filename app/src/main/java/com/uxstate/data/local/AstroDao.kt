@@ -33,8 +33,8 @@ interface AstroDao {
     @Query("SELECT * FROM favphotoentity WHERE id =:id")
     suspend fun getFavPhotoById(id: String): FavPhotoEntity?
 
-    @Query("SELECT * FROM favphotoentity ")
-    fun getFavPhotos(): Flow<List<FavPhotoEntity>?>
+    @Query("SELECT * FROM favphotoentity WHERE timeStamp BETWEEN :startDate AND :endDate ORDER BY timeStamp ASC ")
+    fun getFavPhotos(startDate: Long, endDate:Long): Flow<List<FavPhotoEntity>?>
 
     @Delete
     suspend fun deleteFavPhoto(photo: FavPhotoEntity)

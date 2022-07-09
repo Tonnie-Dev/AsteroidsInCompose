@@ -72,6 +72,7 @@ fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
 
     return FavPhotoEntity(
             id = this.id,
+            timeStamp = System.currentTimeMillis(),
             title = this.title,
             mediaType = this.mediaType,
             explanation = this.explanation,
