@@ -9,8 +9,11 @@ import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
@@ -23,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
+import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
@@ -30,8 +34,10 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
+import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.util.LocalSpacing
 import java.io.File
 import java.io.FileOutputStream
@@ -42,11 +48,11 @@ import java.io.FileOutputStream
 @Destination
 @Composable
 fun PhotoDetailsScreen(
-    photo: AstroPhoto,
+    photo: AstroPhoto, navigator: DestinationsNavigator
 ) {
 
     val spacing = LocalSpacing.current
-
+    val context = LocalContext.current
     val caption = stringResource(
             id = R.string.photo_caption,
             photo.title.toUpperCase(locale = Locale.current)
@@ -74,14 +80,48 @@ fun PhotoDetailsScreen(
             Text(text = stringResource(id = R.string.photo_details))
         }, navigationIcon = {
 
-            
+            IconButton(onClick = { navigator.navigateUp() }) {
+                Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back_label)
+                )
+            }
+
         })
     },
 
             bottomBar = {
+                BottomAppBar(
+                      containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+
+                ) {
+                   Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+                       FloatingActionButton(onClick = { val state = painter.state as? AsyncImagePainter.State.Success
+                           val drawable = state?.result?.drawable
+                           if (drawable != null) {
+                               context.shareImage(
+                                       "Share image via sx",
+                                       drawable,
+                                       "filename",
+                                       caption
+                               )
+
+                           }}) {
+
+                           Icon(
+                                   imageVector = Icons.Default.Favorite,
+                                   contentDescription = stringResource(id = R.string.favourite_label)
+                           )
 
 
-            }) {
+                       }
+                   }
+                }
+            }, floatingActionButton = {
+
+        }
+            ) {
 
 
         paddingValues ->
@@ -134,51 +174,7 @@ fun PhotoDetailsScreen(
 
                 }
 
-                Row(
-                        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.align(
-                        Alignment.BottomStart
-                )
-                ) {
 
-                    val context = LocalContext.current
-                    AssistChip(onClick = { },
-                            colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                            leadingIcon = {
-                                Icon(
-                                        imageVector = Icons.Default.Favorite,
-                                        contentDescription = stringResource(id = R.string.favourite_label)
-                                )
-                            },
-
-                            label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                    )
-
-                    AssistChip(
-                            onClick = {
-
-                                val state = painter.state as? AsyncImagePainter.State.Success
-                                val drawable = state?.result?.drawable
-                                if (drawable != null) {
-                                    context.shareImage(
-                                            "Share image via sx",
-                                            drawable,
-                                            "filename",
-                                            caption
-                                    )
-
-                                }
-                            },
-                            colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                            leadingIcon = {
-                                Icon(
-                                        imageVector = Icons.Default.Share,
-                                        contentDescription = stringResource(id = R.string.share_label)
-                                )
-                            },
-
-                            label = { Text(text = stringResource(id = R.string.share_label)) }
-                    )
-                }
 
 
             }
