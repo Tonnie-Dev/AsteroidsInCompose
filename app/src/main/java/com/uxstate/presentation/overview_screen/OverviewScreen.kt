@@ -1,5 +1,6 @@
 package com.uxstate.presentation.overview_screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -86,7 +88,9 @@ fun OverviewScreen(
                                     photo = item,
 
 
-                                    modifier = Modifier.fillMaxWidth().padding(spacing.spaceSmall),
+                                    modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(spacing.spaceSmall),
                                     onTapPhoto = {
 
                                         navigator.navigate(PhotoDetailsScreenDestination(item))
@@ -127,9 +131,18 @@ fun OverviewScreen(
                     Text(text = "ERROR")
                 }
 
+
+
+            }
+            is ViewState.Loading -> {
+                
+                Box(modifier = Modifier.fillMaxSize().background(Color.Red)) {
+                    
+                    Text(text = "Looading ..")
+                }
+
             }
 
-            else -> Unit
 
         }
 /*
