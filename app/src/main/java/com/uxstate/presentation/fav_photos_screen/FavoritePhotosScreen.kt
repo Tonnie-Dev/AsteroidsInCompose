@@ -1,8 +1,6 @@
 package com.uxstate.presentation.fav_photos_screen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -17,6 +15,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.FavPhotoComposable
+import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
 
@@ -62,14 +61,21 @@ fun FavoritePhotosScreen(
         ) {
 
             var selectedIndex by remember { mutableStateOf(0) }
+            Row(modifier = Modifier.fillMaxWidth().padding(spacing.spaceExtraSmall),
+                    horizontalArrangement = Arrangement.SpaceEvenly) {
+                DateItem.values()
+                        .forEachIndexed { index, dateItem ->
+                            SelectableBottomItem(
+                                    isSelected = selectedIndex == index,
+                                    text = dateItem.title,
+                                    onClick = { selectedIndex = index },
+                                    icon = dateItem.icon
+                            )
+                        }
 
-            DateItem.values().forEachIndexed { index, dateItem ->
-                Button(onClick = { selectedIndex = 0 }) {
-
-                    Text
-
-                }
             }
+
+
         }
     }) { paddingValues ->
 
