@@ -12,8 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -29,12 +31,21 @@ fun AstroShareComposable(
 ) {
 
     val spacing = LocalSpacing.current
-
+    val context = LocalContext.current
 
     val imgUri = picture.url.toUri()
             .buildUpon()
             .scheme("https")
             .build()
+
+    val painter = rememberAsyncImagePainter(
+            model = ImageRequest.Builder(context)
+                    .data(imgUri)
+                    .placeholder(R.drawable.loading_animation)
+                    .build()
+    )
+
+
 
 
     Card(
@@ -44,24 +55,18 @@ fun AstroShareComposable(
     ) {
 
 
-            //Image
-            Image(
-                    painter = rememberImagePainter(
-                            data = imgUri,
-                            builder = {
-                                crossfade(true)
-                                placeholder(R.drawable.loading_animation)
-                            }
-                    ),
-                    contentDescription = picture.title,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                            .clip(MaterialTheme.shapes.large)
-                            .fillMaxWidth()
-                            .aspectRatio(3f / 2f)
+        //Image
+        Image(
+                painter = painter,
+                contentDescription = picture.title,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                        .clip(MaterialTheme.shapes.large)
+                        .fillMaxWidth()
+                        .aspectRatio(3f / 2f)
 
 
-            )
+        )
 
 
         Box(modifier = Modifier.fillMaxHeight()) {

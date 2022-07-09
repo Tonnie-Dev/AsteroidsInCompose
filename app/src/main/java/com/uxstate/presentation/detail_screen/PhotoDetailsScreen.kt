@@ -18,12 +18,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
-
 import com.uxstate.util.LocalSpacing
 
 @ExperimentalMaterial3Api
@@ -145,3 +143,24 @@ fun shareAstroPhoto(uri: String, context: Context) {
     }
     context.startActivity(Intent.createChooser(intent, null))
 }
+
+/*
+fun Context.shareImage(title: String, image: Drawable, filename: String) {
+    val file = try {
+        val outputFile = File(cacheDir, "$filename.png")
+        val outPutStream = FileOutputStream(outputFile)
+        image.toBitmap().compress(Bitmap.CompressFormat.PNG, 100, outPutStream)
+        outPutStream.flush()
+        outPutStream.close()
+        outputFile
+    } catch (e: Throwable) {
+        return toast(e)
+    }
+    val uri = file.toUriCompat(this)
+    val shareIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        type = "image/png"
+        putExtra(Intent.EXTRA_STREAM, uri)
+    }
+    startActivity(Intent.createChooser(shareIntent, title))
+}*/
