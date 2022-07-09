@@ -7,11 +7,14 @@ import com.uxstate.data.mapper.toFavPhotoEntity
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.repository.AstroRepository
+import com.uxstate.util.PhotoDateFilter
 import com.uxstate.util.Resource
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -139,8 +142,11 @@ class AstroRepositoryImpl @Inject constructor(
                 ?.toAstroPhoto()
     }
 
-    override fun getFavPhotos(): Flow<List<AstroPhoto>?> {
-        return dao.getFavPhotos()
+    override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?> {
+
+        val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
+                .toInstant().toEpochMilli()
+        return dao.getFavPhotos(startDate = startDate, endDate = System.currentTimeMillis())
                 .map {
 
                     list ->
