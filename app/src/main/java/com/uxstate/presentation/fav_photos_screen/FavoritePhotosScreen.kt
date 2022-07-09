@@ -14,18 +14,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
-import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.components.FavPhotoComposable
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
-import com.uxstate.presentation.overview_screen.OverviewEvent
-import com.uxstate.presentation.overview_screen.OverviewViewModel
 import com.uxstate.util.LocalSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun FavoritePhotosScreen(
-    viewModel:FavPhotosViewModel = hiltViewModel(),
+    viewModel: FavPhotosViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
     val spacing = LocalSpacing.current
@@ -52,7 +49,7 @@ fun FavoritePhotosScreen(
                 items(photos) { photo ->
 
                     FavPhotoComposable(
-modifier = Modifier.padding(spacing.spaceSmall),
+                            modifier = Modifier.padding(spacing.spaceSmall),
                             photo = photo,
                             onTapPhoto = {
                                 navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
@@ -60,7 +57,7 @@ modifier = Modifier.padding(spacing.spaceSmall),
                             onDeletePhoto = {
 
                                 viewModel.onEvent(
-                                      FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
+                                        FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
                             }
                     )
