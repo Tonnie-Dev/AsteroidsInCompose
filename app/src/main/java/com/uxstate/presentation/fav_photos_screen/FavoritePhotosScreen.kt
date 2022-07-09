@@ -42,16 +42,26 @@ fun FavoritePhotosScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = { navigator.navigateUp() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack,
+                        Icon(
+                                imageVector = Icons.Default.ArrowBack,
                                 contentDescription = stringResource(
-                                        id = R.string.back_label),
+                                        id = R.string.back_label
+                                ),
 
-                        )
+                                )
                     }
                 }
         )
 
 
+    }, bottomBar = {
+
+        BottomAppBar(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ) {
+
+        }
     }) { paddingValues ->
 
         if (photos.isNotEmpty()) {
@@ -93,3 +103,5 @@ fun FavoritePhotosScreen(
 
 
 }
+
+

@@ -94,34 +94,35 @@ fun PhotoDetailsScreen(
                 ) {
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth().padding(spacing.spaceExtraSmall)) {
 
-                        Surface(
-tonalElevation = spacing.spaceMedium,
-                                color = Color.Transparent,
-                                shape = RoundedCornerShape(spacing.spaceMedium),
-                                modifier = Modifier
-                                        .clickable {
-                                            val state = painter.state as? AsyncImagePainter.State.Success
-                                            val drawable = state?.result?.drawable
-                                            if (drawable != null) {
-                                                context.shareImage(
-                                                        "Share image via sx",
-                                                        drawable,
-                                                        "filename",
-                                                        caption
-                                                )
+                        AssistChip(
+                                onClick = {
 
-                                            }
+                                    val state = painter.state as? AsyncImagePainter.State.Success
+                                    val drawable = state?.result?.drawable
+                                    if (drawable != null) {
+                                        context.shareImage(
+                                                "Share image via sx",
+                                                drawable,
+                                                "filename",
+                                                caption
+                                        )
 
-                                        }.border(width = 1.dp,color = MaterialTheme.colorScheme.onSurfaceVariant, shape = RoundedCornerShape(spacing.spaceMedium))
-                        ) {
+                                    }
 
-                            LottieAnimationPlaceHolder(
-                                    lottie = R.raw.share_icon,
-                                    modifier = Modifier.clickable {
+                                },
+                                colors = AssistChipDefaults.assistChipColors
+                                (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                                leadingIcon = {
+
+                                    LottieAnimationPlaceHolder(lottie = R.raw.share_icon_blue)
+
+                                }, label = { Text(text = stringResource(id = R.string.share_label)) })
 
 
-                                    }.size(150.dp))
-                        }
+
+
+
+
 
 
 
