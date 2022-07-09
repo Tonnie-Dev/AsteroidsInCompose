@@ -2,12 +2,18 @@ package com.uxstate.presentation.detail_screen
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,13 +22,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
+import java.io.File
+import java.io.FileOutputStream
+
 
 @ExperimentalMaterial3Api
 
@@ -114,11 +127,22 @@ fun PhotoDetailsScreen(
                 )
 
                 AssistChip(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+
+                            val state = painter.state as? AsyncImagePainter.State.Success
+                            val drawable = state?.result?.drawable
+                            if (drawable != null) {
+                                context.shareImage(
+                                        "Share image via",
+                                        drawable,
+                                        "filename"
+                                )
+                            }
+                        },
                         colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
                             Icon(
-                                    imageVector = Icons.Default.Favorite,
+                                    imageVector = Icons.Default.Share,
                                     contentDescription = stringResource(id = R.string.share_label)
                             )
                         },
@@ -144,7 +168,7 @@ fun shareAstroPhoto(uri: String, context: Context) {
     context.startActivity(Intent.createChooser(intent, null))
 }
 
-/*
+
 fun Context.shareImage(title: String, image: Drawable, filename: String) {
     val file = try {
         val outputFile = File(cacheDir, "$filename.png")
@@ -154,13 +178,42 @@ fun Context.shareImage(title: String, image: Drawable, filename: String) {
         outPutStream.close()
         outputFile
     } catch (e: Throwable) {
-        return toast(e)
+
+        null
+        //return toast(e)
     }
-    val uri = file.toUriCompat(this)
+    val uri = file?.toUriCompat(this)
+
+
+
     val shareIntent = Intent().apply {
         action = Intent.ACTION_SEND
         type = "image/png"
         putExtra(Intent.EXTRA_STREAM, uri)
     }
-    startActivity(Intent.createChooser(shareIntent, title))
-}*/
+    val chooser = Intent.createChooser(shareIntent, "Share File")
+    val resInfoList = this.packageManager.queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY)
+
+    for (resolveInfo in resInfoList) {
+        val packageName = resolveInfo.activityInfo.packageName
+        grantUriPermission(
+                packageName,
+                uri,
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+        )
+    }
+
+    startActivity(chooser)
+
+    //startActivity(Intent.createChooser(shareIntent, title))
+}
+
+fun File.toUriCompat(context: Context): Uri {
+    return FileProvider.getUriForFile(context, context.packageName + ".provider", this)
+}
+/*fun Context.toast(throwable: Throwable) =
+    throwable.message?.let { toast(it) }
+        ?: toast(R.string.unknown_error)*/
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
