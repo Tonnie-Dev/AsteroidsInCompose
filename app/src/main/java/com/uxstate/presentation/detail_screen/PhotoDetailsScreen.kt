@@ -114,7 +114,7 @@ fun PhotoDetailsScreen(
             ) {
 
                 val context = LocalContext.current
-                AssistChip(onClick = { shareAstroPhoto("", context) },
+                AssistChip(onClick = {  },
                         colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
                             Icon(
@@ -133,9 +133,10 @@ fun PhotoDetailsScreen(
                             val drawable = state?.result?.drawable
                             if (drawable != null) {
                                 context.shareImage(
-                                        "Share image via",
+                                        "Share image via sx",
                                         drawable,
-                                        "filename"
+                                        "filename",
+                                        photo.title
                                 )
                             }
                         },
@@ -157,19 +158,10 @@ fun PhotoDetailsScreen(
 }
 
 
-fun shareAstroPhoto(uri: String, context: Context) {
-
-    val intent = Intent().apply {
-
-        action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_STREAM, uri)
-        type = "image/jpg"
-    }
-    context.startActivity(Intent.createChooser(intent, null))
-}
 
 
-fun Context.shareImage(title: String, image: Drawable, filename: String) {
+
+fun Context.shareImage(title: String, image: Drawable, filename: String, caption:String) {
     val file = try {
         val outputFile = File(cacheDir, "$filename.png")
         val outPutStream = FileOutputStream(outputFile)
@@ -184,14 +176,13 @@ fun Context.shareImage(title: String, image: Drawable, filename: String) {
     }
     val uri = file?.toUriCompat(this)
 
-
-
     val shareIntent = Intent().apply {
         action = Intent.ACTION_SEND
         type = "image/png"
         putExtra(Intent.EXTRA_STREAM, uri)
+        putExtra(Intent.EXTRA_TEXT,caption)
     }
-    val chooser = Intent.createChooser(shareIntent, "Share File")
+    val chooser = Intent.createChooser(shareIntent, title)
     val resInfoList = this.packageManager.queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY)
 
     for (resolveInfo in resInfoList) {
@@ -205,7 +196,7 @@ fun Context.shareImage(title: String, image: Drawable, filename: String) {
 
     startActivity(chooser)
 
-    //startActivity(Intent.createChooser(shareIntent, title))
+
 }
 
 fun File.toUriCompat(context: Context): Uri {
