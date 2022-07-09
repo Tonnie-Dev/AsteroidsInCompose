@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
+import com.uxstate.util.PhotoDateFilter
 import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -24,7 +25,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
         private set
 
     init {
-        getFavoritePhotos()
+        getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
 
     }
 
@@ -50,19 +51,31 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
                 }
             }
+
+            is FavoritePhotoScreenEvent.OnClickAllPhotos -> {
+
+
+                getFavoritePhotos(PhotoDateFilter.AllPhotos)
+            }
+            is FavoritePhotoScreenEvent.OnClickRecentPhotos -> {
+
+                getFavoritePhotos(PhotoDateFilter.RecentPhotos)
+            }
+            is FavoritePhotoScreenEvent.OnClickTodayPhotos-> {
+                getFavoritePhotos(PhotoDateFilter.TodayPhotos)
+            }
+
+
         }
     }
     //get photos
-    private fun getFavoritePhotos() {
+    private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
 
 
-        useCaseContainer.getFavAstroPhotosUseCase(dateFilter = )
+        useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
                 .onEach {
-
-
                     favPhotos ->
                     state = state.copy(favoritePhotosList = favPhotos ?: emptyList())
-
 
                 }
                 .launchIn(viewModelScope)
