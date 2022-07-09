@@ -12,6 +12,7 @@ import com.uxstate.util.Resource
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -143,6 +144,8 @@ class AstroRepositoryImpl @Inject constructor(
     }
 
     override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?> {
+
+        Timber.i("RepoCall deteted")
 
         val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
                 .toInstant().toEpochMilli()

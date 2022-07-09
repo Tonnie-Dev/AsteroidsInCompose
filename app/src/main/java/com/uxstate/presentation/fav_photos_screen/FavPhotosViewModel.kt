@@ -55,14 +55,14 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
             is FavoritePhotoScreenEvent.OnClickAllPhotos -> {
 
 
-                getFavoritePhotos(PhotoDateFilter.AllPhotos)
+                getFavoritePhotos(event.dateFilter)
             }
             is FavoritePhotoScreenEvent.OnClickRecentPhotos -> {
 
-                getFavoritePhotos(PhotoDateFilter.RecentPhotos)
+                getFavoritePhotos(event.dateFilter)
             }
             is FavoritePhotoScreenEvent.OnClickTodayPhotos-> {
-                getFavoritePhotos(PhotoDateFilter.TodayPhotos)
+                getFavoritePhotos(event.dateFilter)
             }
 
 

@@ -18,6 +18,7 @@ import com.uxstate.presentation.components.FavPhotoComposable
 import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
+import com.uxstate.util.PhotoDateFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -68,7 +69,20 @@ fun FavoritePhotosScreen(
                             SelectableBottomItem(
                                     isSelected = selectedIndex == index,
                                     text = dateItem.title,
-                                    onClick = { selectedIndex = index },
+                                    onClick = {
+                                        viewModel.onEvent(
+                                                event = when (index) {
+                                                    0  ->FavoritePhotoScreenEvent.OnClickTodayPhotos(PhotoDateFilter.TodayPhotos)
+                                                    1  ->FavoritePhotoScreenEvent.OnClickRecentPhotos(PhotoDateFilter.RecentPhotos)
+                                                    2  ->FavoritePhotoScreenEvent.OnClickAllPhotos(PhotoDateFilter.AllPhotos)
+                                                    else -> FavoritePhotoScreenEvent.OnClickTodayPhotos(PhotoDateFilter.TodayPhotos)
+                                                }
+
+                                        )
+                                        selectedIndex = index
+
+
+                                              },
                                     icon = dateItem.icon
                             )
                         }
