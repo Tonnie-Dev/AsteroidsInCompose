@@ -39,7 +39,7 @@ fun OverviewScreen(
 
     Scaffold(
             topBar = {
-                LargeTopAppBar(
+                SmallTopAppBar(
                         colors = TopAppBarDefaults.largeTopAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                                 titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
