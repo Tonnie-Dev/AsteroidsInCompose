@@ -97,7 +97,7 @@ fun PhotoDetailsScreen(
 
                 ) {
                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-                       FloatingActionButton(onClick = { val state = painter.state as? AsyncImagePainter.State.Success
+                       FloatingActionButton(shape = CircleShape, onClick = { val state = painter.state as? AsyncImagePainter.State.Success
                            val drawable = state?.result?.drawable
                            if (drawable != null) {
                                context.shareImage(
@@ -110,7 +110,7 @@ fun PhotoDetailsScreen(
                            }}) {
 
                            Icon(
-                                   imageVector = Icons.Default.Favorite,
+                                   imageVector = Icons.Default.Share,
                                    contentDescription = stringResource(id = R.string.favourite_label)
                            )
 
@@ -128,7 +128,7 @@ fun PhotoDetailsScreen(
 
 
         Card(
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier
                         .fillMaxHeight()
