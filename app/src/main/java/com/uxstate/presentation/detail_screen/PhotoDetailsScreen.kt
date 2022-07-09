@@ -64,14 +64,37 @@ fun PhotoDetailsScreen(
                     .build()
     )
 
-    Scaffold(topBar = {}, bottomBar = {}) { paddingValues ->
+    Scaffold(topBar = {
+
+        SmallTopAppBar(
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ), title = {
+            Text(text = stringResource(id = R.string.photo_details))
+        }, navigationIcon = {
+
+            
+        })
+    },
+
+            bottomBar = {
+
+
+            }) {
+
+
+        paddingValues ->
 
 
         Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                 shape = MaterialTheme.shapes.large,
-                modifier = Modifier.fillMaxHeight().padding(paddingValues
-                )
+                modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(
+                                paddingValues
+                        )
         ) {
 
 
@@ -161,7 +184,6 @@ fun PhotoDetailsScreen(
             }
         }
     }
-
 
 
 }
