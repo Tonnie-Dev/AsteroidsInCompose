@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,6 +61,15 @@ fun FavoritePhotosScreen(
                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         ) {
 
+            var selectedIndex by remember { mutableStateOf(0) }
+
+            DateItem.values().forEachIndexed { index, dateItem ->
+                Button(onClick = { selectedIndex = 0 }) {
+
+                    Text
+
+                }
+            }
         }
     }) { paddingValues ->
 
