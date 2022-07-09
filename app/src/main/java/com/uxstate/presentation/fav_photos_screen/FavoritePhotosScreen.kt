@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,6 +14,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.FavPhotoComposable
+import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
@@ -62,8 +62,12 @@ fun FavoritePhotosScreen(
         ) {
 
             var selectedIndex by remember { mutableStateOf(0) }
-            Row(modifier = Modifier.fillMaxWidth().padding(spacing.spaceExtraSmall),
-                    horizontalArrangement = Arrangement.SpaceEvenly) {
+            Row(
+                    modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacing.spaceExtraSmall),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
                 DateItem.values()
                         .forEachIndexed { index, dateItem ->
                             SelectableBottomItem(
@@ -72,17 +76,25 @@ fun FavoritePhotosScreen(
                                     onClick = {
                                         viewModel.onEvent(
                                                 event = when (index) {
-                                                    0  ->FavoritePhotoScreenEvent.OnClickTodayPhotos(PhotoDateFilter.TodayPhotos)
-                                                    1  ->FavoritePhotoScreenEvent.OnClickRecentPhotos(PhotoDateFilter.RecentPhotos)
-                                                    2  ->FavoritePhotoScreenEvent.OnClickAllPhotos(PhotoDateFilter.AllPhotos)
-                                                    else -> FavoritePhotoScreenEvent.OnClickTodayPhotos(PhotoDateFilter.TodayPhotos)
+                                                    0 -> FavoritePhotoScreenEvent.OnClickTodayPhotos(
+                                                            PhotoDateFilter.TodayPhotos
+                                                    )
+                                                    1 -> FavoritePhotoScreenEvent.OnClickRecentPhotos(
+                                                            PhotoDateFilter.RecentPhotos
+                                                    )
+                                                    2 -> FavoritePhotoScreenEvent.OnClickAllPhotos(
+                                                            PhotoDateFilter.AllPhotos
+                                                    )
+                                                    else -> FavoritePhotoScreenEvent.OnClickTodayPhotos(
+                                                            PhotoDateFilter.TodayPhotos
+                                                    )
                                                 }
 
                                         )
                                         selectedIndex = index
 
 
-                                              },
+                                    },
                                     icon = dateItem.icon
                             )
                         }
@@ -115,15 +127,7 @@ fun FavoritePhotosScreen(
             })
         } else {
 
-            Box(modifier = Modifier.fillMaxSize()) {
 
-                Text(
-                        text = stringResource(id = R.string.no_fav_photos),
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.align(Alignment.Center)
-                )
-            }
 
         }
 

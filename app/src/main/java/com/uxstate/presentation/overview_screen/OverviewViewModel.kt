@@ -118,6 +118,7 @@ getLiveAstroPhotos()
                         }
                         is Resource.Error -> {
 
+                            _viewState.value = ViewState.Error(Exception())
                             state = state.copy(errorMessage = result.message)
                         }
                         is Resource.Success -> {
