@@ -21,19 +21,11 @@ interface AstroDao {
     @Query("UPDATE astrophotoentity SET isFavorite =:isFavorite WHERE id=:id")
     suspend fun updateIsFavoriteStatus(id: String,isFavorite:Boolean)
 
-
     @Query("DELETE FROM astrophotoentity")
     suspend fun clearAstroPhotos()
 
    // @Query("UPDATE astrophotoentity SET isFavorite = NOT isFavorite WHERE id=:id")
-
-
-    //fun updateIsFavoriteStatus(id: String)
-
-
-
-
-
+    
     //FAVPHOTOENTITY
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoritePhoto(photo: FavPhotoEntity)
