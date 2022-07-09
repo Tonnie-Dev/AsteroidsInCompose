@@ -8,4 +8,6 @@
     <string name="delete_photo">Remove From Favorite</string>
     <string name="unexpected_error">Unexpected error occurred</string>
     <string name="could_not_load_data">Could not load data, check your internet connection</string>
+    <string name="photo_caption">Presenting: %s. Space lovers &#127757; can download Astro Photos Android App
+        for more space photos</string>
 </resources>

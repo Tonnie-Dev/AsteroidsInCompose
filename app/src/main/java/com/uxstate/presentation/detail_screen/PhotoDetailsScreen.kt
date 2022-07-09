@@ -22,6 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toUpperCase
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
@@ -48,6 +50,7 @@ fun PhotoDetailsScreen(
 
     val spacing = LocalSpacing.current
 
+    val caption = stringResource(id = R.string.photo_caption, photo.title.toUpperCase(locale = Locale.current))
     val imgUri = photo.url.toUri()
             .buildUpon()
             .scheme("https")
@@ -136,8 +139,8 @@ fun PhotoDetailsScreen(
                                         "Share image via sx",
                                         drawable,
                                         "filename",
-                                        photo.title
-                                )
+                                       caption)
+
                             }
                         },
                         colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
