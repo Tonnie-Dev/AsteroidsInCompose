@@ -1,6 +1,7 @@
 package com.uxstate.domain.repository
 
 import com.uxstate.domain.model.AstroPhoto
+import com.uxstate.util.PhotoDateFilter
 import com.uxstate.util.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +16,7 @@ interface AstroRepository {
 
     //FAVPHOTOENTITY
     suspend fun getFavPhotoById(id: String): AstroPhoto?
-    fun getFavPhotos(): Flow<List<AstroPhoto>?>
+    fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?>
     suspend fun deleteFavPhoto(photo: AstroPhoto)
     suspend fun isFavPhotoSaved(id: String): Boolean
     suspend fun insertFavPhoto (photo: AstroPhoto)
