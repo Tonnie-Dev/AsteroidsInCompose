@@ -1,6 +1,5 @@
 package com.uxstate.presentation.overview_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -20,6 +18,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
+import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
@@ -33,8 +32,8 @@ fun OverviewScreen(
     navigator: DestinationsNavigator
 ) {
 
-   val feed = viewModel.feed.collectAsState().value
-   val state = viewModel.state
+    val feed = viewModel.feed.collectAsState().value
+    val state = viewModel.state
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotosListLoading)
     val spacing = LocalSpacing.current
 
@@ -64,59 +63,70 @@ fun OverviewScreen(
             }) { values ->
 
 
-        when(feed){
+        when (feed) {
 
             is ViewState.Success -> {
 
                 SwipeRefresh(state = swipeRefreshState, modifier = Modifier
-                        .fillMaxWidth()
-                        , onRefresh = {
+                        .fillMaxWidth(), onRefresh = {
 
                     viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
                 }) {
 
 
-
-                    LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = values, content = {
-
-
-
-
-                        itemsIndexed(feed.photos) { i, item->
-                            //  Timber.i("At Index i $i item is: ${item.isFavorite}")
-                            AstroPhotoComposable(
-                                    photo = item,
+                    LazyColumn(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPadding = values,
+                            content = {
 
 
-                                    modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(spacing.spaceSmall),
-                                    onTapPhoto = {
+                                itemsIndexed(feed.photos) { i, item ->
+                                    //  Timber.i("At Index i $i item is: ${item.isFavorite}")
+                                    AstroPhotoComposable(
+                                            photo = item,
 
-                                        navigator.navigate(PhotoDetailsScreenDestination(item))
-                                    },
-                                    onMarkAsFavorite = {
-                                        viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
-                                        Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                    },
-                                    onDeletePhoto = {
-                                        viewModel.onEvent(
-                                                OverviewEvent.OnRemoveFromFavorites(item, false)
-                                        )
 
-                                        Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                    })
-                            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                                            modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(spacing.spaceSmall),
+                                            onTapPhoto = {
 
-                        }
-                    })
+                                                navigator.navigate(
+                                                        PhotoDetailsScreenDestination(
+                                                                item
+                                                        )
+                                                )
+                                            },
+                                            onMarkAsFavorite = {
+                                                viewModel.onEvent(
+                                                        OverviewEvent.OnMarkFavorite(
+                                                                item,
+                                                                true
+                                                        )
+                                                )
+                                                Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                            },
+                                            onDeletePhoto = {
+                                                viewModel.onEvent(
+                                                        OverviewEvent.OnRemoveFromFavorites(
+                                                                item,
+                                                                false
+                                                        )
+                                                )
+
+                                                Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                            })
+                                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+                                }
+                            })
 
 
                 }
             }
 
             is ViewState.Empty -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
                     Text(text = "NO PHOTOS FOUND")
@@ -125,87 +135,86 @@ fun OverviewScreen(
             }
 
             is ViewState.Error -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
                     Text(text = "ERROR")
                 }
 
 
-
             }
             is ViewState.Loading -> {
-                
-                Box(modifier = Modifier.fillMaxSize().background(Color.Red)) {
-                    
-                    Text(text = "Looading ..")
-                }
+
+                LottieAnimationPlaceHolder(
+                        lottie = R.raw.loading_large,
+                        modifier = Modifier.fillMaxSize()
+                )
 
             }
 
 
         }
-/*
-        Column(
-                modifier = Modifier
-                        .fillMaxSize()
-                        .padding(values)
-        ) {
-
-            if (state.astroPhotos.isEmpty()){
-
-                Box(modifier = Modifier.fillMaxSize()){
-
-
-                    Text(text = "NO PHOTOS FOUND")
-                }
-            }else{
-
-
-            SwipeRefresh(state = swipeRefreshState, modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(5f), onRefresh = {
-
-                viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
-            }) {
-
-
-
-                LazyColumn(content = {
-
-
-
-
-                    itemsIndexed(state.astroPhotos) {i, item->
-                      //  Timber.i("At Index i $i item is: ${item.isFavorite}")
-                        AstroPhotoComposable(
-                                photo = item,
-
-
-                                modifier = Modifier.fillMaxWidth(),
-                                onTapPhoto = {
-
-                                    navigator.navigate(PhotoDetailsScreenDestination(item))
-                                },
-                                onMarkAsFavorite = {
-                                    viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
-                                    Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                },
-                                onDeletePhoto = {
-                                    viewModel.onEvent(
-                                            OverviewEvent.OnRemoveFromFavorites(item, false)
-                                    )
-
-                                    Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                })
-                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
-
-                    }
-                })
-
-
-            }}
-        }*/
+        /*
+                Column(
+                        modifier = Modifier
+                                .fillMaxSize()
+                                .padding(values)
+                ) {
+        
+                    if (state.astroPhotos.isEmpty()){
+        
+                        Box(modifier = Modifier.fillMaxSize()){
+        
+        
+                            Text(text = "NO PHOTOS FOUND")
+                        }
+                    }else{
+        
+        
+                    SwipeRefresh(state = swipeRefreshState, modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(5f), onRefresh = {
+        
+                        viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
+                    }) {
+        
+        
+        
+                        LazyColumn(content = {
+        
+        
+        
+        
+                            itemsIndexed(state.astroPhotos) {i, item->
+                              //  Timber.i("At Index i $i item is: ${item.isFavorite}")
+                                AstroPhotoComposable(
+                                        photo = item,
+        
+        
+                                        modifier = Modifier.fillMaxWidth(),
+                                        onTapPhoto = {
+        
+                                            navigator.navigate(PhotoDetailsScreenDestination(item))
+                                        },
+                                        onMarkAsFavorite = {
+                                            viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
+                                            Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                        },
+                                        onDeletePhoto = {
+                                            viewModel.onEvent(
+                                                    OverviewEvent.OnRemoveFromFavorites(item, false)
+                                            )
+        
+                                            Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
+                                        })
+                                Spacer(modifier = Modifier.height(spacing.spaceMedium))
+        
+                            }
+                        })
+        
+        
+                    }}
+                }*/
 
 
     }
