@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.PhotoDateFilter
-import com.uxstate.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.launchIn
@@ -42,10 +41,10 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
-                       //delete from DB 2
+                        //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         //  updateAstroPhotos
-                        useCaseContainer.updateIsFavoriteStatus(event.photo,false)
+                        useCaseContainer.updateIsFavoriteStatus(event.photo, false)
 
                         recentDeletedAstroPhoto = event.photo
                     }
@@ -54,6 +53,16 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 }
             }
 
+            is FavoritePhotoScreenEvent.OnRestoreDeletedPhoto -> {
+                viewModelScope.launch {
+
+                    useCaseContainer.insertAstroPhotoUseCase(
+                            recentDeletedAstroPhoto ?: return@launch
+                    )
+                }
+
+
+            }
             is FavoritePhotoScreenEvent.OnClickAllPhotos -> {
 
 
@@ -63,28 +72,25 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
                 getFavoritePhotos(event.dateFilter)
             }
-            is FavoritePhotoScreenEvent.OnClickTodayPhotos-> {
+            is FavoritePhotoScreenEvent.OnClickTodayPhotos -> {
                 getFavoritePhotos(event.dateFilter)
             }
 
 
         }
     }
+
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
 
 
         useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
-                .onEach {
-                    favPhotos ->
+                .onEach { favPhotos ->
                     state = state.copy(favoritePhotosList = favPhotos ?: emptyList())
 
                 }
                 .launchIn(viewModelScope)
     }
-
-
-
 
 
 }
