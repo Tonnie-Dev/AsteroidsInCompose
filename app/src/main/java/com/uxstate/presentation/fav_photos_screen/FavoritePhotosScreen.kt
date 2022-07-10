@@ -15,6 +15,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.FavPhotoComposable
 import com.uxstate.presentation.components.LottieAnimationPlaceHolder
+import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
@@ -127,7 +128,7 @@ fun FavoritePhotosScreen(
             })
         } else {
 
-
+NoDataFoundAnimation()
 
         }
 

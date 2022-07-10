@@ -19,6 +19,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.components.LottieAnimationPlaceHolder
+import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
@@ -126,20 +127,12 @@ fun OverviewScreen(
             }
 
             is ViewState.Empty -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
-
-                    Text(text = "NO PHOTOS FOUND")
-                }
+                NoDataFoundAnimation()
 
             }
 
             is ViewState.Error -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
-
-                    Text(text = "ERROR")
-                }
+               LottieAnimationPlaceHolder(lottie = R.raw.no_connection, modifier = Modifier.fillMaxSize())
 
 
             }
