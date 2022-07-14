@@ -14,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -44,7 +45,7 @@ object AppModule {
                 .baseUrl(AstroAPI.BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
-                .create(AstroAPI::class.java)
+                .create()
     }
 
 

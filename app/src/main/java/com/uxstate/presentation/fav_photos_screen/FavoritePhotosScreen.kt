@@ -29,6 +29,9 @@ fun FavoritePhotosScreen(
     navigator: DestinationsNavigator
 ) {
     val spacing = LocalSpacing.current
+    val scope = rememberCoroutineScope()
+
+            //val scaffoldState = remembersc
     val photos = viewModel.state.favoritePhotosList
 
     Scaffold(topBar = {
