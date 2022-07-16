@@ -29,12 +29,13 @@ fun FavoritePhotosScreen(
     navigator: DestinationsNavigator
 ) {
     val spacing = LocalSpacing.current
-    val scope = rememberCoroutineScope()
 
-            //val scaffoldState = remembersc
     val photos = viewModel.state.favoritePhotosList
+    val snackbarHostState = remember { SnackbarHostState() }
+    Scaffold( snackbarHost = { SnackbarHost(snackbarHostState) },
+            topBar = {
 
-    Scaffold(topBar = {
+
         CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -78,6 +79,7 @@ fun FavoritePhotosScreen(
                                     isSelected = selectedIndex == index,
                                     text = dateItem.title,
                                     onClick = {
+                                        selectedIndex = index
                                         viewModel.onEvent(
                                                 event = when (index) {
                                                     0 -> FavoritePhotoScreenEvent.OnClickTodayPhotos(
@@ -90,12 +92,12 @@ fun FavoritePhotosScreen(
                                                             PhotoDateFilter.AllPhotos
                                                     )
                                                     else -> FavoritePhotoScreenEvent.OnClickTodayPhotos(
-                                                            PhotoDateFilter.TodayPhotos
+                                                            PhotoDateFilter.RecentPhotos
                                                     )
                                                 }
 
                                         )
-                                        selectedIndex = index
+
 
 
                                     },

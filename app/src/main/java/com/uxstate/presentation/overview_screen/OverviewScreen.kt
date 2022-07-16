@@ -1,6 +1,9 @@
 package com.uxstate.presentation.overview_screen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -8,7 +11,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,7 +21,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.components.LoadingAnimation
-import com.uxstate.presentation.components.LottieAnimationPlaceHolder
+import com.uxstate.presentation.components.NoConnectionAnimation
 import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
@@ -133,8 +135,8 @@ fun OverviewScreen(
             }
 
             is ViewState.Error -> {
-               LottieAnimationPlaceHolder(lottie = R.raw.no_connection, modifier = Modifier.fillMaxSize())
-
+                //LottieAnimationPlaceHolder(lottie = R.raw.no_connection, modifier = Modifier.fillMaxSize())
+                NoConnectionAnimation()
 
             }
             is ViewState.Loading -> {
@@ -145,7 +147,6 @@ fun OverviewScreen(
 
 
         }
-       
 
 
     }

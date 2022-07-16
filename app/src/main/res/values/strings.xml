@@ -6,7 +6,7 @@
     <string name="all_photos">All Photos</string>
     <string name="back_label">Back</string>
     <string name="photo_details">Astro Photo Details</string>
-    <string name="loading_photo">Loading ...</string>
+    <string name="loading_photo">Loading …</string>
 
     <string name="fav_header">Favorite Photos</string>
     <string name="delete_photo">Remove From Favorite</string>
