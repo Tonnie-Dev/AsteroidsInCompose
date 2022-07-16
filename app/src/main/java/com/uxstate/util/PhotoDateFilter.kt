@@ -13,7 +13,7 @@ sealed class PhotoDateFilter(val startDate: LocalDateTime) {
 
     object RecentPhotos : PhotoDateFilter(
             startDate = LocalDateTime.now()
-                    .minusDays(7)
+                    .minusDays(4).minusHours(24)
     )
 
     object AllPhotos : PhotoDateFilter(
