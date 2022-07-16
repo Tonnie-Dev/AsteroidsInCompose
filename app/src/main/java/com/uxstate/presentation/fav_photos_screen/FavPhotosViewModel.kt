@@ -82,8 +82,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-
-
+        
         useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
                 .onEach { favPhotos ->
                     state = state.copy(favoritePhotosList = favPhotos ?: emptyList())

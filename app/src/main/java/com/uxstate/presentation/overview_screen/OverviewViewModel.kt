@@ -30,9 +30,6 @@ class OverviewViewModel @Inject constructor(
     // The UI collects from this StateFlow to get its state update
     val feed = _viewState.asStateFlow()
 
-    var isFavoriteState by mutableStateOf(false)
-        private set
-
     private var getPhotosJob: Job? = null
 
 
