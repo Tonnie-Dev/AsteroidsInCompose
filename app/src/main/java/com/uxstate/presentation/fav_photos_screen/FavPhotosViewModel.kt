@@ -23,7 +23,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     var state by mutableStateOf(FavPhotosState())
         private set
 
-    var recentDeletedAstroPhoto: AstroPhoto? = null
+
 
     init {
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
@@ -46,20 +46,13 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                         //  updateAstroPhotos
                         useCaseContainer.updateIsFavoriteStatus(event.photo, false)
 
-                        recentDeletedAstroPhoto = event.photo
+
                     }
 
 
                 }
             }
 
-            is FavoritePhotoScreenEvent.OnRestoreDeletedPhoto -> {
-                viewModelScope.launch {
-
-                    useCaseContainer.insertAstroPhotoUseCase(
-                            recentDeletedAstroPhoto ?: return@launch
-                    )
-                }
 
 
             }
@@ -82,7 +75,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-        
+
         useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
                 .onEach { favPhotos ->
                     state = state.copy(favoritePhotosList = favPhotos ?: emptyList())
