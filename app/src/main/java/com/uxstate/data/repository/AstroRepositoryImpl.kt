@@ -169,8 +169,7 @@ class AstroRepositoryImpl @Inject constructor(
     override suspend fun insertFavPhoto(photo: AstroPhoto) {
         dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
-   @OptIn(FlowPreview::class)
-   private suspend fun <T> Flow<List<T>>.flattenToList() =
-        flatMapConcat { it.asFlow() }.toList()
+
+   
 
 }
