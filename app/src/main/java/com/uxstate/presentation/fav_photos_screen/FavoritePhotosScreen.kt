@@ -65,7 +65,7 @@ fun FavoritePhotosScreen(
                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         ) {
 
-            var selectedIndex by remember { mutableStateOf(0) }
+            var selectedIndex by remember { mutableStateOf(1) }
             Row(
                     modifier = Modifier
                             .fillMaxWidth()
