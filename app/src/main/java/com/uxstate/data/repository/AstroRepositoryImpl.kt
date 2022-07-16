@@ -170,6 +170,6 @@ class AstroRepositoryImpl @Inject constructor(
         dao.insertFavoritePhoto(photo.toFavPhotoEntity())
     }
 
-   
+
 
 }

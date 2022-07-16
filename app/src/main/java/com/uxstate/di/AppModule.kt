@@ -41,14 +41,13 @@ object AppModule {
         val moshi = Moshi.Builder()
                 .addLast(KotlinJsonAdapterFactory())
                 .build()
+
         return Retrofit.Builder()
                 .baseUrl(AstroAPI.BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
                 .create()
     }
-
-
 
 
     @Provides

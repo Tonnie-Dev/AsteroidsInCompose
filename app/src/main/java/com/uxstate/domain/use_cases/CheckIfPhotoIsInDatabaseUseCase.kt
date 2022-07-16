@@ -5,7 +5,7 @@ import com.uxstate.domain.repository.AstroRepository
 
 class CheckIfPhotoIsInDatabaseUseCase(private val repository: AstroRepository) {
 
-    suspend operator fun invoke(photo: AstroPhoto):Boolean{
+    suspend operator fun invoke(photo: AstroPhoto, x: Int):Boolean{
 
         return repository.isFavPhotoSaved(photo.id)
     }
