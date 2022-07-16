@@ -15,7 +15,7 @@ import com.uxstate.R
 
 
 @Composable
-fun NoDataFoundAnimation() {
+fun LoadingAnimation() {
 
     Column(
             modifier = Modifier.fillMaxSize(),
@@ -23,13 +23,13 @@ fun NoDataFoundAnimation() {
             verticalArrangement = Arrangement.Center
     ) {
         LottieAnimationPlaceHolder(
-                lottie = R.raw.empty_box,
+                lottie = R.raw.pulsing_cyclic,
                 modifier = Modifier.size(400.dp)
         )
         Text(
-                text = stringResource(id = R.string.no_fav_photos),
+                text = stringResource(id = R.string.loading_photo),
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.error,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.align(CenterHorizontally)
         )
     }

@@ -18,6 +18,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.AstroPhotoComposable
+import com.uxstate.presentation.components.LoadingAnimation
 import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
@@ -138,10 +139,11 @@ fun OverviewScreen(
             }
             is ViewState.Loading -> {
 
-                LottieAnimationPlaceHolder(
+                LoadingAnimation()
+               /* LottieAnimationPlaceHolder(
                         lottie = R.raw.loading_planet,
                         modifier = Modifier.fillMaxSize()
-                )
+                )*/
 
             }
 
