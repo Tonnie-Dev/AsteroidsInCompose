@@ -6,23 +6,8 @@ import com.uxstate.data.remote.dto.AstroPhotoDTO
 import com.uxstate.domain.model.AstroPhoto
 
 
-//DTO to Model
-
-fun AstroPhotoDTO.toModel(): AstroPhoto {
-
-    return AstroPhoto(
-            title = this.title,
-            explanation = this.explanation,
-            mediaType = this.mediaType,
-            url = this.url,
-            id = this.date,
-            isFavorite = false
-    )
-
-}
 
 //DTO to AstroPhotoEntity
-
 fun AstroPhotoDTO.toAstroPhotoEntity():AstroPhotoEntity {
 
     return AstroPhotoEntity(
@@ -38,7 +23,6 @@ fun AstroPhotoDTO.toAstroPhotoEntity():AstroPhotoEntity {
 
 
 //AstroPhotoEntity to Model
-
 fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
     return AstroPhoto(
             title = this.title,
@@ -53,7 +37,6 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
 
 
 //FavPhotoEntity to Model
-
 fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
 
     return AstroPhoto(
@@ -67,7 +50,6 @@ fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
 }
 
 //AstroPhoto to FavPhotoEntity
-
 fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
 
     return FavPhotoEntity(
@@ -81,19 +63,6 @@ fun AstroPhoto.toFavPhotoEntity(): FavPhotoEntity{
     )
 }
 
-//AstroPhoto to AstroPhotoEntity
-
-fun AstroPhoto.toAstroPhotoEntity(): AstroPhotoEntity{
-
-    return AstroPhotoEntity(
-            id = this.id,
-            title = this.title,
-            mediaType = this.mediaType,
-            explanation = this.explanation,
-            url = this.url,
-            isFavorite = true
-    )
-}
 
 
 
