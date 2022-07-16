@@ -140,76 +140,12 @@ fun OverviewScreen(
             is ViewState.Loading -> {
 
                 LoadingAnimation()
-               /* LottieAnimationPlaceHolder(
-                        lottie = R.raw.loading_planet,
-                        modifier = Modifier.fillMaxSize()
-                )*/
 
             }
 
 
         }
-        /*
-                Column(
-                        modifier = Modifier
-                                .fillMaxSize()
-                                .padding(values)
-                ) {
-        
-                    if (state.astroPhotos.isEmpty()){
-        
-                        Box(modifier = Modifier.fillMaxSize()){
-        
-        
-                            Text(text = "NO PHOTOS FOUND")
-                        }
-                    }else{
-        
-        
-                    SwipeRefresh(state = swipeRefreshState, modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(5f), onRefresh = {
-        
-                        viewModel.onEvent(OverviewEvent.OnRefreshAstroPhoto)
-                    }) {
-        
-        
-        
-                        LazyColumn(content = {
-        
-        
-        
-        
-                            itemsIndexed(state.astroPhotos) {i, item->
-                              //  Timber.i("At Index i $i item is: ${item.isFavorite}")
-                                AstroPhotoComposable(
-                                        photo = item,
-        
-        
-                                        modifier = Modifier.fillMaxWidth(),
-                                        onTapPhoto = {
-        
-                                            navigator.navigate(PhotoDetailsScreenDestination(item))
-                                        },
-                                        onMarkAsFavorite = {
-                                            viewModel.onEvent(OverviewEvent.OnMarkFavorite(item, true))
-                                            Timber.i("onMarkAsFav At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                        },
-                                        onDeletePhoto = {
-                                            viewModel.onEvent(
-                                                    OverviewEvent.OnRemoveFromFavorites(item, false)
-                                            )
-        
-                                            Timber.i("onDeletePhoto At Position $i isFav is: ${viewModel.state.astroPhotos[0].isFavorite}")
-                                        })
-                                Spacer(modifier = Modifier.height(spacing.spaceMedium))
-        
-                            }
-                        })
-        
-        
-                    }}
-                }*/
+       
 
 
     }
