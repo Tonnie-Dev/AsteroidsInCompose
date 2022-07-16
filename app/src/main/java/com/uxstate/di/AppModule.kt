@@ -58,11 +58,9 @@ object AppModule {
 
         return UseCaseContainer(
                 deleteFavoritePhotoUseCase = DeleteFavoritePhotoUseCase(repository),
-                getFavAstroPhotoUseCase = GetFavAstroPhotoUseCase(repository),
                 getAstroPhotosUseCase = GetAstroPhotosUseCase(repository),
                 getFavAstroPhotosUseCase = GetFavAstroPhotosUseCase(repository),
                 insertAstroPhotoUseCase =InsertAstroPhotoUseCase(repository),
-                checkIfPhotoIsInDatabaseUseCase = CheckIfPhotoIsInDatabaseUseCase(repository),
                 updateIsFavoriteStatus = UpdateIsFavoriteStatusUseCase(repository),
                 getLiveAstroPhotosUseCase = GetLiveAstroPhotosUseCase(repository)
         )

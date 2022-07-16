@@ -1,13 +1,14 @@
 package com.uxstate.util
 
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneOffset
 
 sealed class PhotoDateFilter(val startDate: LocalDateTime) {
 
     object TodayPhotos : PhotoDateFilter(
-            startDate = LocalDateTime.now()
-                    .minusHours(24)
+            startDate = LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
     )
 
     object RecentPhotos : PhotoDateFilter(

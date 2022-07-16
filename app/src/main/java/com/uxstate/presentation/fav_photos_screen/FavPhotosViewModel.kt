@@ -45,8 +45,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         //  updateAstroPhotos
                         useCaseContainer.updateIsFavoriteStatus(event.photo, false)
-
-
                     }
 
 

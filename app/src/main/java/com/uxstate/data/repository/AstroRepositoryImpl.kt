@@ -145,8 +145,6 @@ class AstroRepositoryImpl @Inject constructor(
 
     override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?> {
 
-        Timber.i("RepoCall deteted")
-
         val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
                 .toInstant().toEpochMilli()
         return dao.getFavPhotos(startDate = startDate, endDate = System.currentTimeMillis())
