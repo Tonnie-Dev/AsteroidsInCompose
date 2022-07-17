@@ -39,7 +39,8 @@ fun FavoritePhotosScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
-
+    val snackbarMessage = stringResource(id = R.string.photo_deleted)
+    val undo = stringResource(id = R.string.undo_delete)
     Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
 
@@ -131,6 +132,7 @@ fun FavoritePhotosScreen(
                             },
                             onDeletePhoto = {
 
+
                                 viewModel.onEvent(
                                         FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
@@ -138,8 +140,20 @@ fun FavoritePhotosScreen(
 
                                 coroutineScope.launch {
 
-                                    snackbarHostState.showSnackbar()
+                                    val snackbarFate = snackbarHostState.showSnackbar(
+                                            message = snackbarMessage,
+                                            actionLabel = undo
+                                    )
 
+
+                                    if (snackbarFate == SnackbarResult.ActionPerformed) {
+
+                                        viewModel.onEvent(
+                                                FavoritePhotoScreenEvent.OnRestoreAstroPhoto(
+                                                        photo = photo
+                                                )
+                                        )
+                                    }
 
 
                                 }
