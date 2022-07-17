@@ -23,6 +23,7 @@ import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
 import com.uxstate.util.PhotoDateFilter
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -34,8 +35,10 @@ fun FavoritePhotosScreen(
 
     val spacing = LocalSpacing.current
 
-    val photos = viewModel.state.favoritePhotosList
+    val state = viewModel.state
+   // val photos = viewModel.state.favoritePhotosList
 
+    Timber.i("At the Onset length is ${state.favoritePhotosList.size}")
     val snackbarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
@@ -117,10 +120,16 @@ fun FavoritePhotosScreen(
         }
     }) { paddingValues ->
 
-        if (photos.isNotEmpty()) {
+
+        if(viewModel.state.favoritePhotosList.isEmpty()){
+            NoDataFoundAnimation()
+
+        }
+        else{
+
             LazyColumn(contentPadding = paddingValues, content = {
 
-                items(photos) { photo ->
+                items(state.favoritePhotosList) { photo ->
 
                     FavPhotoComposable(
                             modifier = Modifier.padding(spacing.spaceSmall),
@@ -131,10 +140,10 @@ fun FavoritePhotosScreen(
                             onDeletePhoto = {
 
 
+
                                 viewModel.onEvent(
                                         FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
-
 
                                 coroutineScope.launch {
 
@@ -142,28 +151,25 @@ fun FavoritePhotosScreen(
                                             message = snackbarMessage,
                                             actionLabel = undo
                                     )
-
+                                    Timber.i("At the B4R length is ${state.favoritePhotosList.size}")
 
                                     if (snackbarFate == SnackbarResult.ActionPerformed) {
 
-                                        viewModel.onEvent(
-                                                FavoritePhotoScreenEvent.OnRestoreAstroPhoto
-
-
-                                        )
+                                        viewModel.onEvent(FavoritePhotoScreenEvent.OnRestoreAstroPhoto)
+                                        Timber.i("At the End length is ${state.favoritePhotosList.size}")
                                     }
 
 
                                 }
+                                Timber.i("At After scope length is ${state.favoritePhotosList.size}")
+
                             }
                     )
                 }
             })
-        } else {
-
-            NoDataFoundAnimation()
-
         }
+
+
 
 
     }

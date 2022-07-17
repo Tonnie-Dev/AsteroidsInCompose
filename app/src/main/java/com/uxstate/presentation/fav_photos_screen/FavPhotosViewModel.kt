@@ -45,14 +45,12 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
-
-
                         //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         //  updateAstroPhotos
                         useCaseContainer.updateIsFavoriteStatus(event.photo, false)
-
                         recentlyDeletedPhoto = event.photo
+
                     }
 
 
@@ -64,14 +62,14 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
-
                         //insert DB2
-                        useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto ?: return@withContext)
+                        useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto?: return@withContext )
                         //  update DB1
                         useCaseContainer.updateIsFavoriteStatus(recentlyDeletedPhoto ?: return@withContext, true)
 
                         //invalidate photo
                         recentlyDeletedPhoto = null
+
                     }
                 }
 
