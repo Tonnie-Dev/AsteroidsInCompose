@@ -22,6 +22,7 @@ import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
 import com.uxstate.util.PhotoDateFilter
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -30,10 +31,15 @@ fun FavoritePhotosScreen(
     viewModel: FavPhotosViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
+
     val spacing = LocalSpacing.current
 
     val photos = viewModel.state.favoritePhotosList
+
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
 
@@ -128,6 +134,15 @@ fun FavoritePhotosScreen(
                                 viewModel.onEvent(
                                         FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                 )
+
+
+                                coroutineScope.launch {
+
+                                    snackbarHostState.showSnackbar()
+
+
+
+                                }
                             }
                     )
                 }

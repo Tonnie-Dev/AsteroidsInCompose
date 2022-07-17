@@ -69,7 +69,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
                 viewModelScope.launch {
 
-                    withContext(IO){
+                    withContext(IO) {
                         useCaseContainer.insertAstroPhotoUseCase(event.photo)
                     }
                 }
