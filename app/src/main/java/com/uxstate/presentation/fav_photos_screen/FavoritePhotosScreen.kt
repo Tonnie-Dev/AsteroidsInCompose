@@ -147,9 +147,9 @@ fun FavoritePhotosScreen(
                                     if (snackbarFate == SnackbarResult.ActionPerformed) {
 
                                         viewModel.onEvent(
-                                                FavoritePhotoScreenEvent.OnRestoreAstroPhoto(
-                                                        photo = photo
-                                                )
+                                                FavoritePhotoScreenEvent.OnRestoreAstroPhoto
+
+
                                         )
                                     }
 
