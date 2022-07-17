@@ -25,6 +25,7 @@ import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.components.LoadingAnimation
 import com.uxstate.presentation.components.NoConnectionAnimation
 import com.uxstate.presentation.components.NoDataFoundAnimation
+import com.uxstate.presentation.destinations.AboutScreenDestination
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
@@ -51,7 +52,7 @@ fun OverviewScreen(
                         title = { Text(text = stringResource(id = R.string.all_photos)) },
                         actions = {
 
-                            IconButton(onClick = { /*TODO*/ }) {
+                            IconButton(onClick = {navigator.navigate(AboutScreenDestination) }) {
                                 Icon(
                                         imageVector = Icons.Default.Help,
                                         contentDescription = "",

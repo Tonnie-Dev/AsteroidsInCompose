@@ -32,9 +32,3 @@ fun AboutScreen() {
     }
 }
 
-@Preview(name = "About")
-@Composable
-fun PreviewAboutScreen() {
-
-    AboutScreen()
-}
