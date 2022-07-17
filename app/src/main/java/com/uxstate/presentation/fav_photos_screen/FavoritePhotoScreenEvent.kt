@@ -10,5 +10,5 @@ sealed class FavoritePhotoScreenEvent {
     data class OnClickTodayPhotos(val dateFilter: PhotoDateFilter) : FavoritePhotoScreenEvent()
     data class OnClickRecentPhotos(val dateFilter: PhotoDateFilter) : FavoritePhotoScreenEvent()
     data class OnClickAllPhotos(val dateFilter: PhotoDateFilter) : FavoritePhotoScreenEvent()
-    object OnRestoreAstroPhoto:FavoritePhotoScreenEvent()
+    data class OnRestoreAstroPhoto(val photo: AstroPhoto):FavoritePhotoScreenEvent()
 }
