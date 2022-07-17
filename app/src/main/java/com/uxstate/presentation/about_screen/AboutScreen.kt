@@ -1,9 +1,6 @@
 package com.uxstate.presentation.about_screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,9 +18,10 @@ import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 fun AboutScreen() {
     Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+            horizontalAlignment = Alignment.CenterHorizontally
+            
     ) {
+        Spacer(modifier = Modifier.height(150.dp))
         Text(
                 text = stringResource(id = R.string.welcome_message),
                 style = MaterialTheme.typography.headlineMedium,
@@ -35,6 +33,7 @@ fun AboutScreen() {
                 lottie = R.raw.galaxy_anim,
                 modifier = Modifier.size(300.dp)
         )
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
                 text = stringResource(id = R.string.welcome_header),
