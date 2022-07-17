@@ -143,7 +143,7 @@ class AstroRepositoryImpl @Inject constructor(
                 ?.toAstroPhoto()
     }
 
-    override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?> {
+    override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>> {
 
         val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
                 .toInstant().toEpochMilli()
@@ -151,7 +151,7 @@ class AstroRepositoryImpl @Inject constructor(
                 .map {
 
                     list ->
-                    list?.map { it.toAstroPhoto() }
+                    list.map { it.toAstroPhoto() }
                 }
     }
 

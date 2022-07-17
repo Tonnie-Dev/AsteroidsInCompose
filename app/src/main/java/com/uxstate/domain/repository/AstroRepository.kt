@@ -16,7 +16,7 @@ interface AstroRepository {
 
     //FAVPHOTOENTITY
     suspend fun getFavPhotoById(id: String): AstroPhoto?
-    fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>?>
+    fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>>
     suspend fun deleteFavPhoto(photo: AstroPhoto)
     suspend fun isFavPhotoSaved(id: String): Boolean
     suspend fun insertFavPhoto (photo: AstroPhoto)

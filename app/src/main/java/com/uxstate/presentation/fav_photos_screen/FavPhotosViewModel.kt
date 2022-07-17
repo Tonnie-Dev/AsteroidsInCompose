@@ -65,8 +65,9 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
                     withContext(IO) {
 
+                        //insert DB2
                         useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto ?: return@withContext)
-                        //  updateAstroPhotos
+                        //  update DB1
                         useCaseContainer.updateIsFavoriteStatus(recentlyDeletedPhoto ?: return@withContext, true)
 
                         //invalidate photo
@@ -103,7 +104,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
        photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
                 .onEach { favPhotos ->
-                    state = state.copy(favoritePhotosList = favPhotos ?: emptyList())
+                    state = state.copy(favoritePhotosList = favPhotos)
 
                 }
                 .launchIn(viewModelScope)
