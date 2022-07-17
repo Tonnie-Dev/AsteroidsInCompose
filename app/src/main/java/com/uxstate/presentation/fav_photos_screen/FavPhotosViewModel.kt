@@ -23,7 +23,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     var state by mutableStateOf(FavPhotosState())
         private set
 
-
+    var recentlyDeletedPhoto: AstroPhoto? = null
 
     init {
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
@@ -41,6 +41,8 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
                 viewModelScope.launch {
 
                     withContext(IO) {
+
+                        recentlyDeletedPhoto = event.photo
                         //delete from DB 2
                         useCaseContainer.deleteFavoritePhotoUseCase(event.photo)
                         //  updateAstroPhotos

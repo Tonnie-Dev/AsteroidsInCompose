@@ -1,6 +1,9 @@
 package com.uxstate.presentation.fav_photos_screen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -14,7 +17,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.FavPhotoComposable
-import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
@@ -32,34 +34,34 @@ fun FavoritePhotosScreen(
 
     val photos = viewModel.state.favoritePhotosList
     val snackbarHostState = remember { SnackbarHostState() }
-    Scaffold( snackbarHost = { SnackbarHost(snackbarHostState) },
+    Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
 
 
-        CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-                title = {
+                CenterAlignedTopAppBar(
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        title = {
 
-                    Text(text = stringResource(id = R.string.fav_header))
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navigator.navigateUp() }) {
-                        Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = stringResource(
-                                        id = R.string.back_label
-                                ),
+                            Text(text = stringResource(id = R.string.fav_header))
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = { navigator.navigateUp() }) {
+                                Icon(
+                                        imageVector = Icons.Default.ArrowBack,
+                                        contentDescription = stringResource(
+                                                id = R.string.back_label
+                                        ),
 
-                                )
-                    }
-                }
-        )
+                                        )
+                            }
+                        }
+                )
 
 
-    }, bottomBar = {
+            }, bottomBar = {
 
         BottomAppBar(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -99,7 +101,6 @@ fun FavoritePhotosScreen(
                                         )
 
 
-
                                     },
                                     icon = dateItem.icon
                             )
@@ -133,7 +134,7 @@ fun FavoritePhotosScreen(
             })
         } else {
 
-NoDataFoundAnimation()
+            NoDataFoundAnimation()
 
         }
 
