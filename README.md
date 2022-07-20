@@ -3,6 +3,9 @@
 
 
 ## Screenshots
+<img align="left" width="100" height="150" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png">
+<img align="center" width="100" height="150" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png">
+<img align="center" width="100" height="150" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png">
 
 ![App Screenshot](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png)
 
