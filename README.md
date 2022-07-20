@@ -4,7 +4,7 @@
 
 ## Screenshots
 
-<p float="left">
+<p float="left" margin="15">
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png">
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png">
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png">
