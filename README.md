@@ -1,21 +1,17 @@
 
-![Logo](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/logo.png)
 
-
-## Screenshots
-
-<p float="left" padding-right="30">
+<p float="left">
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png"> &nbsp;&nbsp;
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png"> &nbsp;&nbsp;   
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png">   
 </p>
 
-![App Screenshot](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png)
+<p float="left">
+#Astro Photos
 
-![App Screenshot](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png)
+<img width="100" height="150" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/logo.png">
 
-![App Screenshot](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png)
-# Astro Photos
+</p>
 
 Astro Photos downloads and displays random space photos from NASA API.
 
