@@ -5,9 +5,9 @@
 ## Screenshots
 
 <p float="left" padding-right="30">
-<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png">    
-<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png">     
-<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png">     
+<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png"> &nbsp;&nbsp;
+<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_2.png"> &nbsp;&nbsp;   
+<img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png">   
 </p>
 
 ![App Screenshot](https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_1.png)
