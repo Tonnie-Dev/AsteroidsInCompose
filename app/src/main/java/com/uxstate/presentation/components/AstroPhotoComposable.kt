@@ -181,7 +181,7 @@ val painter = rememberAsyncImagePainter(
 
 
     }
-    <a href='https://play.google.com/store/apps/details?id=com.uxstate'><img alt='Get it on Google Play' src='https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/google_play_store%20_badge.png' width="280"/></a>
+
 }
 @Composable
 fun ShareAstroPhoto(uri:String){
