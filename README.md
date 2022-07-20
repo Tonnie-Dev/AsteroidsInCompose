@@ -6,7 +6,7 @@
 <img width="200" height="400" src="https://github.com/Tonnie-Dev/AsteroidsInCompose/blob/master/media/screenshot_3.png">   
 </p>
 
-# Instant Weather :partly_sunny:
+# Astro Photos :partly_sunny:
 
 <p float="left">
 #Astro Photos
