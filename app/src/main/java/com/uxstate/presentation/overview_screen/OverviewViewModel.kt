@@ -90,6 +90,10 @@ class OverviewViewModel @Inject constructor(
             }
 
 
+            is OverviewEvent.OnRetry -> {
+                getAstroPictures(true)
+
+            }
         }
     }
 
