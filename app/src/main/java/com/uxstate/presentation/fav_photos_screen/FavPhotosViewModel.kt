@@ -1,17 +1,15 @@
 package com.uxstate.presentation.fav_photos_screen
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.domain.use_cases.UseCaseContainer
 import com.uxstate.util.PhotoDateFilter
+import com.uxstate.util.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,12 +18,11 @@ import javax.inject.Inject
 class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCaseContainer) :
     ViewModel() {
 
- private val _stateFlow = MutableStateFlow(FavPhotosState())
-    val stateFlow =_stateFlow.asStateFlow()
+    private val _stateFlow = MutableStateFlow<ViewState>(ViewState.Loading)
+    val stateFlow = _stateFlow.asStateFlow()
 
     var recentlyDeletedPhoto: AstroPhoto? = null
 
-   
 
     init {
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
@@ -96,13 +93,29 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
 
-        photoJob?.cancel()
+
+        viewModelScope.launch {
+            useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
+                    .collect { result ->
+
+                        try {
 
 
-         useCaseContainer.getFavAstroPhotosUseCase(dateFilter =dateFilter).collect{
+                            if (result.isEmpty()) {
+                                _stateFlow.value = ViewState.Empty
+                            } else {
+                                _stateFlow.value = ViewState.Success(result)
+                            }
+                        } catch (e: Exception) {
 
+                            _stateFlow.value = ViewState.Error(e)
+                        }
+
+
+                    }
 
         }
+
 
     }
 
