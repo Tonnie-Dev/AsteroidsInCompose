@@ -1,4 +1,4 @@
-package com.uxstate.presentation.overview_screen
+package com.uxstate.util
 
 import com.uxstate.domain.model.AstroPhoto
 

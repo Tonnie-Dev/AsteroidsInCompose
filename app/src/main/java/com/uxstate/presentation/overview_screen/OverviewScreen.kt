@@ -28,6 +28,7 @@ import com.uxstate.presentation.destinations.AboutScreenDestination
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
+import com.uxstate.util.ViewState
 import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
