@@ -33,9 +33,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     }
 
-
     fun onEvent(event: FavoritePhotoScreenEvent) {
-
 
         when (event) {
 
@@ -59,20 +57,22 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
             is FavoritePhotoScreenEvent.OnRestoreAstroPhoto -> {
 
                 viewModelScope.launch {
-                    //insert DB2
-                    useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto ?: return@launch)
-                    /*withContext(IO) {
 
+                    withContext(IO) {
 
- //insert DB2
-                    useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto?: return@withContext )
+                        //insert DB2
+                        useCaseContainer.insertAstroPhotoUseCase(
+                                recentlyDeletedPhoto ?: return@withContext
+                        )
                         //  update DB1
-                        useCaseContainer.updateIsFavoriteStatus(recentlyDeletedPhoto ?: return@withContext, true)
+                        useCaseContainer.updateIsFavoriteStatus(
+                                recentlyDeletedPhoto ?: return@withContext, true
+                        )
 
                         //invalidate photo
                         recentlyDeletedPhoto = null
 
-                    }*/
+                    }
                 }
 
 
@@ -96,8 +96,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-
-
+        
         photoJob?.cancel()
 
         photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
