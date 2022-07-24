@@ -17,13 +17,14 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.presentation.components.FavPhotoComposable
+import com.uxstate.presentation.components.LoadingAnimation
 import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.components.SelectableBottomItem
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
 import com.uxstate.util.LocalSpacing
 import com.uxstate.util.PhotoDateFilter
+import com.uxstate.util.ViewState
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -36,9 +37,9 @@ fun FavoritePhotosScreen(
     val spacing = LocalSpacing.current
 
     val state = viewModel.stateFlow.collectAsState().value
-   // val photos = viewModel.state.favoritePhotosList
+    // val photos = viewModel.state.favoritePhotosList
 
-    
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
@@ -121,55 +122,64 @@ fun FavoritePhotosScreen(
     }) { paddingValues ->
 
 
-        if(viewModel.state.favoritePhotosList.isEmpty()){
-            NoDataFoundAnimation()
+        when (state) {
 
-        }
-        else{
+            is ViewState.Error -> {
 
-            LazyColumn(contentPadding = paddingValues, content = {
+                Text(text = "Unknown Error")
+            }
+            is ViewState.Loading -> {
 
-                items(state.favoritePhotosList) { photo ->
+                LoadingAnimation()
+            }
+            is ViewState.Success -> {
 
-                    FavPhotoComposable(
-                            modifier = Modifier.padding(spacing.spaceSmall),
-                            photo = photo,
-                            onTapPhoto = {
-                                navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
-                            },
-                            onDeletePhoto = {
+                LazyColumn(contentPadding = paddingValues, content = {
+
+                    items(state.photos) { photo ->
+
+                        FavPhotoComposable(
+                                modifier = Modifier.padding(spacing.spaceSmall),
+                                photo = photo,
+                                onTapPhoto = {
+                                    navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
+                                },
+                                onDeletePhoto = {
 
 
-
-                                viewModel.onEvent(
-                                        FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
-                                )
-
-                                coroutineScope.launch {
-
-                                    val snackbarFate = snackbarHostState.showSnackbar(
-                                            message = snackbarMessage,
-                                            actionLabel = undo
+                                    viewModel.onEvent(
+                                            FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                     )
-                                    Timber.i("At the B4R length is ${state.favoritePhotosList.size}")
 
-                                    if (snackbarFate == SnackbarResult.ActionPerformed) {
+                                    coroutineScope.launch {
 
-                                        viewModel.onEvent(FavoritePhotoScreenEvent.OnRestoreAstroPhoto)
-                                        Timber.i("At the End length is ${state.favoritePhotosList.size}")
+                                        val snackbarFate = snackbarHostState.showSnackbar(
+                                                message = snackbarMessage,
+                                                actionLabel = undo
+                                        )
+
+
+                                        if (snackbarFate == SnackbarResult.ActionPerformed) {
+
+                                            viewModel.onEvent(FavoritePhotoScreenEvent.OnRestoreAstroPhoto)
+
+                                        }
+
+
                                     }
-
+                                  
 
                                 }
-                                Timber.i("At After scope length is ${state.favoritePhotosList.size}")
+                        )
+                    }
+                })
 
-                            }
-                    )
-                }
-            })
+            }
+            is ViewState.Empty -> {
+
+                NoDataFoundAnimation()
+            }
         }
-
-
 
 
     }
