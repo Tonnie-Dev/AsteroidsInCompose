@@ -18,8 +18,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(
-    private val useCaseContainer: UseCaseContainer
+    private val useCaseContainer: UseCaseContainer,
+    private val connectionLiveData: ConnectionLiveData
 ) : ViewModel() {
+
+
 
     var state by mutableStateOf(PhotoState())
         private set

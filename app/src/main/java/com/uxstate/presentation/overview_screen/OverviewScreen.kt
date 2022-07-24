@@ -150,8 +150,10 @@ fun OverviewScreen(
             }
 
             is ViewState.Error -> {
-                //LottieAnimationPlaceHolder(lottie = R.raw.no_connection, modifier = Modifier.fillMaxSize())
-                NoConnectionAnimation()
+
+                NoConnectionAnimation(){
+
+                }
 
             }
             is ViewState.Loading -> {

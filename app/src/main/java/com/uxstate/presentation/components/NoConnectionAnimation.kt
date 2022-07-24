@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +16,7 @@ import com.uxstate.R
 
 
 @Composable
-fun NoConnectionAnimation() {
+fun NoConnectionAnimation(onRetry:()-> Unit) {
 
     Column(
             modifier = Modifier.fillMaxSize(),
@@ -32,6 +33,11 @@ fun NoConnectionAnimation() {
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.align(CenterHorizontally)
         )
+
+        Button(onClick = { onRetry()}) {
+
+            Text(text = "Retry")
+        }
     }
 
 }

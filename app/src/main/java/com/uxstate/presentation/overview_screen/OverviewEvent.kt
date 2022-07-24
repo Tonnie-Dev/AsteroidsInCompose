@@ -6,6 +6,7 @@ sealed class OverviewEvent {
 
 
     object OnRefreshAstroPhoto : OverviewEvent()
+    object OnRetry : OverviewEvent()
     data class  OnMarkFavorite (val photo: AstroPhoto, val isFavorite:Boolean): OverviewEvent()
     data class  OnRemoveFromFavorites (val photo: AstroPhoto, val isFavorite:Boolean): OverviewEvent()
 
