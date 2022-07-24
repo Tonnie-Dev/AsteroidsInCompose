@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AsteroidsInCompose</string>
+    <string name="app_name">Astro Photos</string>
     <string name="favourite_label">Mark as Favourite</string>
     <string name="share_label">Share with Others</string>
     <string name="no_fav_photos">No Photos Found</string>
