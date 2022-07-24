@@ -11,6 +11,8 @@ import com.uxstate.util.PhotoDateFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,8 +23,8 @@ import javax.inject.Inject
 class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCaseContainer) :
     ViewModel() {
 
-    var state by mutableStateOf(FavPhotosState())
-        private set
+ private val _stateFlow = MutableStateFlow(FavPhotosState())
+    val stateFlow =_stateFlow.asStateFlow()
 
     var recentlyDeletedPhoto: AstroPhoto? = null
 
@@ -96,7 +98,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-        
+
         photoJob?.cancel()
 
         photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
