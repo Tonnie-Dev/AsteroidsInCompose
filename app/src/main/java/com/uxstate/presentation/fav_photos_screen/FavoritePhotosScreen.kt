@@ -35,10 +35,10 @@ fun FavoritePhotosScreen(
 
     val spacing = LocalSpacing.current
 
-    val state = viewModel.state
+    val state = viewModel.stateFlow.collectAsState().value
    // val photos = viewModel.state.favoritePhotosList
 
-    Timber.i("At the Onset length is ${state.favoritePhotosList.size}")
+    
     val snackbarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
