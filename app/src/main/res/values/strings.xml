@@ -10,11 +10,10 @@
     <string name="photo_deleted">Photograph Deleted</string>
     <string name="undo_delete">Undo</string>
     <string name="welcome_message">Welcome to Astro Photos</string>
-
     <string name="fav_header">Favorite Photos</string>
     <string name="delete_photo">Remove From Favorite</string>
     <string name="unexpected_error">Unexpected error occurred</string>
-    <string name="could_not_load_data">Could not load data, check your internet connection</string>
+    <string name="could_not_load_data">Could not load data, check your internet connection and try again</string>
     <string name="welcome_header">Swipe &#128260; for new Astro Photos \nHit &#128149; to save Favs for Later \nHit &#128465; to remove from Favs</string>
 
     <string name="photo_caption">Presenting: %s. Space lovers &#127757; can download Astro Photos Android App
