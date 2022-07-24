@@ -8,6 +8,7 @@ import com.uxstate.data.local.AstroDatabase
 import com.uxstate.data.remote.AstroAPI
 import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.domain.use_cases.*
+import com.uxstate.presentation.overview_screen.ConnectionLiveData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,6 +65,15 @@ object AppModule {
                 updateIsFavoriteStatus = UpdateIsFavoriteStatusUseCase(repository),
                 getLiveAstroPhotosUseCase = GetLiveAstroPhotosUseCase(repository)
         )
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideConnectionLiveData(app: Application): ConnectionLiveData{
+
+
+        return ConnectionLiveData(app)
     }
 
 }
