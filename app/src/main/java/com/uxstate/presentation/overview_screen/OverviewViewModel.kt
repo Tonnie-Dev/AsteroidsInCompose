@@ -91,7 +91,8 @@ class OverviewViewModel @Inject constructor(
 
 
             is OverviewEvent.OnRetry -> {
-                getAstroPictures(true)
+                getAstroPictures(fetchFromRemote = true)
+                _viewState.value = ViewState.Loading
 
             }
         }

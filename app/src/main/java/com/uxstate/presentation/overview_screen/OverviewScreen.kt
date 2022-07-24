@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Help
-import androidx.compose.material.icons.filled.HelpCenter
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -52,7 +51,7 @@ fun OverviewScreen(
                         title = { Text(text = stringResource(id = R.string.all_photos)) },
                         actions = {
 
-                            IconButton(onClick = {navigator.navigate(AboutScreenDestination) }) {
+                            IconButton(onClick = { navigator.navigate(AboutScreenDestination) }) {
                                 Icon(
                                         imageVector = Icons.Default.Help,
                                         contentDescription = "",
@@ -151,7 +150,8 @@ fun OverviewScreen(
 
             is ViewState.Error -> {
 
-                NoConnectionAnimation(){
+                NoConnectionAnimation() {
+                    viewModel.onEvent(OverviewEvent.OnRetry)
 
                 }
 

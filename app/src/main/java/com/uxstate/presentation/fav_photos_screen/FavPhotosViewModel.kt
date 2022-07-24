@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -60,17 +59,20 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
             is FavoritePhotoScreenEvent.OnRestoreAstroPhoto -> {
 
                 viewModelScope.launch {
+                    //insert DB2
+                    useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto ?: return@launch)
+                    /*withContext(IO) {
 
-                    withContext(IO) {
-                        //insert DB2
-                        useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto?: return@withContext )
+
+ //insert DB2
+                    useCaseContainer.insertAstroPhotoUseCase(recentlyDeletedPhoto?: return@withContext )
                         //  update DB1
                         useCaseContainer.updateIsFavoriteStatus(recentlyDeletedPhoto ?: return@withContext, true)
 
                         //invalidate photo
                         recentlyDeletedPhoto = null
 
-                    }
+                    }*/
                 }
 
 
@@ -89,8 +91,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
             }
 
 
-
-
         }
     }
 
@@ -100,7 +100,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
         photoJob?.cancel()
 
-       photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
+        photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
                 .onEach { favPhotos ->
                     state = state.copy(favoritePhotosList = favPhotos)
 
