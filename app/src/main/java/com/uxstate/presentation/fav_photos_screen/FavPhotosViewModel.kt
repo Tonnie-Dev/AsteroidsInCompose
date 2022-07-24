@@ -25,7 +25,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     var recentlyDeletedPhoto: AstroPhoto? = null
 
-    var photoJob: Job? = null
+   
 
     init {
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
@@ -99,15 +99,11 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
         photoJob?.cancel()
 
 
-        photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter =dateFilter).
-        photoJob = useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
-                .onEach { favPhotos ->
+         useCaseContainer.getFavAstroPhotosUseCase(dateFilter =dateFilter).collect{
 
-                    _stateFlow.value =FavPhotosState(favoritePhotosList = favPhotos)
-                    state = state.copy(favoritePhotosList = favPhotos)
 
-                }
-                .launchIn(viewModelScope)
+        }
+
     }
 
 
