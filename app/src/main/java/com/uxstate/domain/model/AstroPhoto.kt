@@ -11,5 +11,6 @@ data class AstroPhoto(
     val explanation: String,
     val mediaType: String,
     val url: String,
+    val timeStamp:Long,
     val isFavorite:Boolean
 ) : Parcelable

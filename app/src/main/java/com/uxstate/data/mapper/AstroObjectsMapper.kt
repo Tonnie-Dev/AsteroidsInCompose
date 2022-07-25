@@ -30,7 +30,8 @@ fun AstroPhotoEntity.toAstroPhoto(): AstroPhoto {
             mediaType = "image",
             url = this.url,
             id = this.id,
-            isFavorite = this.isFavorite
+            isFavorite = this.isFavorite,
+            timeStamp = System.currentTimeMillis()
     )
 }
 
@@ -45,7 +46,8 @@ fun FavPhotoEntity.toAstroPhoto():AstroPhoto{
             explanation =this.explanation,
             mediaType = this.mediaType,
             url = this.url,
-            isFavorite = this.isFavorite
+            isFavorite = this.isFavorite,
+            timeStamp = this.timeStamp
     )
 }
 

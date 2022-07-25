@@ -15,6 +15,6 @@ class GetFavAstroPhotosUseCase(private val repository: AstroRepository) {
     operator fun invoke(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>>{
 
 
-        return repository.getFavPhotos(dateFilter)
+        return repository.getFavPhotos()
     }
 }
