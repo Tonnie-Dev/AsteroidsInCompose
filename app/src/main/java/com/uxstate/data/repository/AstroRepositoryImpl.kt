@@ -143,7 +143,7 @@ class AstroRepositoryImpl @Inject constructor(
                 ?.toAstroPhoto()
     }
 
-    override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>> {
+   /* override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>> {
 
         Timber.i("Repo: getFavPhotos called ")
         val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
@@ -158,7 +158,7 @@ class AstroRepositoryImpl @Inject constructor(
 
                     }
                 }
-    }
+    }*/
 
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
 
