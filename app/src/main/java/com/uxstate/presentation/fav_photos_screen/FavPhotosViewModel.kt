@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -95,7 +96,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
         viewModelScope.launch {
-            useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter)
+            useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter).distinctUntilChanged()
                     .collect { result ->
 
                         try {

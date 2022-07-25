@@ -102,7 +102,7 @@ fun FavoritePhotosScreen(
                                                     2 -> FavoritePhotoScreenEvent.OnClickAllPhotos(
                                                             PhotoDateFilter.AllPhotos
                                                     )
-                                                    else -> FavoritePhotoScreenEvent.OnClickTodayPhotos(
+                                                    else -> FavoritePhotoScreenEvent.OnClickRecentPhotos(
                                                             PhotoDateFilter.RecentPhotos
                                                     )
                                                 }
@@ -167,7 +167,7 @@ fun FavoritePhotosScreen(
 
 
                                     }
-                                  
+
 
                                 }
                         )
