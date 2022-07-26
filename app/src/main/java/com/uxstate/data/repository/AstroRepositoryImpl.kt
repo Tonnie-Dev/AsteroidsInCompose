@@ -148,23 +148,6 @@ class AstroRepositoryImpl @Inject constructor(
                 }
     }
 
-    /* override fun getFavPhotos(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>> {
-
-         Timber.i("Repo: getFavPhotos called ")
-         val startDate = dateFilter.startDate.atZone(ZoneId.systemDefault())
-                 .toInstant().toEpochMilli()
-
-         return dao.getFavPhotos(startDate = startDate, endDate = System.currentTimeMillis())
-                 .map {
-
-                     list ->
-                     Timber.i("Repo: Length is ${list.size}")
-                     list.map { it.toAstroPhoto()
-
-                     }
-                 }
-     }*/
-
     override suspend fun deleteFavPhoto(photo: AstroPhoto) {
 
         dao.deleteFavPhoto(photo.toFavPhotoEntity())
