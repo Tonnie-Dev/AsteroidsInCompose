@@ -27,7 +27,7 @@ fun FavPhotoComposable(
     modifier: Modifier = Modifier,
     photo: AstroPhoto,
     onTapPhoto: () -> Unit,
-    onDeletePhoto: () -> Unit = {}
+    onDeletePhoto:  () -> Unit
 ) {
 
 

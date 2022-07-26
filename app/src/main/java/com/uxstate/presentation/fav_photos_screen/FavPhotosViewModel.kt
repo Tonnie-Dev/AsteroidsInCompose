@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +27,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
     init {
+        Timber.i("Init Block called")
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
 
     }
@@ -53,6 +55,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
             is FavoritePhotoScreenEvent.OnRestoreAstroPhoto -> {
 
+                Timber.i("OnRestore called")
                 viewModelScope.launch {
 
                     withContext(IO) {
@@ -93,7 +96,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-
+        Timber.i("getFavoritePhotos() called, filter is ${dateFilter}")
 
         viewModelScope.launch {
             useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter).distinctUntilChanged()

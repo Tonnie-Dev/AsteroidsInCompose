@@ -14,8 +14,9 @@
     <string name="delete_photo">Remove From Favorite</string>
     <string name="unexpected_error">Unexpected error occurred</string>
     <string name="could_not_load_data">Could not load data, check your internet connection and try again</string>
-    <string name="welcome_header">Swipe &#128260; for new Astro Photos \nHit &#128149; to save Favs for Later \nHit &#128465; to remove from Favs</string>
+    <string name="welcome_header">Swipe &#128260; for new Astro Photos \nHit &#128149; to
+        save Favs for Later \nHit &#128465; to remove from Favs</string>
 
     <string name="photo_caption">Presenting: %s. Space lovers &#127757; can download Astro Photos Android App
-        for more space photos</string>
+        for more space photos - %s </string>
 </resources>

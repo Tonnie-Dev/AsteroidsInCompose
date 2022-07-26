@@ -37,8 +37,6 @@ fun FavoritePhotosScreen(
     val spacing = LocalSpacing.current
 
     val state = viewModel.stateFlow.collectAsState().value
-    // val photos = viewModel.state.favoritePhotosList
-
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -144,29 +142,29 @@ fun FavoritePhotosScreen(
                                 onTapPhoto = {
                                     navigator.navigate(PhotoDetailsScreenDestination(photo = photo))
                                 },
-                                onDeletePhoto = {
-
+                                onDeletePhoto =  {
 
                                     viewModel.onEvent(
                                             FavoritePhotoScreenEvent.OnRemoveFromFavorite(photo)
                                     )
 
-                                    coroutineScope.launch {
 
-                                        val snackbarFate = snackbarHostState.showSnackbar(
-                                                message = snackbarMessage,
-                                                actionLabel = undo
-                                        )
-
-
-                                        if (snackbarFate == SnackbarResult.ActionPerformed) {
-
-                                            viewModel.onEvent(FavoritePhotoScreenEvent.OnRestoreAstroPhoto)
-
-                                        }
+                                 coroutineScope.launch {
+                                     val snackbarFate = snackbarHostState.showSnackbar(
+                                             message = snackbarMessage,
+                                             actionLabel = undo
+                                     )
 
 
-                                    }
+                                     if (snackbarFate == SnackbarResult.ActionPerformed) {
+
+                                         viewModel.onEvent(FavoritePhotoScreenEvent.OnRestoreAstroPhoto)
+
+                                     }
+
+
+
+                                 }
 
 
                                 }
@@ -186,5 +184,8 @@ fun FavoritePhotosScreen(
 
 
 }
+
+
+
 
 

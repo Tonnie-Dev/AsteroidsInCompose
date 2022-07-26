@@ -28,7 +28,7 @@ class GetFavAstroPhotosUseCase(private val repository: AstroRepository) {
 
                     photosList ->
                     photosList.filter {
-                        Timber.i("the list is empty - ${ photosList.isEmpty() } size is: ${photosList.size}")
+
                         it.timeStamp in timeRange
 
                     }

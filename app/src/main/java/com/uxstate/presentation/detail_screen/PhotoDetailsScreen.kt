@@ -49,9 +49,11 @@ fun PhotoDetailsScreen(
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
+    val playStoreId = "https://play.google.com/store/apps/details?id=com.uxstate"
     val caption = stringResource(
             id = R.string.photo_caption,
-            photo.title.toUpperCase(locale = Locale.current)
+            photo.title.toUpperCase(locale = Locale.current),
+            playStoreId
     )
     val imgUri = photo.url.toUri()
             .buildUpon()
