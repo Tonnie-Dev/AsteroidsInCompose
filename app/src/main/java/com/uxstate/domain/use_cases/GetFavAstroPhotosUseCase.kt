@@ -5,6 +5,7 @@ import com.uxstate.domain.repository.AstroRepository
 import com.uxstate.util.PhotoDateFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import java.time.ZoneOffset
 
 
@@ -16,10 +17,10 @@ class GetFavAstroPhotosUseCase(private val repository: AstroRepository) {
     //.Error
     operator fun invoke(dateFilter: PhotoDateFilter): Flow<List<AstroPhoto>> {
 
-        val timeRange =
-            (dateFilter.startDate.toEpochSecond(ZoneOffset.UTC)..dateFilter.endDate.toEpochSecond(
-                    ZoneOffset.UTC
-            ))
+        val startDate = dateFilter.startDate.atZone(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()!!
+        val endDate = dateFilter.endDate.atZone(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()!!
+
+        val timeRange = (startDate..endDate)
 
 
         val list = repository.getFavPhotos()
@@ -27,10 +28,13 @@ class GetFavAstroPhotosUseCase(private val repository: AstroRepository) {
 
                     photosList ->
                     photosList.filter {
+                        Timber.i("the list is empty - ${ photosList.isEmpty() } size is: ${photosList.size}")
                         it.timeStamp in timeRange
 
                     }
                 }
+
+
         return list
     }
 }
