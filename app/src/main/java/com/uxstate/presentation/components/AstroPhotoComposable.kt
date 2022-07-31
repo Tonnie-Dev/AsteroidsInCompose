@@ -50,15 +50,6 @@ val painter = rememberAsyncImagePainter(
                 .build())
 
 
-    val intent: Intent = Intent().apply {
-
-        action = Intent.ACTION_SET_WALLPAPER
-    }
-
-
-
-
-
     Card(
             modifier = modifier,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
