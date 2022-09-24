@@ -70,11 +70,7 @@ fun PhotoDetailsScreen(
 
     Scaffold(topBar = {
 
-        SmallTopAppBar(
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ), title = {
+        TopAppBar(title = {
             Text(text = stringResource(id = R.string.photo_details))
         }, navigationIcon = {
 
@@ -85,7 +81,11 @@ fun PhotoDetailsScreen(
                 )
             }
 
-        })
+        }, colors = TopAppBarDefaults.smallTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        )
     },
 
             bottomBar = {
