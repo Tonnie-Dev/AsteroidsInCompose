@@ -27,7 +27,7 @@ fun LottieAnimationComposable(
 }
 
 
-//Lottie Animation Placeholder
+
 
 @Composable
 fun LottieAnimationPlaceHolder(modifier: Modifier = Modifier, lottie: Int) {

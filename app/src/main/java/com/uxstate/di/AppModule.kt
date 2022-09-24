@@ -72,7 +72,6 @@ object AppModule {
     @Singleton
     fun provideConnectionLiveData(app: Application): ConnectionLiveData{
 
-
         return ConnectionLiveData(app)
     }
 
