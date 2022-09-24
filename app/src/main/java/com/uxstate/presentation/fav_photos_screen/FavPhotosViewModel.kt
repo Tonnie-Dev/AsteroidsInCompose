@@ -21,13 +21,14 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
     ViewModel() {
 
     private val _stateFlow = MutableStateFlow<ViewState>(ViewState.Loading)
+    // The UI collects from this StateFlow to get its state update
     val stateFlow = _stateFlow.asStateFlow()
 
     var recentlyDeletedPhoto: AstroPhoto? = null
 
 
     init {
-        Timber.i("Init Block called")
+        
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
 
     }
@@ -55,7 +56,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
             is FavoritePhotoScreenEvent.OnRestoreAstroPhoto -> {
 
-                Timber.i("OnRestore called")
+
                 viewModelScope.launch {
 
                     withContext(IO) {
@@ -96,7 +97,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-        Timber.i("getFavoritePhotos() called, filter is ${dateFilter}")
+
 
         viewModelScope.launch {
             useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter).distinctUntilChanged()

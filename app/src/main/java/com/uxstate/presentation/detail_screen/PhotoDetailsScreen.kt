@@ -30,6 +30,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.manualcomposablecalls.DestinationLambda
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
@@ -67,6 +68,8 @@ fun PhotoDetailsScreen(
                     .placeholder(R.drawable.loading_animation)
                     .build()
     )
+
+
 
     Scaffold(topBar = {
 

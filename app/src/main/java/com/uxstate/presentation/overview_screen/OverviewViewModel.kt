@@ -27,9 +27,10 @@ class OverviewViewModel @Inject constructor(
     var state by mutableStateOf(PhotoState())
         private set
 
-    // Backing property to avoid state updates from other classes
+
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
 
+    // Backing property to avoid state updates from other classes
     // The UI collects from this StateFlow to get its state update
     val feed = _viewState.asStateFlow()
 
