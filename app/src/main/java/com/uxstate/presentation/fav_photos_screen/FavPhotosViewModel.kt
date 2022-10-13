@@ -28,7 +28,7 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
 
     init {
-        
+
         getFavoritePhotos(dateFilter = PhotoDateFilter.AllPhotos)
 
     }
