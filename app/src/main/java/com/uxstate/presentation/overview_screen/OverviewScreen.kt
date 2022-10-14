@@ -1,5 +1,6 @@
 package com.uxstate.presentation.overview_screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -48,7 +50,7 @@ fun OverviewScreen(
     Scaffold(
             topBar = {
                 SmallTopAppBar(
-
+modifier = Modifier.padding(spacing.spaceSmall),
                         title = { Text(text = stringResource(id = R.string.all_photos)) },
                         actions = {
 
@@ -94,7 +96,7 @@ fun OverviewScreen(
 
 
                     LazyColumn(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().background(Color.Green),
                             contentPadding = values,
                             content = {
 
