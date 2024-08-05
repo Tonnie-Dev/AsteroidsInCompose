@@ -1,7 +1,6 @@
 package com.uxstate.presentation.components
 
 import android.content.Intent
-import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,7 +23,7 @@ import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
 
-@OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
+
 @Composable
 fun AstroPhotoComposable(
     modifier: Modifier = Modifier,
