@@ -1,140 +1,121 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-parcelize'
-    id 'com.google.devtools.ksp' version '1.6.10-1.0.2'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.parcelize.plugin)
 }
 
 android {
-    compileSdk 33
+    namespace = "com.uxstate"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId "com.uxstate"
-        minSdk 21
-        targetSdk 33
-        versionCode 2
-        versionName "1.1"
+        applicationId = "com.uxstate.yummies"
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
-    //Kotlin Block - makes sure that the KSP Plugin looks at
-// the right paths when it comes to generated classes
-
-    kotlin {
-        sourceSets {
-            debug {
-                kotlin.srcDir("build/generated/ksp/debug/kotlin")
-            }
-            release {
-                kotlin.srcDir("build/generated/ksp/release/kotlin")
-            }
+            useSupportLibrary = true
         }
     }
 
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        getByName("release") {
+            isMinifyEnabled = false
+            //multiDexEnabled = true
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
+
     compileOptions {
-        coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
     buildFeatures {
-        compose true
+        compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    namespace 'com.uxstate'
 }
 
 dependencies {
 
-    implementation libs.core.ktx
-    implementation libs.ui
-
-    implementation libs.ui.tooling.preview
-    implementation libs.lifecycle.runtime.ktx
-    implementation libs.activity.compose
-
-    testImplementation libs.junit.junit
-    androidTestImplementation libs.androidx.test.ext.junit
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.ui.test.junit4
-    debugImplementation libs.ui.tooling
-    debugImplementation libs.ui.test.manifest
-    coreLibraryDesugaring libs.desugar.jdk.libs
-
-    // Material 3
-
-    //implementation libs.material3
-    implementation libs.material3
-    // Compose dependencies
-    implementation libs.lifecycle.viewmodel.compose
-    implementation libs.material.icons.extended
-    implementation libs.activity.compose
-    implementation libs.accompanist.swiperefresh
-    implementation libs.animation.graphics
-    implementation libs.animation.core
-
-    // Compose Nav Destinations
-    implementation libs.io.github.raamcosta.compose.destinations.core
-    ksp libs.ksp
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
     // Coil
-    implementation libs.coil.compose
+    implementation(libs.coil.compose)
 
-    //Dagger - Hilt
-    implementation libs.hilt.android
-    kapt libs.hilt.android.compiler
-   // implementation "androidx.hilt:hilt-lifecycle-viewmodel:_"
-    kapt libs.hilt.compiler
-    implementation libs.hilt.navigation.compose
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     // Retrofit
-    implementation libs.retrofit
-    implementation libs.converter.moshi
-    implementation libs.okhttp
-    implementation libs.logging.interceptor
+    implementation(Square.retrofit2)
+    implementation(Square.okHttp3)
+    implementation(Square.okHttp3.loggingInterceptor)
 
-    //Moshi Library Dependencies - Core Moshi JSON Library and Moshi's Kotlin support and converter factory
-    implementation libs.moshi
-    implementation libs.moshi.kotlin
 
-    // Room
-    implementation libs.room.runtime
-    kapt libs.room.compiler
+    // Moshi Library Dependencies - Core Moshi JSON Library and Moshi"s Kotlin support and converter factory
+    implementation(Square.moshi)
+    implementation(Square.moshi.kotlinReflect)
+    implementation(Square.retrofit2.converter.moshi)
 
-    // Kotlin Extensions and Coroutines support for Room
-    implementation libs.room.ktx
+    // Room components
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-    //Timber
-    implementation libs.timber
+    // Lottie Animation
+    implementation(libs.lottie.compose)
+
+    // Compose Nav Destinations
+    implementation(libs.compose.destinations.core.one)
+    ksp(libs.compose.destinations.ksp.one)
 
 
     //Flow Layout
-    implementation libs.accompanist.flowlayout
 
-    //Lottie Animation
-    implementation libs.lottie.compose
+    implementation(libs.accompanist.flowlayout)
+
+    //Timber Logging
+    implementation(libs.timber)
+
+    // Swipe to Refresh - Accompanist
+
+    implementation(libs.accompanist.swiperefresh)
 
 
 }
