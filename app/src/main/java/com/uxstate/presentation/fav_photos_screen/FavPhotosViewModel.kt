@@ -55,8 +55,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
             }
 
             is FavoritePhotoScreenEvent.OnRestoreAstroPhoto -> {
-
-
                 viewModelScope.launch {
 
                     withContext(IO) {
@@ -97,7 +95,6 @@ class FavPhotosViewModel @Inject constructor(private val useCaseContainer: UseCa
 
     //get photos
     private fun getFavoritePhotos(dateFilter: PhotoDateFilter) {
-
 
         viewModelScope.launch {
             useCaseContainer.getFavAstroPhotosUseCase(dateFilter = dateFilter).distinctUntilChanged()
