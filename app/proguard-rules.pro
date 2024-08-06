@@ -19,3 +19,30 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+# Enable shrinking, obfuscation, and optimization
+-dontoptimize
+-dontobfuscate
+
+# Keep the classes and methods used by the Compose library
+-keep class androidx.compose.** { *; }
+-keep class androidx.activity.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.savedstate.** { *; }
+-keep class androidx.compose.ui.** { *; }
+-keep class androidx.compose.foundation.** { *; }
+-keep class androidx.compose.material.** { *; }
+-keep class androidx.compose.runtime.** { *; }
+-keep class androidx.compose.animation.** { *; }
+-keep class androidx.compose.material.icons.** { *; }
+-keep class androidx.compose.material.icons.filled.** { *; }
+-keep class androidx.compose.material.icons.outlined.** { *; }
+-keep class androidx.compose.material.icons.rounded.** { *; }
+-keep class androidx.compose.material.icons.sharp.** { *; }
+-keep class androidx.compose.material.icons.twotone.** { *; }
+
+# Keep the classes and methods used by Coil
+-keep class coil.** { *; }
+-keep class coil.request.** { *; }
+-keep class coil.compose.** { *; }
