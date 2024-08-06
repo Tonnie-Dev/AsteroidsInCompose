@@ -1,6 +1,7 @@
 package com.uxstate.presentation.overview_screen
 
 import android.net.Uri
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -85,11 +87,10 @@ fun OverviewScreen(
 
     Scaffold(
             topBar = {
-                SmallTopAppBar(
-                        modifier = Modifier.padding(spacing.spaceSmall),
+                TopAppBar(
                         title = { Text(text = stringResource(id = R.string.all_photos)) },
-                        actions = {
-
+                        modifier = Modifier.padding(spacing.spaceSmall),
+                        actions =  {
                             IconButton(onClick = { onClickActionIcon(AboutScreenDestination) }) {
                                 Icon(
                                         imageVector = Icons.AutoMirrored.Filled.Help,
@@ -97,14 +98,11 @@ fun OverviewScreen(
                                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
-                        },
-                        colors = TopAppBarDefaults.largeTopAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                        ),
-
-
-                        )
+                        }, colors = TopAppBarDefaults.largeTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                )
             },
 
 
