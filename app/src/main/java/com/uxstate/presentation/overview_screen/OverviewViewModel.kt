@@ -23,15 +23,10 @@ class OverviewViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
-    var state by mutableStateOf(PhotoState())
-        private set
-
+    private val _state = MutableStateFlow(PhotoState())
+    val state = _state.asStateFlow()
 
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
-
-    // Backing property to avoid state updates from other classes
-    // The UI collects from this StateFlow to get its state update
     val feed = _viewState.asStateFlow()
 
     private var getPhotosJob: Job? = null
@@ -111,19 +106,21 @@ class OverviewViewModel @Inject constructor(
 
                         is Resource.Loading -> {
 
-                            state = state.copy(isPhotosListLoading = result.isLoading)
+                            _state.update { it.copy(isPhotosListLoading = result.isLoading) }
+
                         }
                         is Resource.Error -> {
 
                             _viewState.value = ViewState.Error(Exception())
-                            state = state.copy(errorMessage = result.message)
+
+                            _state.update { it.copy(errorMessage = result.message) }
                         }
                         is Resource.Success -> {
 
-                            result.data?.let {
+                            result.data?.let { photos ->
 
+                                _state.update { it.copy(astroPhotos = photos) }
 
-                                state = state.copy(astroPhotos = it)
                             }
 
                         }
