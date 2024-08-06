@@ -77,7 +77,6 @@ private val LightColorScheme = lightColorScheme(
         onSurfaceVariant = GreenGrey30,
         outline = GreenGrey50
 )
-
 @Composable
 fun AsteroidsInComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -85,32 +84,14 @@ fun AsteroidsInComposeTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-
-   /* val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    val colorScheme = when {
-        useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
-        useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
-
-        //App in dark them but below Android 12
-        darkTheme -> DarkColorScheme
-
-        //app not in dark theme and below Android 12
-        else -> LightColorScheme
-    }*/
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
-    }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
-        }
     }
 
     MaterialTheme(
@@ -118,7 +99,4 @@ fun AsteroidsInComposeTheme(
             typography = Typography,
             content = content
     )
-
-
-
 }
