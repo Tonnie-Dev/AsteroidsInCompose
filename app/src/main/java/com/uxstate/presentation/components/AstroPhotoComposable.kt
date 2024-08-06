@@ -13,12 +13,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
+import coil.transform.CircleCropTransformation
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
 import com.uxstate.util.LocalSpacing
@@ -42,11 +44,19 @@ fun AstroPhotoComposable(
             .build()
 
 
-val painter = rememberAsyncImagePainter(
-        ImageRequest.Builder(LocalContext.current)
-                .data(imgUri)
-                .placeholder(R.drawable.loading_animation)
-                .build())
+    val painter =
+        if (photo.url.startsWith("android.resource://")) { // Use painterResource for local drawables
+            painterResource(id = R.drawable.dummy_image)
+        } else {
+
+            // Use AsyncImagePainter(Coil) to load from internet
+            rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                            .data(photo.url)
+                            .placeholder(R.drawable.loading_animation)
+                            .build()
+            )
+        }
 
 
     Card(
@@ -59,25 +69,14 @@ val painter = rememberAsyncImagePainter(
         Box() {
 
             Image(
-
-                   painter = painter
-                  /*  painter = rememberImagePainter(
-                            data = imgUri,
-                            builder = {
-                                crossfade(true)
-                                placeholder(R.drawable.loading_animation)
-                            }*/
-                    ,
+                    painter = painter,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-
-
                     modifier = Modifier
                             .clip(MaterialTheme.shapes.large)
                             .clickable { onTapPhoto() }
                             .fillMaxWidth()
                             .aspectRatio(3f / 2f))
-
 
 
             Surface(
@@ -117,55 +116,44 @@ val painter = rememberAsyncImagePainter(
 
                 //display delete option Assist Chip
 
-                AssistChip(
-                        onClick = {
+                AssistChip(onClick = {
 
 
-                            onDeletePhoto()
-                            isFavorite = !isFavorite
-                            //Timber.i("UnMarked True - isFav is: $isFavorite")
+                    onDeletePhoto()
+                    isFavorite = !isFavorite //Timber.i("UnMarked True - isFav is: $isFavorite")
 
 
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                                leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                        ),
-                        leadingIcon = {
+                }, colors = AssistChipDefaults.assistChipColors(
+                        leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ), leadingIcon = {
 
-                            LottieAnimationPlaceHolder(lottie = R.raw.delete_red_icon)
-                            /* Icon(
+                    LottieAnimationPlaceHolder(lottie = R.raw.delete_red_icon)/* Icon(
                                      imageVector = Icons.Default.Delete,
                                      contentDescription = stringResource(
                                              id = R.string.delete_photo
                                      )
                              )*/
-                        }, label = {
+                }, label = {
                     Text(text = stringResource(id = R.string.delete_photo))
-                }
-                )
+                })
 
 
-            } else {
-                //display Favourite AssistChip
-                AssistChip(
-                        onClick = {
+            } else { //display Favourite AssistChip
+                AssistChip(onClick = {
 
-                            onMarkAsFavorite()
-                            isFavorite = !isFavorite
-                            //  Timber.i("Marked True - isFav is: $isFavorite")
+                    onMarkAsFavorite()
+                    isFavorite = !isFavorite //  Timber.i("Marked True - isFav is: $isFavorite")
 
-                        },
-                        colors = AssistChipDefaults.assistChipColors
-                        (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                },
+                        colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
                         leadingIcon = {
 
-                            LottieAnimationPlaceHolder(lottie = R.raw.green_heart_like)
-                            /* Icon(
+                            LottieAnimationPlaceHolder(lottie = R.raw.green_heart_like)/* Icon(
                                      imageVector = Icons.Default.Favorite,
                                      contentDescription = stringResource(R.string.favourite_label)
                              )*/
-                        }, label = { Text(text = stringResource(id = R.string.favourite_label)) }
-                )
+                        },
+                        label = { Text(text = stringResource(id = R.string.favourite_label)) })
             }
         }
 
@@ -173,8 +161,9 @@ val painter = rememberAsyncImagePainter(
     }
 
 }
+
 @Composable
-fun ShareAstroPhoto(uri:String){
+fun ShareAstroPhoto(uri: String) {
 
     val context = LocalContext.current
 
