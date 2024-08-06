@@ -12,7 +12,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.uxstate.yummies"
+        applicationId = "com.uxstate"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
