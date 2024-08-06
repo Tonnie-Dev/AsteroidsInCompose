@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Help
 import androidx.compose.material3.*
@@ -56,7 +57,7 @@ modifier = Modifier.padding(spacing.spaceSmall),
 
                             IconButton(onClick = { navigator.navigate(AboutScreenDestination) }) {
                                 Icon(
-                                        imageVector = Icons.Default.Help,
+                                        imageVector = Icons.AutoMirrored.Filled.Help,
                                         contentDescription = "",
                                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
