@@ -1,8 +1,5 @@
 package com.uxstate.presentation.overview_screen
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.domain.use_cases.UseCaseContainer
@@ -26,7 +23,7 @@ class OverviewViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
-    val feed = _viewState.asStateFlow()
+    val viewState = _viewState.asStateFlow()
 
     private var getPhotosJob: Job? = null
 
