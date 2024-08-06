@@ -97,7 +97,7 @@ modifier = Modifier.padding(spacing.spaceSmall),
 
 
                     LazyColumn(
-                            modifier = Modifier.fillMaxWidth().background(Color.Green),
+                            modifier = Modifier.fillMaxWidth(),
                             contentPadding = values,
                             content = {
 
