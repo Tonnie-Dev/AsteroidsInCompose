@@ -1,7 +1,10 @@
 package com.uxstate.presentation.overview_screen
 
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Favorite
@@ -77,24 +80,6 @@ fun OverviewScreen(
     val spacing = LocalSpacing.current
 
     Scaffold(
-            topBar = {
-                TopAppBar(
-                        title = { Text(text = stringResource(id = R.string.all_photos)) },
-                        modifier = Modifier.padding(spacing.spaceSmall),
-                        actions = {
-                            IconButton(onClick = { onClickActionIcon(AboutScreenDestination) }) {
-                                Icon(
-                                        imageVector = Icons.AutoMirrored.Filled.Help,
-                                        contentDescription = "",
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }, colors = TopAppBarDefaults.largeTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                )
-            },
 
             floatingActionButton = {
                 FloatingActionButton(onClick = {
@@ -117,8 +102,7 @@ fun OverviewScreen(
             is ViewState.Success -> {
 
                 PullToRefreshLazyColumn(
-                        modifier = Modifier.padding(values),
-                        items = viewState.photos,
+                      items = viewState.photos,
                         keyExtractor = { it.id },
                         isRefreshing = state.isPhotosListLoading,
                         onRefresh = { onEvent(OverviewEvent.OnRefreshAstroPhoto) })
@@ -159,7 +143,7 @@ fun OverviewScreen(
 
             is ViewState.Loading -> {
 
-                LoadingAnimation()
+                LoadingAnimation(modifier = Modifier.padding(values))
 
             }
 
@@ -171,7 +155,7 @@ fun OverviewScreen(
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @PreviewLightDark
 @Composable
 private fun OverviewScreenLoadingPreview() {
