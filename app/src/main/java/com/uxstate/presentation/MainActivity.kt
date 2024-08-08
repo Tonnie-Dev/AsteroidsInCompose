@@ -11,6 +11,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import com.ramcosta.composedestinations.DestinationsNavHost
 
 
@@ -22,11 +23,11 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
-                statusBarStyle = SystemBarStyle.light(
+                statusBarStyle = SystemBarStyle.auto(
                         Color.TRANSPARENT,
                         Color.TRANSPARENT
                 ),
-                navigationBarStyle = SystemBarStyle.light(
+                navigationBarStyle = SystemBarStyle.auto(
                         Color.TRANSPARENT,
                         Color.TRANSPARENT
                 )

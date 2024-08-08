@@ -1,10 +1,13 @@
 package com.uxstate.presentation.overview_screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Favorite
@@ -136,24 +139,25 @@ fun OverviewScreen(
 
                 NoConnectionAnimation() {
 
-                    onEvent(OverviewEvent.OnRetry)
+                        onEvent(OverviewEvent.OnRetry)
+                    }
+
                 }
 
+                is ViewState.Loading -> {
+
+                    LoadingAnimation(modifier = Modifier.padding(values))
+
+                }
+
+
             }
-
-            is ViewState.Loading -> {
-
-                LoadingAnimation(modifier = Modifier.padding(values))
-
-            }
-
-
         }
 
 
     }
 
-}
+
 
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @PreviewLightDark
