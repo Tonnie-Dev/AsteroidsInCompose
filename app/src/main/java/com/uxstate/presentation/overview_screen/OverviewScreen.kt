@@ -22,6 +22,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +43,7 @@ import com.uxstate.presentation.components.AstroPhotoComposable
 import com.uxstate.presentation.components.LoadingAnimation
 import com.uxstate.presentation.components.NoConnectionAnimation
 import com.uxstate.presentation.components.NoDataFoundAnimation
+import com.uxstate.presentation.components.PullToRefreshLazyColumn
 import com.uxstate.presentation.destinations.AboutScreenDestination
 import com.uxstate.presentation.destinations.DirectionDestination
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
@@ -82,7 +85,6 @@ fun OverviewScreen(
     onEvent: (OverviewEvent) -> Unit
 
 ) {
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isPhotosListLoading)
     val spacing = LocalSpacing.current
 
     Scaffold(
@@ -90,7 +92,7 @@ fun OverviewScreen(
                 TopAppBar(
                         title = { Text(text = stringResource(id = R.string.all_photos)) },
                         modifier = Modifier.padding(spacing.spaceSmall),
-                        actions =  {
+                        actions = {
                             IconButton(onClick = { onClickActionIcon(AboutScreenDestination) }) {
                                 Icon(
                                         imageVector = Icons.AutoMirrored.Filled.Help,
@@ -104,7 +106,6 @@ fun OverviewScreen(
                 )
                 )
             },
-
 
             floatingActionButton = {
                 FloatingActionButton(onClick = {
@@ -126,46 +127,31 @@ fun OverviewScreen(
 
             is ViewState.Success -> {
 
-                SwipeRefresh(state = swipeRefreshState, modifier = Modifier
-                        .fillMaxWidth(), onRefresh = {
-                    onEvent(OverviewEvent.OnRefreshAstroPhoto)
+                PullToRefreshLazyColumn(
+                        modifier = Modifier.padding(values),
+                        items = viewState.photos,
+                        keyExtractor = { it.id },
+                        isRefreshing = state.isPhotosListLoading,
+                        onRefresh = { onEvent(OverviewEvent.OnRefreshAstroPhoto) })
+                { item ->
+                    AstroPhotoComposable(
+                            modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(spacing.spaceSmall),
+                            photo = item,
+                            onTapPhoto = {
+                                onClickPhoto(PhotoDetailsScreenDestination(item))
 
-                }) {
-
-                    LazyColumn(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentPadding = values,
-                            content = {
-
-                                items(items = state.astroPhotos, key = { it.id }) { item ->
-
-                                    AstroPhotoComposable(
-                                            modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(spacing.spaceSmall),
-                                            photo = item,
-                                            onTapPhoto = {
-                                                onClickPhoto(PhotoDetailsScreenDestination(item))
-
-                                            },
-                                            onMarkAsFavorite = {
-                                                onEvent(OverviewEvent.OnMarkFavorite(item, true))
-
-
-                                            },
-                                            onDeletePhoto = {
-                                                onEvent(OverviewEvent.OnMarkFavorite(item, false))
-
-
-                                            })
-                                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
-                                }
-
-
+                            },
+                            onMarkAsFavorite = {
+                                onEvent(OverviewEvent.OnMarkFavorite(item, true))
+                            },
+                            onDeletePhoto = {
+                                onEvent(OverviewEvent.OnMarkFavorite(item, false))
                             })
-
-
                 }
+
+
             }
 
             is ViewState.Empty -> {
@@ -267,7 +253,10 @@ private fun OverviewScreenSuccessPreview() {
         Surface {
             OverviewScreen(
                     viewState = ViewState.Success(photos = generatePhotos()),
-                    state = PhotoState(astroPhotos = generatePhotos(10), isPhotosListLoading = false),
+                    state = PhotoState(
+                            astroPhotos = generatePhotos(10),
+                            isPhotosListLoading = false
+                    ),
                     onClickActionIcon = {},
                     onClickPhoto = {},
                     onClickActionIconFavs = {}
@@ -290,7 +279,8 @@ private fun generatePhotos(count: Int = 10): List<AstroPhoto> {
             val isEven = it % 2 == 0
             add(
                     AstroPhoto(
-                            id = UUID.randomUUID().toString(),
+                            id = UUID.randomUUID()
+                                    .toString(),
                             title = generateLoremIpsum(5),
                             explanation = generateLoremIpsum(30),
                             mediaType = "image",
@@ -302,6 +292,7 @@ private fun generatePhotos(count: Int = 10): List<AstroPhoto> {
         }
     }
 }
+
 private fun generateLoremIpsum(length: Int): String {
     val words = listOf(
             "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
