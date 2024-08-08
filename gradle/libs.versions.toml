@@ -22,7 +22,7 @@ composeBom = "2024.06.00"
 
 coil-kt = "2.7.0"
 
-google-accompanist = "0.28.0"
+
 
 jakewharton-timber = "5.0.1"
 
@@ -56,9 +56,6 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-kt" }
 lottie-compose = "com.airbnb.android:lottie-compose:5.2.0"
 
-accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "google-accompanist" }
-
-accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "google-accompanist" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "jakewharton-timber" }
 
 

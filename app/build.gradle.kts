@@ -91,7 +91,6 @@ dependencies {
     implementation(Square.okHttp3)
     implementation(Square.okHttp3.loggingInterceptor)
 
-
     // Moshi Library Dependencies - Core Moshi JSON Library and Moshi"s Kotlin support and converter factory
     implementation(Square.moshi)
     implementation(Square.moshi.kotlinReflect)
@@ -108,17 +107,10 @@ dependencies {
     implementation(libs.compose.destinations.core.one)
     ksp(libs.compose.destinations.ksp.one)
 
-
-    //Flow Layout
-
-    implementation(libs.accompanist.flowlayout)
-
     //Timber Logging
     implementation(libs.timber)
 
-    // Swipe to Refresh - Accompanist
 
-    implementation(libs.accompanist.swiperefresh)
 
 
 }
