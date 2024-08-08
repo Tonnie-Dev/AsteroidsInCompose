@@ -15,10 +15,10 @@ import com.uxstate.R
 
 
 @Composable
-fun LoadingAnimation() {
+fun LoadingAnimation(modifier: Modifier = Modifier) {
 
     Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
     ) {
