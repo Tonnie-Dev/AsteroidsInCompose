@@ -59,7 +59,7 @@ fun AstroPhotoComposable(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             shape = MaterialTheme.shapes.large
     ) {
-        
+
         Box {
 
             Image(
@@ -119,6 +119,7 @@ fun AstroPhotoComposable(
 
 
             } else {
+
 
                 ButtonContainer(
                         modifier = Modifier.fillMaxWidth(.7f),

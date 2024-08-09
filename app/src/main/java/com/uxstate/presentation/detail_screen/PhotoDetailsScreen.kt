@@ -34,6 +34,7 @@ import com.ramcosta.composedestinations.manualcomposablecalls.DestinationLambda
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.R
 import com.uxstate.domain.model.AstroPhoto
+import com.uxstate.presentation.components.ButtonContainer
 import com.uxstate.presentation.components.LottieAnimationPlaceHolder
 import com.uxstate.util.LocalSpacing
 import java.io.File
@@ -69,8 +70,6 @@ fun PhotoDetailsScreen(
                     .build()
     )
 
-
-
     Scaffold(topBar = {
 
         TopAppBar(title = {
@@ -84,7 +83,8 @@ fun PhotoDetailsScreen(
                 )
             }
 
-        }, colors = TopAppBarDefaults.smallTopAppBarColors(
+        },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -97,9 +97,17 @@ fun PhotoDetailsScreen(
                         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
 
                 ) {
-                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth().padding(spacing.spaceExtraSmall)) {
+                    Box(
+                            contentAlignment = Alignment.Center, modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacing.spaceExtraSmall)
+                    ) {
 
-                        AssistChip(
+
+                        ButtonContainer(
+                                modifier = Modifier.fillMaxWidth(.6f),
+                                text = stringResource(id = R.string.share_label),
+                                lottie = R.raw.share_icon_blue,
                                 onClick = {
 
                                     val state = painter.state as? AsyncImagePainter.State.Success
@@ -113,37 +121,16 @@ fun PhotoDetailsScreen(
                                         )
 
                                     }
+                                }
 
-                                },
-                                colors = AssistChipDefaults.assistChipColors
-                                (leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                                leadingIcon = {
-
-                                    LottieAnimationPlaceHolder(lottie = R.raw.share_icon_blue)
-
-                                }, label = { Text(text = stringResource(id = R.string.share_label)) })
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        )
 
                     }
                 }
             }
     ) {
 
-
         paddingValues ->
-
 
         Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -154,7 +141,6 @@ fun PhotoDetailsScreen(
                                 paddingValues
                         )
         ) {
-
 
             //Image
             Image(
@@ -170,10 +156,9 @@ fun PhotoDetailsScreen(
 
             )
 
-
             Box(modifier = Modifier.fillMaxHeight()) {
 
-                //Column
+
                 Column(
                         modifier = Modifier
                                 .padding(spacing.spaceMedium)
@@ -213,7 +198,7 @@ fun Context.shareImage(title: String, image: Drawable, filename: String, caption
     } catch (e: Throwable) {
         e.printStackTrace()
         null
-        //return toast(e)
+
     }
     val uri = file?.toUriCompat(this)
 
@@ -237,7 +222,6 @@ fun Context.shareImage(title: String, image: Drawable, filename: String, caption
     }
 
     startActivity(chooser)
-
 
 }
 
