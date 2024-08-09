@@ -38,14 +38,9 @@ fun AstroPhotoComposable(
     var isFavorite by remember { mutableStateOf(photo.isFavorite) }
     val spacing = LocalSpacing.current
 
-    val imgUri = photo.url.toUri()
-            .buildUpon()
-            .scheme("https")
-            .build()
-
-
     val painter =
-        if (photo.url.startsWith("android.resource://")) { // Use painterResource for local drawables
+        if (photo.url.startsWith("android.resource://")) {
+            // Use painterResource for local drawables
             painterResource(id = R.drawable.dummy_image)
         } else {
 
@@ -64,9 +59,8 @@ fun AstroPhotoComposable(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             shape = MaterialTheme.shapes.large
     ) {
-
-
-        Box() {
+        
+        Box {
 
             Image(
                     painter = painter,
@@ -111,68 +105,50 @@ fun AstroPhotoComposable(
                         .padding(spacing.spaceSmall)
         ) {
 
-
             if (isFavorite) {
 
-                //display delete option Assist Chip
-
-                AssistChip(onClick = {
-
-
-                    onDeletePhoto()
-                    isFavorite = !isFavorite //Timber.i("UnMarked True - isFav is: $isFavorite")
-
-
-                }, colors = AssistChipDefaults.assistChipColors(
-                        leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ), leadingIcon = {
-
-                    LottieAnimationPlaceHolder(lottie = R.raw.delete_red_icon)/* Icon(
-                                     imageVector = Icons.Default.Delete,
-                                     contentDescription = stringResource(
-                                             id = R.string.delete_photo
-                                     )
-                             )*/
-                }, label = {
-                    Text(text = stringResource(id = R.string.delete_photo))
-                })
+                ButtonContainer(
+                        modifier = Modifier.fillMaxWidth(.7f),
+                        text = stringResource(id = R.string.delete_photo),
+                        lottie = R.raw.delete_red_icon,
+                        onClick = {
+                            onDeletePhoto()
+                            isFavorite = !isFavorite
+                        }
+                )
 
 
-            } else { //display Favourite AssistChip
-                AssistChip(onClick = {
+            } else {
 
-                    onMarkAsFavorite()
-                    isFavorite = !isFavorite //  Timber.i("Marked True - isFav is: $isFavorite")
+                ButtonContainer(
+                        modifier = Modifier.fillMaxWidth(.7f),
+                        text = stringResource(id = R.string.favourite_label),
+                        lottie = R.raw.green_heart_like,
+                        onClick = {
+                            onMarkAsFavorite()
+                            isFavorite = !isFavorite
+                        }
+                )
 
-                },
-                        colors = AssistChipDefaults.assistChipColors(leadingIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant),
-                        leadingIcon = {
-
-                            LottieAnimationPlaceHolder(lottie = R.raw.green_heart_like)/* Icon(
-                                     imageVector = Icons.Default.Favorite,
-                                     contentDescription = stringResource(R.string.favourite_label)
-                             )*/
-                        },
-                        label = { Text(text = stringResource(id = R.string.favourite_label)) })
             }
+
+
         }
 
-
     }
 
-}
+    @Composable
+    fun ShareAstroPhoto(uri: String) {
 
-@Composable
-fun ShareAstroPhoto(uri: String) {
+        val context = LocalContext.current
 
-    val context = LocalContext.current
+        val intent = Intent().apply {
 
-    val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, uri)
+            type = "image/jpg"
+        }
 
-        action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_STREAM, uri)
-        type = "image/jpg"
+        context.startActivity(Intent.createChooser(intent, null))
     }
-
-    context.startActivity(Intent.createChooser(intent, null))
 }

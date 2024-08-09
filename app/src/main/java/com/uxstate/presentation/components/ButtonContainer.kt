@@ -31,7 +31,7 @@ fun ButtonContainer(
     val spacing = LocalSpacing.current
 
     ElevatedButton(modifier = modifier, onClick = onClick) {
-        
+
         Row(
                 modifier = Modifier
                         .fillMaxWidth()
