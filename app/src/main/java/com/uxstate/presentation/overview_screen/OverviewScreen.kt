@@ -2,25 +2,16 @@ package com.uxstate.presentation.overview_screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,7 +30,6 @@ import com.uxstate.presentation.components.LoadingAnimation
 import com.uxstate.presentation.components.NoConnectionAnimation
 import com.uxstate.presentation.components.NoDataFoundAnimation
 import com.uxstate.presentation.components.PullToRefreshLazyColumn
-import com.uxstate.presentation.destinations.AboutScreenDestination
 import com.uxstate.presentation.destinations.DirectionDestination
 import com.uxstate.presentation.destinations.FavoritePhotosScreenDestination
 import com.uxstate.presentation.destinations.PhotoDetailsScreenDestination
@@ -50,14 +40,14 @@ import java.util.UUID
 
 @Destination(start = true)
 @Composable
-fun OverviewScreen(
+fun OverviewScreenContent(
     viewModel: OverviewViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
 
     val state by viewModel.state.collectAsState()
     val viewState by viewModel.viewState.collectAsState()
-    OverviewScreen(
+    OverviewScreenContent(
             viewState = viewState,
             state = state,
             onClickPhoto = { navigator.navigate(it) },
@@ -70,7 +60,7 @@ fun OverviewScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OverviewScreen(
+fun OverviewScreenContent(
     viewState: ViewState,
     state: PhotoState,
     onClickPhoto: (Direction) -> Unit,
@@ -166,7 +156,7 @@ private fun OverviewScreenLoadingPreview() {
     AsteroidsInComposeTheme {
 
         Surface {
-            OverviewScreen(
+            OverviewScreenContent(
                     viewState = ViewState.Loading,
                     state = PhotoState(),
                     onClickPhoto = {},
@@ -186,7 +176,7 @@ private fun OverviewScreenEmptyPreview() {
     AsteroidsInComposeTheme {
 
         Surface {
-            OverviewScreen(
+            OverviewScreenContent(
                     viewState = ViewState.Empty,
                     state = PhotoState(),
                     onClickPhoto = {},
@@ -206,7 +196,7 @@ private fun OverviewScreenErrorPreview() {
     AsteroidsInComposeTheme {
 
         Surface {
-            OverviewScreen(
+            OverviewScreenContent(
                     viewState = ViewState.Error(Exception("Error, please try again")),
                     state = PhotoState(),
                     onClickPhoto = {},
@@ -225,7 +215,7 @@ private fun OverviewScreenSuccessPreview() {
     AsteroidsInComposeTheme {
 
         Surface {
-            OverviewScreen(
+            OverviewScreenContent(
                     viewState = ViewState.Success(photos = generatePhotos()),
                     state = PhotoState(
                             astroPhotos = generatePhotos(10),

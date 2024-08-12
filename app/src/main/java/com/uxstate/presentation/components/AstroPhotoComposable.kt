@@ -38,8 +38,7 @@ fun AstroPhotoComposable(
     var isFavorite by remember { mutableStateOf(photo.isFavorite) }
     val spacing = LocalSpacing.current
 
-    val painter =
-        if (photo.url.startsWith("android.resource://")) {
+    val painter =  if (photo.url.startsWith("android.resource://")) {
             // Use painterResource for local drawables
             painterResource(id = R.drawable.thor)
         } else {

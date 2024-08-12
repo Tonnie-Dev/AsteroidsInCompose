@@ -20,7 +20,11 @@ fun <M> PullToRefreshLazyColumn(
     content: @Composable (M) -> Unit
 ) {
 
-    PullToRefreshBox(modifier = modifier,isRefreshing = isRefreshing, onRefresh = onRefresh) {
+    PullToRefreshBox(
+            modifier = modifier,
+            isRefreshing = isRefreshing,
+            onRefresh = onRefresh
+    ) {
 
         LazyColumn (modifier = Modifier.fillMaxSize()){
 
