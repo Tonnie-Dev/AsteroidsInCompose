@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.material.icons.extended)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,7 +77,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Extended Icons
-    implementation(AndroidX.compose.material.icons.extended)
+    //implementation(AndroidX.compose.material.icons.extended)
 
     // Coil
     implementation(libs.coil.compose)
