@@ -60,7 +60,6 @@ fun OverviewScreen(
     OverviewScreen(
             viewState = viewState,
             state = state,
-            onClickActionIcon = { navigator.navigate(it) },
             onClickPhoto = { navigator.navigate(it) },
             onClickActionIconFavs = { navigator.navigate(it) },
             onEvent = viewModel::onEvent
@@ -74,7 +73,6 @@ fun OverviewScreen(
 fun OverviewScreen(
     viewState: ViewState,
     state: PhotoState,
-    onClickActionIcon: (DirectionDestination) -> Unit,
     onClickPhoto: (Direction) -> Unit,
     onClickActionIconFavs: (DirectionDestination) -> Unit,
     onEvent: (OverviewEvent) -> Unit
@@ -99,45 +97,46 @@ fun OverviewScreen(
 
             }) { values ->
 
+        Column(modifier = Modifier.fillMaxSize().padding(values)) {
 
-        when (viewState) {
+            when (viewState) {
 
-            is ViewState.Success -> {
+                is ViewState.Success -> {
 
-                PullToRefreshLazyColumn(
-                      items = viewState.photos,
-                        keyExtractor = { it.id },
-                        isRefreshing = state.isPhotosListLoading,
-                        onRefresh = { onEvent(OverviewEvent.OnRefreshAstroPhoto) })
-                { item ->
-                    AstroPhotoComposable(
-                            modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(spacing.spaceSmall),
-                            photo = item,
-                            onTapPhoto = {
-                                onClickPhoto(PhotoDetailsScreenDestination(item))
+                    PullToRefreshLazyColumn(
+                            items = viewState.photos,
+                            keyExtractor = { it.id },
+                            isRefreshing = state.isPhotosListLoading,
+                            onRefresh = { onEvent(OverviewEvent.OnRefreshAstroPhoto) })
+                    { item ->
+                        AstroPhotoComposable(
+                                modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(spacing.spaceSmall),
+                                photo = item,
+                                onTapPhoto = {
+                                    onClickPhoto(PhotoDetailsScreenDestination(item))
 
-                            },
-                            onMarkAsFavorite = {
-                                onEvent(OverviewEvent.OnMarkFavorite(item, true))
-                            },
-                            onDeletePhoto = {
-                                onEvent(OverviewEvent.OnMarkFavorite(item, false))
-                            })
+                                },
+                                onMarkAsFavorite = {
+                                    onEvent(OverviewEvent.OnMarkFavorite(item, true))
+                                },
+                                onDeletePhoto = {
+                                    onEvent(OverviewEvent.OnMarkFavorite(item, false))
+                                })
+                    }
+
+
                 }
 
+                is ViewState.Empty -> {
+                    NoDataFoundAnimation()
 
-            }
+                }
 
-            is ViewState.Empty -> {
-                NoDataFoundAnimation()
+                is ViewState.Error -> {
 
-            }
-
-            is ViewState.Error -> {
-
-                NoConnectionAnimation() {
+                    NoConnectionAnimation() {
 
                         onEvent(OverviewEvent.OnRetry)
                     }
@@ -146,12 +145,13 @@ fun OverviewScreen(
 
                 is ViewState.Loading -> {
 
-                    LoadingAnimation(modifier = Modifier.padding(values))
+                    LoadingAnimation()
 
                 }
 
 
             }
+        }
         }
 
 
@@ -169,7 +169,6 @@ private fun OverviewScreenLoadingPreview() {
             OverviewScreen(
                     viewState = ViewState.Loading,
                     state = PhotoState(),
-                    onClickActionIcon = {},
                     onClickPhoto = {},
                     onClickActionIconFavs = {}
             ) {
@@ -190,7 +189,6 @@ private fun OverviewScreenEmptyPreview() {
             OverviewScreen(
                     viewState = ViewState.Empty,
                     state = PhotoState(),
-                    onClickActionIcon = {},
                     onClickPhoto = {},
                     onClickActionIconFavs = {}
             ) {
@@ -211,7 +209,6 @@ private fun OverviewScreenErrorPreview() {
             OverviewScreen(
                     viewState = ViewState.Error(Exception("Error, please try again")),
                     state = PhotoState(),
-                    onClickActionIcon = {},
                     onClickPhoto = {},
                     onClickActionIconFavs = {}
             ) {
@@ -234,7 +231,7 @@ private fun OverviewScreenSuccessPreview() {
                             astroPhotos = generatePhotos(10),
                             isPhotosListLoading = false
                     ),
-                    onClickActionIcon = {},
+
                     onClickPhoto = {},
                     onClickActionIconFavs = {}
             ) {
