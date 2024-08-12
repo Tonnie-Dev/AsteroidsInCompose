@@ -84,10 +84,7 @@ fun PhotoDetailsScreen(
             }
 
         },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+                
         )
     },
 
