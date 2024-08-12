@@ -244,7 +244,21 @@ private fun OverviewScreenSuccessPreview() {
 }
 
 
-private fun generatePhotos(count: Int = 10): List<AstroPhoto> {
+fun generatePhoto(isFavorite:Boolean = false):AstroPhoto {
+
+    return AstroPhoto(
+                            id = UUID.randomUUID()
+                                    .toString(),
+                            title = generateLoremIpsum(5),
+                            explanation = generateLoremIpsum(30),
+                            mediaType = "image",
+                            url = "android.resource://",
+                            timeStamp = System.currentTimeMillis(),
+                            isFavorite = isFavorite)
+
+}
+
+fun generatePhotos(count: Int = 10): List<AstroPhoto> {
 
     return buildList {
 
@@ -252,22 +266,13 @@ private fun generatePhotos(count: Int = 10): List<AstroPhoto> {
 
             val isEven = it % 2 == 0
             add(
-                    AstroPhoto(
-                            id = UUID.randomUUID()
-                                    .toString(),
-                            title = generateLoremIpsum(5),
-                            explanation = generateLoremIpsum(30),
-                            mediaType = "image",
-                            url = "android.resource://com.uxstate/drawable/asteroid_safe",
-                            timeStamp = System.currentTimeMillis(),
-                            isFavorite = isEven
-                    )
+                    generatePhoto(isFavorite = isEven)
             )
         }
     }
 }
 
-private fun generateLoremIpsum(length: Int): String {
+ fun generateLoremIpsum(length: Int): String {
     val words = listOf(
             "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
             "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",

@@ -41,7 +41,7 @@ fun AstroPhotoComposable(
     val painter =
         if (photo.url.startsWith("android.resource://")) {
             // Use painterResource for local drawables
-            painterResource(id = R.drawable.dummy_image)
+            painterResource(id = R.drawable.thor)
         } else {
 
             // Use AsyncImagePainter(Coil) to load from internet
