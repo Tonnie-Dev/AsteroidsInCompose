@@ -9,14 +9,14 @@ plugins {
 
 android {
     namespace = "com.uxstate"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.uxstate"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 6
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -38,12 +38,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
@@ -54,6 +55,13 @@ android {
         resources {
             resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
+    }
+}
+
+tasks.register("printVersionCodeAndName") {
+    doLast {
+        println("VERSION_CODE=${android.defaultConfig.versionCode}")
+        println("VERSION_NAME=${android.defaultConfig.versionName}")
     }
 }
 
